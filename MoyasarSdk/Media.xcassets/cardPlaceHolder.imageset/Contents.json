@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "card-place-holder.png",
+      "filename" : "cardPlaceHolder.png",
       "idiom" : "universal",
       "scale" : "1x"
     },

@@ -2,22 +2,19 @@ import SwiftUI
 
 public struct CreditCardView: View {
     @ObservedObject var viewModel: CreditCardViewModel
+    var callback: ResultCallback
     
-    public init(request: PaymentRequest) {
+    public init(request: PaymentRequest, callback: @escaping ResultCallback) {
         viewModel = CreditCardViewModel(paymentRequest: request)
+        self.callback = callback
     }
     
     public var body: some View {
         VStack {
-            Image("card-place-holder")
-                .frame(height: 50.0)
-                .offset(y: -300)
-                .scaleEffect(1.2)
-            
             CreditCardInfoView(cardInfo: viewModel)
-            
+
             Spacer()
-            
+
             Button(action: {
                 viewModel.beingTransaction()
             }, label: {
@@ -37,6 +34,8 @@ struct CreditCardView_Previews: PreviewProvider {
     )
     
     static var previews: some View {
-        CreditCardView(request: paymentRequest)
+        CreditCardView(request: paymentRequest) {_ in 
+            print("Got a Result")
+        }
     }
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-enum ApiPaymentSource {
+public enum ApiPaymentSource {
     case creditCard(ApiCreditCardSource)
     case applePay(ApiApplePaySource)
     case stcPay(ApiStcPaySource)
@@ -17,7 +17,7 @@ extension ApiPaymentSource: Codable {
         case stcpay
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         var unkeyedContainer = try decoder.unkeyedContainer()
         let type = try  container.decode(SourceType.self, forKey: .type)
@@ -33,7 +33,7 @@ extension ApiPaymentSource: Codable {
         
     }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.unkeyedContainer()
         
         switch self {

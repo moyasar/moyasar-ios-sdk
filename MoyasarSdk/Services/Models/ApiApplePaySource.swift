@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct ApiApplePaySource: Codable {
+public struct ApiApplePaySource: Codable {
     
 }

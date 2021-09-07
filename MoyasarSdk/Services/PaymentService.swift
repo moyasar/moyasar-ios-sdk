@@ -54,7 +54,6 @@ final class PaymentService {
             
             guard 200...299 ~= response.statusCode else {
                 do {
-                    let str = String(decoding: data, as: UTF8.self)
                     let apiError = try self.decoder.decode(ApiError.self, from: data)
                     let error = ApiServiceError.apiError(apiError)
                     handler(ApiResult.error(error))

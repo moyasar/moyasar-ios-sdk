@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct ApiStcPaySource: Codable {
+public struct ApiStcPaySource: Codable {
     
 }

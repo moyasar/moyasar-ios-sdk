@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ApiCreditCardSource: Codable {
+public struct ApiCreditCardSource: Codable {
     var type: String = "creditcard"
     var name: String
     var number: String

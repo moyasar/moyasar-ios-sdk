@@ -43,7 +43,9 @@
 		416FCC5226E3BE160044639E /* CreditCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416FCC4E26E3BE160044639E /* CreditCardView.swift */; };
 		416FCC5326E3BE160044639E /* PaymentAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416FCC4F26E3BE160044639E /* PaymentAuthView.swift */; };
 		416FCC5426E3BE160044639E /* StcPayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416FCC5026E3BE160044639E /* StcPayView.swift */; };
-		41D7AF5A26E3C1090037143C /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41D7AF5926E3C1090037143C /* Media.xcassets */; };
+		41879A1A26E780EE00C62582 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41879A1926E780EE00C62582 /* Media.xcassets */; };
+		41CEADCD26E7825200A201B4 /* ResultCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CEADCC26E7825200A201B4 /* ResultCallback.swift */; };
+		41CEADCF26E7829C00A201B4 /* PaymentResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CEADCE26E7829C00A201B4 /* PaymentResult.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,7 +98,9 @@
 		416FCC4E26E3BE160044639E /* CreditCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardView.swift; sourceTree = "<group>"; };
 		416FCC4F26E3BE160044639E /* PaymentAuthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentAuthView.swift; sourceTree = "<group>"; };
 		416FCC5026E3BE160044639E /* StcPayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StcPayView.swift; sourceTree = "<group>"; };
-		41D7AF5926E3C1090037143C /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		41879A1926E780EE00C62582 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		41CEADCC26E7825200A201B4 /* ResultCallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCallback.swift; sourceTree = "<group>"; };
+		41CEADCE26E7829C00A201B4 /* PaymentResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentResult.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,7 +149,7 @@
 				416FCC0026E3BC880044639E /* Helpers */,
 				416FCBDE26E3BBF80044639E /* MoyasarSdk.h */,
 				416FCBDF26E3BBF80044639E /* Info.plist */,
-				41D7AF5926E3C1090037143C /* Media.xcassets */,
+				41879A1926E780EE00C62582 /* Media.xcassets */,
 			);
 			path = MoyasarSdk;
 			sourceTree = "<group>";
@@ -179,7 +183,9 @@
 			children = (
 				416FCC2226E3BD8B0044639E /* Validators */,
 				416FCC1526E3BD720044639E /* CreditCardViewModel.swift */,
+				41CEADCC26E7825200A201B4 /* ResultCallback.swift */,
 				416FCC1226E3BD720044639E /* PaymentRequest.swift */,
+				41CEADCE26E7829C00A201B4 /* PaymentResult.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -335,7 +341,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41D7AF5A26E3C1090037143C /* Media.xcassets in Resources */,
+				41879A1A26E780EE00C62582 /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,9 +379,11 @@
 				416FCC0D26E3BC9A0044639E /* CreditCardUtil.swift in Sources */,
 				416FCC0F26E3BC9A0044639E /* ExpiryFormatter.swift in Sources */,
 				416FCC4B26E3BE120044639E /* WebView.swift in Sources */,
+				41CEADCF26E7829C00A201B4 /* PaymentResult.swift in Sources */,
 				416FCC1D26E3BD730044639E /* CreditCardViewModel.swift in Sources */,
 				416FCC5226E3BE160044639E /* CreditCardView.swift in Sources */,
 				416FCC5126E3BE160044639E /* FieldValidationView.swift in Sources */,
+				41CEADCD26E7825200A201B4 /* ResultCallback.swift in Sources */,
 				416FCC3726E3BDE50044639E /* ApiCreditCardSource.swift in Sources */,
 				416FCC4C26E3BE120044639E /* CreditCardInfoView.swift in Sources */,
 				416FCC2926E3BD970044639E /* ExpiryValidator.swift in Sources */,
