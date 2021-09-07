@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:../../MoyasarSdkDemo">
+   </FileRef>
+   <FileRef
       location = "self:">
    </FileRef>
 </Workspace>
