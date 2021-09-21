@@ -20,9 +20,6 @@ final class PaymentService {
     }
     
     func create(_ paymentRequest: ApiPaymentRequest, handler: @escaping ApiResultHandler<ApiPayment>) throws {
-        Moyasar.baseUrl = "https://apimig.moyasar.com/"
-        try Moyasar.setApiKey("pk_live_TH6rVePGHRwuJaAtoJ1LsRfeKYovZgC1uddh7NdX")
-        
         let apiKey = try Moyasar.getApiKey()
         let payload = try encoder.encode(paymentRequest)
         var request = URLRequest(url: createUrl)
@@ -41,13 +38,13 @@ final class PaymentService {
             }
             
             guard let response = response as? HTTPURLResponse else {
-                let error = ApiServiceError.unexpectedError("Invalid response type")
+                let error = MoyasarError.unexpectedError("Invalid response type")
                 handler(ApiResult.error(error))
                 return
             }
             
             guard let data = data else {
-                let error = ApiServiceError.unexpectedError("No data returned from API")
+                let error = MoyasarError.unexpectedError("No data returned from API")
                 handler(ApiResult.error(error))
                 return
             }
@@ -55,10 +52,9 @@ final class PaymentService {
             guard 200...299 ~= response.statusCode else {
                 do {
                     let apiError = try self.decoder.decode(ApiError.self, from: data)
-                    let error = ApiServiceError.apiError(apiError)
+                    let error = MoyasarError.apiError(apiError)
                     handler(ApiResult.error(error))
                 } catch {
-                    let error = ApiServiceError.decodingError("Error while decoding API error response")
                     handler(ApiResult.error(error))
                 }
                 return
@@ -68,7 +64,6 @@ final class PaymentService {
                 let payment = try self.decoder.decode(ApiPayment.self, from: data)
                 handler(ApiResult.success(payment))
             } catch {
-                let error = ApiServiceError.decodingError("Error while decoding API success response")
                 handler(ApiResult.error(error))
             }
         }

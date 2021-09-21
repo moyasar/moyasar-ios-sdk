@@ -9,7 +9,6 @@ import XCTest
 @testable import MoyasarSdk
 
 class MoyasarSdkTests: XCTestCase {
-
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -18,16 +17,33 @@ class MoyasarSdkTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testLuhnValidatorSucceedWithCorrectNumber() throws {
+        XCTAssert(isValidLuhnNumber("4111 1111 1111 1111"))
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testLuhnValidatorFailsWithInvalidNumber() throws {
+        XCTAssertFalse(isValidLuhnNumber("4111 1111 1111 1112"))
     }
-
+    
+    func testExpiryDateParsesFourDigitExpiry() throws {
+        let expiry = ExpiryDate.fromPattern("09 / 25")
+        
+        XCTAssertNotNil(expiry)
+        XCTAssertEqual(expiry?.month, 9)
+        
+        let millennium = (ExpiryDate.cal.dateComponents([.year], from: Date()).year! / 100) * 100
+        XCTAssertEqual(expiry?.year, 25 + millennium)
+        
+        XCTAssertTrue(expiry?.isValid() ?? false)
+    }
+    
+    func testExpiryDateParsesSixDigitExpiry() throws {
+        let expiry = ExpiryDate.fromPattern("09 / 2019")
+        
+        XCTAssertNotNil(expiry)
+        XCTAssertEqual(expiry?.month, 9)
+        XCTAssertEqual(expiry?.year, 2019)
+        XCTAssertTrue(expiry?.isValid() ?? false)
+        XCTAssertTrue(expiry?.expired() ?? false)
+    }
 }

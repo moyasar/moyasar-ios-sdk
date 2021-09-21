@@ -1,0 +1,15 @@
+"name-on-card" = "Name on Card";
+"card-number" = "Card Number";
+"expiry" = "Expiry";
+"cvc" = "CVC";
+"card-number-required" == "Card number is required";
+"invalid-card-number" = "Invalid card number";
+"unsupported-network" = "Unsupported network";
+"Expiry is required"
+"Invalid expiry"
+"Expired card"
+"Name is Required"
+"Both first and last names are required"
+"Name may only contain english alphabet"
+"Security code is required"
+"Invalid security code"

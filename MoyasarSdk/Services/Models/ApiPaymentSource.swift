@@ -11,7 +11,7 @@ extension ApiPaymentSource: Codable {
         case type
     }
 
-    private enum SourceType: Int, Codable {
+    private enum SourceType: String, Codable {
         case creditcard
         case applepay
         case stcpay
@@ -19,8 +19,8 @@ extension ApiPaymentSource: Codable {
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        var unkeyedContainer = try decoder.unkeyedContainer()
-        let type = try  container.decode(SourceType.self, forKey: .type)
+        let unkeyedContainer = try decoder.singleValueContainer()
+        let type = try container.decode(SourceType.self, forKey: .type)
         
         switch type {
         case .creditcard:
@@ -34,7 +34,7 @@ extension ApiPaymentSource: Codable {
     }
     
     public func encode(to encoder: Encoder) throws {
-        var container = encoder.unkeyedContainer()
+        var container = encoder.singleValueContainer()
         
         switch self {
         case .creditCard(let payload):

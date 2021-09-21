@@ -12,7 +12,7 @@ struct CreditCardInfoView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            TextField("Name on Card", text: $cardInfo.nameOnCard)
+            TextField("name-on-card".localized(), text: $cardInfo.nameOnCard)
                 .autocapitalization(.none)
                 .disableAutocorrection(true)
                 .padding(10)
@@ -26,7 +26,7 @@ struct CreditCardInfoView: View {
                 .foregroundColor(.red)
                 .font(.caption)
             
-            TextField("Card Number", text: $cardInfo.number)
+            TextField("card-number".localized(), text: $cardInfo.number)
                 .autocapitalization(.none)
                 .disableAutocorrection(true)
                 .keyboardType(.numberPad)
@@ -41,7 +41,7 @@ struct CreditCardInfoView: View {
                 .foregroundColor(.red)
                 .font(.caption)
             
-             TextField("Expiry", text: $cardInfo.expiryDate)
+             TextField("expiry".localized(), text: $cardInfo.expiryDate)
                 .autocapitalization(.none)
                 .disableAutocorrection(true)
                 .keyboardType(.numberPad)
@@ -56,7 +56,7 @@ struct CreditCardInfoView: View {
                 .foregroundColor(.red)
                 .font(.caption)
             
-            TextField("CVC", text: $cardInfo.securityCode)
+            TextField("cvc".localized(), text: $cardInfo.securityCode)
                 .autocapitalization(.none)
                 .disableAutocorrection(true)
                 .keyboardType(.numberPad)
@@ -78,11 +78,23 @@ struct CreditCardInfoView_Previews: PreviewProvider {
     static var paymentRequest = PaymentRequest(
         amount: 100,
         currency: "SAR",
-        description: "Testing iOS SDK",
-        apiKey: "pk_live_TH6rVePGHRwuJaAtoJ1LsRfeKYovZgC1uddh7NdX"
+        description: "Testing iOS SDK"
     )
     
-    static var info = CreditCardViewModel(paymentRequest: paymentRequest)
+    static var info = CreditCardViewModel(paymentRequest: paymentRequest) {result in
+        switch (result) {
+        case .completed(let payment):
+            print("Got payment")
+            print("Payment status \(payment.status)")
+            print("Payment ID: \(payment.id)")
+            break;
+        case .failed(let error):
+            print("Got an error: \(error.localizedDescription)")
+            break;
+        case .canceled:
+            print("Operation canceled")
+        }
+    }
     
     static var previews: some View {
         CreditCardInfoView(cardInfo: info)

@@ -1,22 +1,30 @@
 import Foundation
 
 public struct ApiPayment: Codable {
-    var id: String
-    var status: String
-    var amount: Int
-    var fee: Int
-    var currency: String
-    var refunded: Int
-    var refundedAt: String?
-    var captured: Int
-    var capturedAt: String?
-    var voidedAt: String?
-    var description: String?
-    var invoiceId: String?
-    var ip: String?
-    var callbackUrl: String?
-    var createdAt: String
-    var updatedAt: String
-    var metadata: [String: String]?
-    var source: ApiPaymentSource
+    public var id: String
+    public var status: String
+    public var amount: Int
+    public var amountFormat: String
+    public var fee: Int
+    public var feeFormat: String?
+    public var currency: String
+    public var refunded: Int
+    public var refundedAt: String?
+    public var refundedFormat: String?
+    public var captured: Int
+    public var capturedAt: String?
+    public var capturedFormat: String?
+    public var voidedAt: String?
+    public var description: String?
+    public var invoiceId: String?
+    public var ip: String?
+    public var callbackUrl: String?
+    public var createdAt: String
+    public var updatedAt: String
+    public var metadata: [String: String]?
+    public var source: ApiPaymentSource
+    
+    public func isInitiated() -> Bool {
+        return status == "initiated"
+    }
 }

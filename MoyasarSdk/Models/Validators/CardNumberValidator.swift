@@ -10,13 +10,13 @@ import Foundation
 class CardNumberValidator: FieldValidator {
     override init() {
         super.init()
-        addRule(error: "Card number is required") {
+        addRule(error: "card-number-required".localized()) {
             ($0 ?? "").isEmpty
         }
-        addRule(error: "Invalid card number") {
+        addRule(error: "invalid-card-number".localized()) {
             ($0 ?? "").count < 16 || !isValidLuhnNumber($0 ?? "")
         }
-        addRule(error: "Unsupported network") {
+        addRule(error: "unsupported-network".localized()) {
             getCardNetwork($0 ?? "") == .unknown
         }
     }
