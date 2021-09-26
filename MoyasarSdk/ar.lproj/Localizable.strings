@@ -2,4 +2,14 @@
 "card-number" = "رقم البطاقة";
 "expiry" = "تاريخ الانتهاء";
 "cvc" = "رمز الأمان";
-
+"card-number-required" = "رقم البطاقة مطلوب";
+"invalid-card-number" = "رقم البطاقة غير صحيح";
+"unsupported-network" = "شبكة غير مدعومة";
+"expiry-is-required" = "تاريخ الإنتهاء مطلوب";
+"invalid-expiry" = "تاريخ الإنتهاء غير صحيح";
+"expired-card" = "باقة منتهية";
+"name-is-required" = "الاسم مطلوب";
+"both-names-required" = "الاسم الأول والثاني مطلوب";
+"only-english-alpha" = "يجب أن يحتوي الاسم على حروف إنجليزية فقط";
+"cvc-required" = "رمز التحقق مطلوب";
+"invalid-cvc" = "رمز تحقق غير صحيح";

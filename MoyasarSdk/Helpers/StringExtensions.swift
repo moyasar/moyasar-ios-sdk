@@ -1,6 +1,7 @@
 import Foundation
+import SwiftUI
 
-let currentBundle = Bundle(identifier: "com.moyasar.MoyasarSdk")
+let currentBundle = Bundle(identifier: "com.moyasar.MoyasarSdk")!
 
 extension String {
     func substringByInt(start: Int, length: Int) -> String {
@@ -10,6 +11,10 @@ extension String {
     }
     
     func localized() -> String {
-        currentBundle?.localizedString(forKey: self, value: nil, table: nil) ?? self
+        currentBundle.localizedString(forKey: self, value: nil, table: nil)
+    }
+    
+    var sdkImage: Image {
+        Image(self, bundle: currentBundle)
     }
 }

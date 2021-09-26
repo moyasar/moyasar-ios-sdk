@@ -46,10 +46,11 @@
 		4178F05926F7AF9F00996AE0 /* ApiPaymentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4178F05826F7AF9F00996AE0 /* ApiPaymentTests.swift */; };
 		4178F05B26F9128500996AE0 /* CurrencyUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4178F05A26F9128500996AE0 /* CurrencyUtil.swift */; };
 		4178F05D26F916B700996AE0 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4178F05C26F916B700996AE0 /* ActivityIndicator.swift */; };
-		4178F06726F9207900996AE0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4178F06926F9207900996AE0 /* Localizable.strings */; };
 		41879A1A26E780EE00C62582 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41879A1926E780EE00C62582 /* Media.xcassets */; };
 		41CEADCD26E7825200A201B4 /* ResultCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CEADCC26E7825200A201B4 /* ResultCallback.swift */; };
 		41CEADCF26E7829C00A201B4 /* PaymentResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CEADCE26E7829C00A201B4 /* PaymentResult.swift */; };
+		41FFA9C226FF423200D7FD4A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41FFA9C426FF423200D7FD4A /* Localizable.strings */; };
+		41FFA9C726FF4BE800D7FD4A /* ApplePayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FFA9C626FF4BE800D7FD4A /* ApplePayService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,11 +106,12 @@
 		4178F05826F7AF9F00996AE0 /* ApiPaymentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiPaymentTests.swift; sourceTree = "<group>"; };
 		4178F05A26F9128500996AE0 /* CurrencyUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyUtil.swift; sourceTree = "<group>"; };
 		4178F05C26F916B700996AE0 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
-		4178F06826F9207900996AE0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		4178F06A26F924F600996AE0 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		41879A1926E780EE00C62582 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		41CEADCC26E7825200A201B4 /* ResultCallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCallback.swift; sourceTree = "<group>"; };
 		41CEADCE26E7829C00A201B4 /* PaymentResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentResult.swift; sourceTree = "<group>"; };
+		41FFA9C326FF423200D7FD4A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		41FFA9C526FF423500D7FD4A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		41FFA9C626FF4BE800D7FD4A /* ApplePayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,7 +162,7 @@
 				416FCBDE26E3BBF80044639E /* MoyasarSdk.h */,
 				416FCBDF26E3BBF80044639E /* Info.plist */,
 				41879A1926E780EE00C62582 /* Media.xcassets */,
-				4178F06926F9207900996AE0 /* Localizable.strings */,
+				41FFA9C426FF423200D7FD4A /* Localizable.strings */,
 			);
 			path = MoyasarSdk;
 			sourceTree = "<group>";
@@ -223,6 +225,7 @@
 				416FCC3F26E3BDEB0044639E /* ApiResult.swift */,
 				416FCC4026E3BDEB0044639E /* Moyasar.swift */,
 				416FCC3E26E3BDEB0044639E /* PaymentService.swift */,
+				41FFA9C626FF4BE800D7FD4A /* ApplePayService.swift */,
 				416FCC2E26E3BDDC0044639E /* Models */,
 			);
 			path = Services;
@@ -364,7 +367,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				41879A1A26E780EE00C62582 /* Media.xcassets in Resources */,
-				4178F06726F9207900996AE0 /* Localizable.strings in Resources */,
+				41FFA9C226FF423200D7FD4A /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,6 +398,7 @@
 				416FCC2B26E3BD970044639E /* CardNumberValidator.swift in Sources */,
 				416FCC1A26E3BD730044639E /* PaymentRequest.swift in Sources */,
 				416FCC5426E3BE160044639E /* StcPayView.swift in Sources */,
+				41FFA9C726FF4BE800D7FD4A /* ApplePayService.swift in Sources */,
 				416FCC0B26E3BC9A0044639E /* CreditCardNetwork.swift in Sources */,
 				416FCC3C26E3BDE50044639E /* ApiApplePaySource.swift in Sources */,
 				416FCC2A26E3BD970044639E /* FieldValidator.swift in Sources */,
@@ -442,11 +446,11 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		4178F06926F9207900996AE0 /* Localizable.strings */ = {
+		41FFA9C426FF423200D7FD4A /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				4178F06826F9207900996AE0 /* en */,
-				4178F06A26F924F600996AE0 /* ar */,
+				41FFA9C326FF423200D7FD4A /* ar */,
+				41FFA9C526FF423500D7FD4A /* en */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

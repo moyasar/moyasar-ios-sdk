@@ -6,7 +6,7 @@ public class CreditCardViewModel: ObservableObject {
     let expiryFormatter = ExpiryFormatter()
     var paymentService = PaymentService()
     let currencyUtil = CurrencyUtil()
-    
+
     var paymentRequest: PaymentRequest
     var resultCallback: ResultCallback
     var currentPayment: ApiPayment? = nil
@@ -75,6 +75,16 @@ public class CreditCardViewModel: ObservableObject {
     public init(paymentRequest: PaymentRequest, resultCallback: @escaping ResultCallback) {
         self.paymentRequest = paymentRequest
         self.resultCallback = resultCallback
+    }
+    
+    func showNetworkLogo(_ network: CreditCardNetwork) -> Bool {
+        let inferred = getCardNetwork(number)
+        switch inferred {
+        case .unknown:
+            return true
+        default:
+            return inferred == network
+        }
     }
     
     func beingTransaction() {

@@ -26,15 +26,45 @@ struct CreditCardInfoView: View {
                 .foregroundColor(.red)
                 .font(.caption)
             
-            TextField("card-number".localized(), text: $cardInfo.number)
-                .autocapitalization(.none)
-                .disableAutocorrection(true)
-                .keyboardType(.numberPad)
-                .padding(10)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 7)
-                        .stroke(Color(red: 0.7, green: 0.7, blue: 0.7, opacity: 1.0), lineWidth: 0.4)
-                )
+            ZStack(alignment: .trailing) {
+                TextField("card-number".localized(), text: $cardInfo.number)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .keyboardType(.numberPad)
+                    .padding(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 7)
+                            .stroke(Color(red: 0.7, green: 0.7, blue: 0.7, opacity: 1.0), lineWidth: 0.4)
+                    )
+                
+                HStack {
+                    if (cardInfo.showNetworkLogo(.mada)) {
+                        "mada".sdkImage
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    }
+                    
+                    if (cardInfo.showNetworkLogo(.visa)) {
+                        "visa".sdkImage
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    }
+                    
+                    if (cardInfo.showNetworkLogo(.mastercard)) {
+                        "mastercard".sdkImage
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    }
+                    
+                    if (cardInfo.showNetworkLogo(.amex)) {
+                        "amex".sdkImage
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    }
+                }
+                .frame(height: 26)
+                .padding(.trailing, 6)
+            }
             
             Text(cardInfo.numberValidator.visualValidate(value: cardInfo.number) ?? " ")
                 .padding(.horizontal, 5)
