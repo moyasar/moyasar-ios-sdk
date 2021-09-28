@@ -14,9 +14,10 @@ Pod::Spec.new do |s|
     'Ali Alhoshaiyan' => 'ahoshaiyan@fastmail.com'
   }
 
-  s.source = { git: 'https://github.com/moyasar/moyasar-ios-sdk.git', tag: s.version.to_s }
+  s.source = { git: 'git@github.com:ahoshaiyan/moyasar-ios-sdk.git', branch: 'implement-credit-card' }
 
   s.swift_version = '5.0'
+  s.platform = :ios
   s.ios.deployment_target = '13.0'
 
   s.source_files = [
