@@ -19,7 +19,6 @@ Pod::Spec.new do |s|
   s.swift_version = '5.0'
   s.platform = :ios
   s.ios.deployment_target = '13.0'
-  s.compiler_flags = "ARCHS='arm64 armv7'"
 
   s.source_files = [
     'MoyasarSdk/Errors/**/*',
