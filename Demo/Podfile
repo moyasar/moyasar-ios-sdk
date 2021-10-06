@@ -1,3 +1,0 @@
-target 'MoyasarSdkDemo' do
-  pod 'MoyasarSdk', path: '../'
-end

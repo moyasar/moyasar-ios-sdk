@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "group:Sdk"
+      name = "Sdk">
+      <Group
+         location = "group:MoyasarSdk"
+         name = "MoyasarSdk">
+         <Group
+            location = "group:ar.lproj"
+            name = "ar.lproj">
+            <FileRef
+               location = "group:Localizable.strings">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Media.xcassets"
+            name = "Media.xcassets">
+            <Group
+               location = "group:visa.imageset"
+               name = "visa.imageset">
+               <FileRef
+                  location = "group:visa-dark.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:visa.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:mada.imageset"
+               name = "mada.imageset">
+               <FileRef
+                  location = "group:mada-dark.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:mada.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:mastercard.imageset"
+               name = "mastercard.imageset">
+               <FileRef
+                  location = "group:mastercard-dark.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:mastercard.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+            <Group
+               location = "group:amex.imageset"
+               name = "amex.imageset">
+               <FileRef
+                  location = "group:amex.svg">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:amex-dark.svg">
+               </FileRef>
+            </Group>
+         </Group>
+         <Group
+            location = "group:en.lproj"
+            name = "en.lproj">
+            <FileRef
+               location = "group:Localizable.strings">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Models"
+            name = "Models">
+            <FileRef
+               location = "group:PaymentResult.swift">
+            </FileRef>
+            <FileRef
+               location = "group:CreditCardViewModel.swift">
+            </FileRef>
+            <Group
+               location = "group:Validators"
+               name = "Validators">
+               <FileRef
+                  location = "group:NameOnCardValidator.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:SecurityCodeValidator.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:ExpiryValidator.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:CardNumberValidator.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:FieldValidator.swift">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:ResultCallback.swift">
+            </FileRef>
+            <FileRef
+               location = "group:PaymentRequest.swift">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Errors"
+            name = "Errors">
+            <FileRef
+               location = "group:MoyasarError.swift">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Views"
+            name = "Views">
+            <FileRef
+               location = "group:PaymentAuthView.swift">
+            </FileRef>
+            <Group
+               location = "group:Components"
+               name = "Components">
+               <FileRef
+                  location = "group:TextEditGroup.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:ActivityIndicator.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:CreditCardInfoView.swift">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:CreditCardView.swift">
+            </FileRef>
+            <FileRef
+               location = "group:StcPayView.swift">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Helpers"
+            name = "Helpers">
+            <FileRef
+               location = "group:CurrencyUtil.swift">
+            </FileRef>
+            <FileRef
+               location = "group:CreditCardNetwork.swift">
+            </FileRef>
+            <FileRef
+               location = "group:NSRegularExpressionExtensions.swift">
+            </FileRef>
+            <FileRef
+               location = "group:CreditCardUtil.swift">
+            </FileRef>
+            <FileRef
+               location = "group:StringExtensions.swift">
+            </FileRef>
+            <FileRef
+               location = "group:CreditCardFormatter.swift">
+            </FileRef>
+            <FileRef
+               location = "group:ExpiryFormatter.swift">
+            </FileRef>
+            <FileRef
+               location = "group:ExpiryDate.swift">
+            </FileRef>
+            <FileRef
+               location = "group:MadaUtil.swift">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:Info.plist">
+         </FileRef>
+         <Group
+            location = "group:Services"
+            name = "Services">
+            <FileRef
+               location = "group:Moyasar.swift">
+            </FileRef>
+            <FileRef
+               location = "group:ApplePayService.swift">
+            </FileRef>
+            <Group
+               location = "group:Models"
+               name = "Models">
+               <FileRef
+                  location = "group:ApiError.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:ApiCreditCardSource.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:ApiApplePaySource.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:ApiPaymentRequest.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:ApiPayment.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:ApiPaymentSource.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:ApiStcPaySource.swift">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:PaymentService.swift">
+            </FileRef>
+            <FileRef
+               location = "group:ApiResult.swift">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:MoyasarSdk.h">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:MoyasarSdkTests"
+         name = "MoyasarSdkTests">
+         <FileRef
+            location = "group:PaymentSourceTests.swift">
+         </FileRef>
+         <FileRef
+            location = "group:ApiErrorTests.swift">
+         </FileRef>
+         <FileRef
+            location = "group:MoyasarSdkTests.swift">
+         </FileRef>
+         <FileRef
+            location = "group:ApiPaymentTests.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Info.plist">
+         </FileRef>
+      </Group>
+      <FileRef
+         location = "group:MoyasarSdk.xcodeproj">
+      </FileRef>
+   </Group>
+</Workspace>
