@@ -13,7 +13,23 @@
 		419D67DF270E2BC6003A0C62 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 419D67DD270E2BC6003A0C62 /* Main.storyboard */; };
 		419D67E1270E2BC8003A0C62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 419D67E0270E2BC8003A0C62 /* Assets.xcassets */; };
 		419D67E4270E2BC8003A0C62 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 419D67E2270E2BC8003A0C62 /* LaunchScreen.storyboard */; };
+		419D67F2270E2BE4003A0C62 /* MoyasarSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419D67F1270E2BE4003A0C62 /* MoyasarSdk.framework */; };
+		419D67F3270E2BE4003A0C62 /* MoyasarSdk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 419D67F1270E2BE4003A0C62 /* MoyasarSdk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		419D67F4270E2BE4003A0C62 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				419D67F3270E2BE4003A0C62 /* MoyasarSdk.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		419D67D4270E2BC6003A0C62 /* UIKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UIKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -24,6 +40,7 @@
 		419D67E0270E2BC8003A0C62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		419D67E3270E2BC8003A0C62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		419D67E5270E2BC8003A0C62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		419D67F1270E2BE4003A0C62 /* MoyasarSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MoyasarSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				419D67F2270E2BE4003A0C62 /* MoyasarSdk.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +60,7 @@
 			children = (
 				419D67D6270E2BC6003A0C62 /* UIKitDemo */,
 				419D67D5270E2BC6003A0C62 /* Products */,
+				419D67F0270E2BE4003A0C62 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,6 +86,14 @@
 			path = UIKitDemo;
 			sourceTree = "<group>";
 		};
+		419D67F0270E2BE4003A0C62 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				419D67F1270E2BE4003A0C62 /* MoyasarSdk.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -77,6 +104,7 @@
 				419D67D0270E2BC6003A0C62 /* Sources */,
 				419D67D1270E2BC6003A0C62 /* Frameworks */,
 				419D67D2270E2BC6003A0C62 /* Resources */,
+				419D67F4270E2BE4003A0C62 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

@@ -1,8 +1,9 @@
-//
-//  BundleExtensions.swift
-//  MoyasarSdk
-//
-//  Created by Ali Alhoshaiyan on 06/10/2021.
-//
-
 import Foundation
+
+private class BundleFindingDummy {}
+
+extension Bundle {
+    static var moyasar: Bundle {
+        Bundle(for: BundleFindingDummy.self)
+    }
+}

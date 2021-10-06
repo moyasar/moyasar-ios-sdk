@@ -90,18 +90,5 @@ struct CreditCardView_Previews: PreviewProvider {
             print("Got a Result")
         }
         .preferredColorScheme(.dark)
-        
-        CreditCardView(request: paymentRequest) {_ in
-            print("Got a Result")
-        }
-        .environment(\.locale, .init(identifier: "ar"))
-        .environment(\.layoutDirection, .rightToLeft)
-        
-        CreditCardView(request: paymentRequest) {_ in
-            print("Got a Result")
-        }
-        .environment(\.locale, .init(identifier: "ar"))
-        .environment(\.layoutDirection, .rightToLeft)
-        .preferredColorScheme(.dark)
     }
 }

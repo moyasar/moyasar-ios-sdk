@@ -17,10 +17,10 @@ extension String {
     }
 
     func localized() -> String {
-        currentBundle.localizedString(forKey: self, value: nil, table: nil)
+        Bundle.moyasar.localizedString(forKey: self, value: nil, table: nil)
     }
 
     var sdkImage: Image {
-        Image(self, bundle: currentBundle)
+        Image(self, bundle: Bundle.moyasar)
     }
 }

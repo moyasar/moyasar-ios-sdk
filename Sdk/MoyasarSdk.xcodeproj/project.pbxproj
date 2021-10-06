@@ -47,6 +47,7 @@
 		4178F05B26F9128500996AE0 /* CurrencyUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4178F05A26F9128500996AE0 /* CurrencyUtil.swift */; };
 		4178F05D26F916B700996AE0 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4178F05C26F916B700996AE0 /* ActivityIndicator.swift */; };
 		41879A1A26E780EE00C62582 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41879A1926E780EE00C62582 /* Media.xcassets */; };
+		419D6807270E32E8003A0C62 /* BundleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419D6806270E32E8003A0C62 /* BundleExtensions.swift */; };
 		41CEADCD26E7825200A201B4 /* ResultCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CEADCC26E7825200A201B4 /* ResultCallback.swift */; };
 		41CEADCF26E7829C00A201B4 /* PaymentResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CEADCE26E7829C00A201B4 /* PaymentResult.swift */; };
 		41FFA9C226FF423200D7FD4A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41FFA9C426FF423200D7FD4A /* Localizable.strings */; };
@@ -107,6 +108,7 @@
 		4178F05A26F9128500996AE0 /* CurrencyUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyUtil.swift; sourceTree = "<group>"; };
 		4178F05C26F916B700996AE0 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		41879A1926E780EE00C62582 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		419D6806270E32E8003A0C62 /* BundleExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExtensions.swift; sourceTree = "<group>"; };
 		41CEADCC26E7825200A201B4 /* ResultCallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCallback.swift; sourceTree = "<group>"; };
 		41CEADCE26E7829C00A201B4 /* PaymentResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentResult.swift; sourceTree = "<group>"; };
 		41FFA9C326FF423200D7FD4A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				416FCC0826E3BC9A0044639E /* NSRegularExpressionExtensions.swift */,
 				416FCC0426E3BC9A0044639E /* StringExtensions.swift */,
 				4178F05A26F9128500996AE0 /* CurrencyUtil.swift */,
+				419D6806270E32E8003A0C62 /* BundleExtensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -347,7 +350,6 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 				ar,
 			);
 			mainGroup = 416FCBD126E3BBF80044639E;
@@ -404,6 +406,7 @@
 				416FCC2A26E3BD970044639E /* FieldValidator.swift in Sources */,
 				4178F05D26F916B700996AE0 /* ActivityIndicator.swift in Sources */,
 				416FCC0D26E3BC9A0044639E /* CreditCardUtil.swift in Sources */,
+				419D6807270E32E8003A0C62 /* BundleExtensions.swift in Sources */,
 				416FCC0F26E3BC9A0044639E /* ExpiryFormatter.swift in Sources */,
 				416FCC4B26E3BE120044639E /* PaymentAuthView.swift in Sources */,
 				41CEADCF26E7829C00A201B4 /* PaymentResult.swift in Sources */,

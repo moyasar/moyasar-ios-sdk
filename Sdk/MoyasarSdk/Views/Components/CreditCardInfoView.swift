@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CreditCardInfoView: View {
     @ObservedObject var cardInfo: CreditCardViewModel
+    @Environment(\.locale) var locale: Locale
     
     var body: some View {
         VStack(alignment: .leading) {
