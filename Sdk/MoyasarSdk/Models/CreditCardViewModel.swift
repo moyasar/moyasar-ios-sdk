@@ -54,7 +54,8 @@ public class CreditCardViewModel: ObservableObject {
     
     var formattedAmount: String {
         let majorAmount = currencyUtil.toMajor(paymentRequest.amount, currency: paymentRequest.currency)
-        return numberFormatter.string(from: majorAmount as NSNumber)!
+        let amount = numberFormatter.string(from: majorAmount as NSNumber)!
+        return "pay".localized() + " \(amount)"
     }
     
     var isValid: Bool {

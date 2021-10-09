@@ -13,3 +13,4 @@
 "only-english-alpha" = "Name may only contain english alphabet";
 "cvc-required" = "Security code is required";
 "invalid-cvc" = "Invalid security code";
+"pay" = "Pay";

@@ -64,7 +64,7 @@ struct CreditCardInfoView: View {
                     }
                 }
                 .frame(height: 26)
-                .padding(.trailing, 6)
+                .padding(.trailing, 7)
             }
             
             Text(cardInfo.numberValidator.visualValidate(value: cardInfo.number) ?? " ")
