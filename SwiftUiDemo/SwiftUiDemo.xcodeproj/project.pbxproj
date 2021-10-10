@@ -15,6 +15,7 @@
 		419D6801270E2CD2003A0C62 /* ApplePayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419D67FF270E2CD2003A0C62 /* ApplePayButton.swift */; };
 		419D6804270E2D2C003A0C62 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419D6803270E2D2C003A0C62 /* ContentView.swift */; };
 		419D680A270E3B27003A0C62 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 419D680C270E3B27003A0C62 /* Localizable.strings */; };
+		41F662502713600B008EE8B2 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41F6624F2713600B008EE8B2 /* PassKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,6 +43,8 @@
 		419D6803270E2D2C003A0C62 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		419D680B270E3B27003A0C62 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		419D680D270E3B2A003A0C62 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		41F6624E2713600B008EE8B2 /* SwiftUiDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftUiDemo.entitlements; sourceTree = "<group>"; };
+		41F6624F2713600B008EE8B2 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41F662502713600B008EE8B2 /* PassKit.framework in Frameworks */,
 				419D67ED270E2BDD003A0C62 /* MoyasarSdk.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -76,6 +80,7 @@
 		419D67BB270E2BA5003A0C62 /* SwiftUiDemo */ = {
 			isa = PBXGroup;
 			children = (
+				41F6624E2713600B008EE8B2 /* SwiftUiDemo.entitlements */,
 				419D67FF270E2CD2003A0C62 /* ApplePayButton.swift */,
 				419D67BC270E2BA5003A0C62 /* SwiftUiDemoApp.swift */,
 				419D67C0270E2BA7003A0C62 /* Assets.xcassets */,
@@ -98,6 +103,7 @@
 		419D67EB270E2BDD003A0C62 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				41F6624F2713600B008EE8B2 /* PassKit.framework */,
 				419D67EC270E2BDD003A0C62 /* MoyasarSdk.framework */,
 			);
 			name = Frameworks;
@@ -316,6 +322,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SwiftUiDemo/SwiftUiDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"SwiftUiDemo/Preview Content\"";
 				DEVELOPMENT_TEAM = Z7ZLTTUKXR;
@@ -338,6 +345,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SwiftUiDemo/SwiftUiDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"SwiftUiDemo/Preview Content\"";
 				DEVELOPMENT_TEAM = Z7ZLTTUKXR;

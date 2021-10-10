@@ -22,6 +22,7 @@ final class PaymentService {
     func create(_ paymentRequest: ApiPaymentRequest, handler: @escaping ApiResultHandler<ApiPayment>) throws {
         let apiKey = try Moyasar.getApiKey()
         let payload = try encoder.encode(paymentRequest)
+        let payloadString = String(data: payload, encoding: .utf8)
         var request = URLRequest(url: createUrl)
         let auth = "\(apiKey):".data(using: .utf8)?.base64EncodedString()
         

@@ -12,7 +12,10 @@ public struct ApiApplePaySource: Codable {
 
 extension ApiApplePaySource {
     static func fromPKToken(_ token: PKPaymentToken) -> ApiApplePaySource {
-        return ApiApplePaySource(token: String(data: token.paymentData, encoding: .utf8))
+        let encoder = JSONEncoder()
+        let data = try! encoder.encode(ApplePayToken(token: token))
+        
+        return ApiApplePaySource(token: String(data: data, encoding: .utf8))
     }
 }
 
@@ -20,17 +23,13 @@ struct ApplePayToken: Codable {
     static let decoder = JSONDecoder()
     
     var paymentMethod: ApplePayPaymentMethod
-    var paymentInstrumentName: String?
-    var paymentNetwork: String?
     var transactionIdentifier: String
-    var paymentData: PaymentDataDict
+    var paymentData: ApplePayPaymentData
     
     init(token: PKPaymentToken) {
         paymentMethod = ApplePayPaymentMethod(method: token.paymentMethod)
-        paymentInstrumentName = token.paymentMethod.displayName
-        paymentNetwork = token.paymentMethod.network?.rawValue
         transactionIdentifier = token.transactionIdentifier
-        paymentData = try! ApplePayToken.decoder.decode(PaymentDataDict.self, from: token.paymentData)
+        paymentData = try! ApplePayToken.decoder.decode(ApplePayPaymentData.self, from: token.paymentData)
     }
 }
 
@@ -106,32 +105,9 @@ extension PKPaymentPassActivationState {
     }
 }
 
-public enum PaymentDataValue {
-    case string(String?)
-    case dict(PaymentDataDict)
+struct ApplePayPaymentData: Codable {
+    var data: String
+    var header: [String: String]
+    var signature: String
+    var version: String
 }
-
-extension PaymentDataValue: Codable {
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        
-        do {
-            self = .dict(try container.decode(PaymentDataDict.self))
-        } catch {
-            self = .string(try? container.decode(String.self))
-        }
-    }
-    
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        
-        switch self {
-        case .string(let value):
-            try container.encode(value)
-        case .dict(let value):
-            try container.encode(value)
-        }
-    }
-}
-
-public typealias PaymentDataDict = [String: PaymentDataValue]
