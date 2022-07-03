@@ -2,7 +2,7 @@ import Foundation
 
 class ExpiryFormatter {
     func format(_ input: String) -> String {
-        var cleanInput = input.filter { $0.isNumber }
+        var cleanInput = ArabicNumberMapper.mapArabicNumbers(input).filter { $0.isNumber }
         
         if (cleanInput.count > 6) {
             cleanInput = String(cleanInput.prefix(6))

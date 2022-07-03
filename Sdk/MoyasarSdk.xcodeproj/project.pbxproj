@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1799E86A0F7769CC825B03C6 /* ArabicNumberMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1799E9274D83E33E67BABBE8 /* ArabicNumberMapper.swift */; };
 		416FCBE526E3BBF80044639E /* MoyasarSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 416FCBDB26E3BBF80044639E /* MoyasarSdk.framework */; };
 		416FCBEA26E3BBF80044639E /* MoyasarSdkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416FCBE926E3BBF80044639E /* MoyasarSdkTests.swift */; };
 		416FCBEC26E3BBF80044639E /* MoyasarSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 416FCBDE26E3BBF80044639E /* MoyasarSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -65,6 +66,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1799E9274D83E33E67BABBE8 /* ArabicNumberMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArabicNumberMapper.swift; sourceTree = "<group>"; };
 		416FCBDB26E3BBF80044639E /* MoyasarSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoyasarSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		416FCBDE26E3BBF80044639E /* MoyasarSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoyasarSdk.h; sourceTree = "<group>"; };
 		416FCBDF26E3BBF80044639E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				416FCC0426E3BC9A0044639E /* StringExtensions.swift */,
 				4178F05A26F9128500996AE0 /* CurrencyUtil.swift */,
 				419D6806270E32E8003A0C62 /* BundleExtensions.swift */,
+				1799E9274D83E33E67BABBE8 /* ArabicNumberMapper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -424,6 +427,7 @@
 				416FCC4326E3BDEB0044639E /* ApiResult.swift in Sources */,
 				416FCC3626E3BDE50044639E /* ApiStcPaySource.swift in Sources */,
 				416FCC2826E3BD970044639E /* SecurityCodeValidator.swift in Sources */,
+				1799E86A0F7769CC825B03C6 /* ArabicNumberMapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
