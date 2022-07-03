@@ -56,6 +56,6 @@ final class CreditCardFormatter: Formatter {
     }
     
     private func cleanNumber(_ number: String) -> String {
-        return number.filter { $0.isNumber }
+        return ArabicNumberMapper.mapArabicNumbers(number).filter { $0.isNumber }
     }
 }

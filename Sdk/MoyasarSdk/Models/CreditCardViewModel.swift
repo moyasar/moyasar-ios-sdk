@@ -27,13 +27,13 @@ public class CreditCardViewModel: ObservableObject {
     
     @Published var number = "" {
         didSet {
-            let filtered = self.formatter.string(for: number)!
+            let filtered = self.formatter.string(for: self.number)!
             if number != filtered {
                 number = filtered
             }
         }
     }
-    
+
     @Published var expiryDate = "" {
         didSet {
             let filtered = self.expiryFormatter.format(expiryDate)
@@ -45,7 +45,8 @@ public class CreditCardViewModel: ObservableObject {
     
     @Published var securityCode = "" {
         didSet {
-            let filtered = String(securityCode.filter { $0.isNumber }.prefix(4))
+            var filtered = ArabicNumberMapper.mapArabicNumbers(securityCode)
+            filtered = String(securityCode.filter { $0.isNumber }.prefix(4))
             if securityCode != filtered {
                 securityCode = filtered
             }
