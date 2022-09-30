@@ -14,7 +14,7 @@ struct ExpiryDate {
     static var cal = Calendar(identifier: .gregorian)
     
     func isValid() -> Bool {
-        return month > 1 && month < 12 && year > 1900
+        return month >= 1 && month <= 12 && year > 1900
     }
     
     func expired() -> Bool {

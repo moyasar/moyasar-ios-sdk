@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1799E86A0F7769CC825B03C6 /* ArabicNumberMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1799E9274D83E33E67BABBE8 /* ArabicNumberMapper.swift */; };
+		41136EC428E6FC6200CBC079 /* ExpiryDateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41136EC328E6FC6200CBC079 /* ExpiryDateTests.swift */; };
 		416FCBE526E3BBF80044639E /* MoyasarSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 416FCBDB26E3BBF80044639E /* MoyasarSdk.framework */; };
 		416FCBEA26E3BBF80044639E /* MoyasarSdkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416FCBE926E3BBF80044639E /* MoyasarSdkTests.swift */; };
 		416FCBEC26E3BBF80044639E /* MoyasarSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 416FCBDE26E3BBF80044639E /* MoyasarSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -67,6 +68,7 @@
 
 /* Begin PBXFileReference section */
 		1799E9274D83E33E67BABBE8 /* ArabicNumberMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArabicNumberMapper.swift; sourceTree = "<group>"; };
+		41136EC328E6FC6200CBC079 /* ExpiryDateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpiryDateTests.swift; sourceTree = "<group>"; };
 		416FCBDB26E3BBF80044639E /* MoyasarSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoyasarSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		416FCBDE26E3BBF80044639E /* MoyasarSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoyasarSdk.h; sourceTree = "<group>"; };
 		416FCBDF26E3BBF80044639E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				4178F05626F77E1300996AE0 /* PaymentSourceTests.swift */,
 				416FCBEB26E3BBF80044639E /* Info.plist */,
 				4178F05826F7AF9F00996AE0 /* ApiPaymentTests.swift */,
+				41136EC328E6FC6200CBC079 /* ExpiryDateTests.swift */,
 			);
 			path = MoyasarSdkTests;
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 			files = (
 				416FCBEA26E3BBF80044639E /* MoyasarSdkTests.swift in Sources */,
 				4178F05726F77E1300996AE0 /* PaymentSourceTests.swift in Sources */,
+				41136EC428E6FC6200CBC079 /* ExpiryDateTests.swift in Sources */,
 				4178F05526F764A900996AE0 /* ApiErrorTests.swift in Sources */,
 				4178F05926F7AF9F00996AE0 /* ApiPaymentTests.swift in Sources */,
 			);
