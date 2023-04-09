@@ -16,7 +16,7 @@ struct PaymentAuthView: UIViewRepresentable {
         let webView = WKWebView(frame: .zero, configuration: config)
         webView.navigationDelegate = context.coordinator
         webView.allowsBackForwardNavigationGestures = false
-        webView.scrollView.isScrollEnabled = false
+        webView.scrollView.isScrollEnabled = true
         
         return webView
     }
