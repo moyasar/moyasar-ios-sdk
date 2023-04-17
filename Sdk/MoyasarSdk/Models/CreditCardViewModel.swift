@@ -46,7 +46,7 @@ public class CreditCardViewModel: ObservableObject {
     @Published var securityCode = "" {
         didSet {
             var filtered = ArabicNumberMapper.mapArabicNumbers(securityCode)
-            filtered = String(securityCode.filter { $0.isNumber }.prefix(4))
+            filtered = String(filtered.filter { $0.isNumber }.prefix(4))
             if securityCode != filtered {
                 securityCode = filtered
             }
