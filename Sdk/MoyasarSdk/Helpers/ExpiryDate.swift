@@ -21,7 +21,9 @@ struct ExpiryDate {
         guard let expiry = dateInstance() else {
             return false
         }
-        return expiry < Date()
+        
+        let date = ExpiryDate.cal.date(from: ExpiryDate.cal.dateComponents([.year, .month], from: Date()))
+        return expiry < date!
     }
     
     func inexpired() -> Bool {
@@ -61,5 +63,15 @@ extension ExpiryDate {
         } else {
             return nil
         }
+    }
+}
+
+extension Date {
+    func startOfMonth() -> Date {
+        return Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: Calendar.current.startOfDay(for: self)))!
+    }
+    
+    func endOfMonth() -> Date {
+        return Calendar.current.date(byAdding: DateComponents(month: 1, day: -1), to: self.startOfMonth())!
     }
 }
