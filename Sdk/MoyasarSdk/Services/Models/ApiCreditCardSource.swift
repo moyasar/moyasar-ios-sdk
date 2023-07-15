@@ -16,4 +16,7 @@ public struct ApiCreditCardSource: Codable {
     var cvc: String?
     var transactionUrl: String?
     var message: String?
+    var token: String?
+    var manual: String?
+    var saveCard: String?
 }

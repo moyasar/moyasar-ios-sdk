@@ -8,6 +8,7 @@ public struct ApiApplePaySource: Codable {
     var name: String?
     var number: String?
     var message: String?
+    var manual: String?
 }
 
 extension ApiApplePaySource {

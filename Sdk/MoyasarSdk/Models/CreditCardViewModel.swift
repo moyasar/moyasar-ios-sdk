@@ -105,7 +105,10 @@ public class CreditCardViewModel: ObservableObject {
             number: number.filter { $0.isNumber },
             month: String(expiry.month),
             year: String(expiry.year),
-            cvc: securityCode)
+            cvc: securityCode,
+            manual: paymentRequest.manual ? "true" : "false",
+            saveCard: paymentRequest.saveCard ? "true" : "false"
+        )
         
         let request = ApiPaymentRequest(
             amount: paymentRequest.amount,
