@@ -7,16 +7,17 @@ let paymentRequest = PaymentRequest(
     amount: 100,
     currency: "SAR",
     description: "Testing iOS SDK",
-    metadata: ["order_id": "ios_order_3214124"]
+    metadata: ["order_id": "ios_order_3214124"],
+    manual: true
 )
 
 struct ContentView: View {
     @State var status = MyAppStatus.reset
     
     init() {
-        Moyasar.baseUrl = "https://apimig.moyasar.com/"
-        try! Moyasar.setApiKey("pk_live_TH6rVePGHRwuJaAtoJ1LsRfeKYovZgC1uddh7NdX")
-//        try! Moyasar.setApiKey("pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
+        Moyasar.baseUrl = "https://api.moyasar.com/"
+//        try! Moyasar.setApiKey("pk_live_TH6rVePGHRwuJaAtoJ1LsRfeKYovZgC1uddh7NdX")
+        try! Moyasar.setApiKey("pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
         
     }
 
