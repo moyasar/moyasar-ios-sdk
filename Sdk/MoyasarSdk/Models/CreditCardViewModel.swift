@@ -110,16 +110,26 @@ public class CreditCardViewModel: ObservableObject {
             saveCard: paymentRequest.saveCard ? "true" : "false"
         )
         
-        let request = ApiPaymentRequest(
-            amount: paymentRequest.amount,
-            currency: paymentRequest.currency,
-            description: paymentRequest.description,
-            callbackUrl: "https://sdk.moyasar.com/return",
-            source: ApiPaymentSource.creditCard(source),
-            metadata: paymentRequest.metadata.merging(["sdk": "ios"], uniquingKeysWith: {k, _ in k }))
         
+        if (paymentRequest.createSaveOnlyToken) {
+            beginSaveOnlyToken(source)
+        } else {
+            beginPayment(source)
+        }
+    }
+    
+    func beginPayment(_ source: ApiCreditCardSource) {
         do {
             status = .processing
+            
+            let request = ApiPaymentRequest(
+                amount: paymentRequest.amount,
+                currency: paymentRequest.currency,
+                description: paymentRequest.description,
+                callbackUrl: "https://sdk.moyasar.com/return",
+                source: ApiPaymentSource.creditCard(source),
+                metadata: paymentRequest.metadata.merging(["sdk": "ios"], uniquingKeysWith: {k, _ in k })
+            )
             
             try paymentService.create(request, handler: {result in
                 DispatchQueue.main.async {
@@ -127,6 +137,38 @@ public class CreditCardViewModel: ObservableObject {
                     case .success(let payment):
                         self.currentPayment = payment
                         self.startPaymentAuthProcess()
+                        break;
+                    case .error(let error):
+                        self.resultCallback(.failed(error))
+                        break;
+                    }
+                }
+            })
+        } catch {
+            self.resultCallback(.failed(error))
+        }
+    }
+    
+    func beginSaveOnlyToken(_ source: ApiCreditCardSource) {
+        do {
+            status = .processing
+            
+            let request = ApiTokenRequest(
+                name: source.name,
+                number: source.number,
+                cvc: source.cvc,
+                month: source.month,
+                year: source.year,
+                saveOnly: true,
+                callbackUrl: "https://sdk.moyasar.com/return",
+                metadata: paymentRequest.metadata
+            )
+            
+            try paymentService.createToken(request, handler: {result in
+                DispatchQueue.main.async {
+                    switch (result) {
+                    case .success(let token):
+                        self.resultCallback(.saveOnlyToken(token))
                         break;
                     case .error(let error):
                         self.resultCallback(.failed(error))

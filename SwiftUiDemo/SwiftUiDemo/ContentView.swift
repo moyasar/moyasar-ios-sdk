@@ -8,7 +8,8 @@ let paymentRequest = PaymentRequest(
     currency: "SAR",
     description: "Testing iOS SDK",
     metadata: ["order_id": "ios_order_3214124"],
-    manual: true
+    manual: true,
+    createSaveOnlyToken: true
 )
 
 struct ContentView: View {
@@ -16,7 +17,6 @@ struct ContentView: View {
     
     init() {
         Moyasar.baseUrl = "https://api.moyasar.com/"
-//        try! Moyasar.setApiKey("pk_live_TH6rVePGHRwuJaAtoJ1LsRfeKYovZgC1uddh7NdX")
         try! Moyasar.setApiKey("pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
         
     }
@@ -42,6 +42,13 @@ struct ContentView: View {
                 Text("Your payment ID is " + payment.id)
                     .font(.caption)
             }
+        } else if case let .successToken(token) = status {
+            VStack {
+                Text("Thank you for the token")
+                    .padding(.bottom, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                Text("Your token ID is " + token.id)
+                    .font(.caption)
+            }
         } else if case let .failed(error) = status {
             Text("Whops 🤭")
                 .padding(.bottom, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
@@ -54,6 +61,9 @@ struct ContentView: View {
         switch (result) {
         case .completed(let payment):
             status = .success(payment)
+            break;
+        case .saveOnlyToken(let token):
+            status = .successToken(token)
             break;
         case .failed(let error):
             status = .failed(error)
@@ -145,5 +155,6 @@ struct ContentView_Previews: PreviewProvider {
 enum MyAppStatus {
     case reset
     case success(ApiPayment)
+    case successToken(ApiToken)
     case failed(Error)
 }
