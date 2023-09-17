@@ -7,7 +7,8 @@ public struct PaymentRequest {
         description: String,
         metadata: [String: String] = [:],
         manual: Bool = false,
-        saveCard: Bool = false
+        saveCard: Bool = false,
+        createSaveOnlyToken: Bool = false
     ) {
         self.amount = amount
         self.currency = currency
@@ -15,6 +16,7 @@ public struct PaymentRequest {
         self.metadata = metadata
         self.manual = manual
         self.saveCard = saveCard
+        self.createSaveOnlyToken = createSaveOnlyToken
     }
     
     var amount: Int
@@ -23,4 +25,5 @@ public struct PaymentRequest {
     var metadata: [String: String]
     var manual: Bool
     var saveCard: Bool
+    var createSaveOnlyToken: Bool
 }
