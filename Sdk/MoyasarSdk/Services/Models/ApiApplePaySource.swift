@@ -12,7 +12,7 @@ public struct ApiApplePaySource: Codable {
 }
 
 extension ApiApplePaySource {
-    static func fromPKToken(_ token: PKPaymentToken) -> ApiApplePaySource {
+    static public func fromPKToken(_ token: PKPaymentToken) -> ApiApplePaySource {
         let encoder = JSONEncoder()
         let data = try! encoder.encode(ApplePayToken(token: token))
         
@@ -20,7 +20,7 @@ extension ApiApplePaySource {
     }
 }
 
-struct ApplePayToken: Codable {
+public struct ApplePayToken: Codable {
     static let decoder = JSONDecoder()
     
     var paymentMethod: ApplePayPaymentMethod
@@ -34,7 +34,7 @@ struct ApplePayToken: Codable {
     }
 }
 
-struct ApplePayPaymentMethod: Codable {
+public struct ApplePayPaymentMethod: Codable {
     var displayName: String?
     var network: String?
     var type: String
@@ -52,7 +52,7 @@ struct ApplePayPaymentMethod: Codable {
     }
 }
 
-struct ApplePayPaymentPass: Codable {
+public struct ApplePayPaymentPass: Codable {
     var primaryAccountIdentifier: String
     var primaryAccountNumberSuffix: String
     var deviceAccountIdentifier: String?

@@ -1,6 +1,6 @@
 import Foundation
 
-struct ApiPaymentRequest: Codable {
+public struct ApiPaymentRequest: Codable {
     var amount: Int
     var currency: String
     var description: String
