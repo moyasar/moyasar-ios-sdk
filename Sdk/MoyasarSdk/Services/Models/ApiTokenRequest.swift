@@ -1,6 +1,6 @@
 import Foundation
 
-struct ApiTokenRequest: Codable {
+public struct ApiTokenRequest: Codable {
     var name: String
     var number: String
     var cvc: String?

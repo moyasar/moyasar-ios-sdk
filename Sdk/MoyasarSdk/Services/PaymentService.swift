@@ -1,6 +1,6 @@
 import Foundation
 
-final class PaymentService {
+final public class PaymentService {
     var session = URLSession.shared
     var encoder: JSONEncoder = {
         let enc = JSONEncoder()
@@ -24,7 +24,7 @@ final class PaymentService {
         return URL(string: baseUrl + (baseUrl.last == "/" ? "" : "/") + "v1/tokens")!
     }
     
-    func create(_ paymentRequest: ApiPaymentRequest, handler: @escaping ApiResultHandler<ApiPayment>) throws {
+    public func create(_ paymentRequest: ApiPaymentRequest, handler: @escaping ApiResultHandler<ApiPayment>) throws {
         let apiKey = try Moyasar.getApiKey()
         let payload = try encoder.encode(paymentRequest)
         var request = URLRequest(url: createUrl)
@@ -76,7 +76,7 @@ final class PaymentService {
         task.resume()
     }
     
-    func createToken(_ tokenRequest: ApiTokenRequest, handler: @escaping ApiResultHandler<ApiToken>) throws {
+    public func createToken(_ tokenRequest: ApiTokenRequest, handler: @escaping ApiResultHandler<ApiToken>) throws {
         let apiKey = try Moyasar.getApiKey()
         let payload = try encoder.encode(tokenRequest)
         var request = URLRequest(url: createTokenUrl)
