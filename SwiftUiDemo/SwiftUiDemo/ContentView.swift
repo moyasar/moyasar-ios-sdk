@@ -12,6 +12,16 @@ let paymentRequest = PaymentRequest(
     createSaveOnlyToken: true
 )
 
+let token = ApiTokenRequest(
+    name: "source.name",
+    number: "source.number",
+    cvc: "source.cvc",
+    month: "source.month",
+    year: "source.year",
+    saveOnly: true,
+    callbackUrl: "https://sdk.moyasar.com/return"
+)
+
 struct ContentView: View {
     @State var status = MyAppStatus.reset
     

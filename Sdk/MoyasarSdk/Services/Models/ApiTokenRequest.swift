@@ -1,6 +1,26 @@
 import Foundation
 
 public struct ApiTokenRequest: Codable {
+    public init(
+        name: String,
+        number: String,
+        cvc: String?,
+        month: String?,
+        year: String?,
+        saveOnly: Bool = false,
+        callbackUrl: String?,
+        metadata: [String: String]? = [:]
+    ) {
+        self.name = name
+        self.number = number
+        self.cvc = cvc
+        self.month = month
+        self.year = year
+        self.saveOnly = saveOnly
+        self.callbackUrl = callbackUrl
+        self.metadata = metadata
+    }
+    
     var name: String
     var number: String
     var cvc: String?

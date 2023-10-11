@@ -24,6 +24,8 @@ final public class PaymentService {
         return URL(string: baseUrl + (baseUrl.last == "/" ? "" : "/") + "v1/tokens")!
     }
     
+    public init() {}
+    
     public func create(_ paymentRequest: ApiPaymentRequest, handler: @escaping ApiResultHandler<ApiPayment>) throws {
         let apiKey = try Moyasar.getApiKey()
         let payload = try encoder.encode(paymentRequest)
