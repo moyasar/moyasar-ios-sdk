@@ -2,7 +2,7 @@ import SwiftUI
 import MoyasarSdk
 import PassKit
 
-let handler = PaymentHandler()
+let handler = ApplePayPaymentHandler()
 let paymentRequest = PaymentRequest(
     amount: 100,
     currency: "SAR",
@@ -89,7 +89,7 @@ struct ContentView: View {
     }
 }
 
-class PaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate {
+class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate {
     var applePayService = ApplePayService()
     var controller: PKPaymentAuthorizationController?
     var items = [PKPaymentSummaryItem]()
