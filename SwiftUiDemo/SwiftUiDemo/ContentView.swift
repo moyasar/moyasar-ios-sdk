@@ -26,7 +26,6 @@ struct ContentView: View {
     @State var status = MyAppStatus.reset
     
     init() {
-        Moyasar.baseUrl = "https://api.moyasar.com/"
         try! Moyasar.setApiKey("pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
         
     }
@@ -64,6 +63,11 @@ struct ContentView: View {
                 .padding(.bottom, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
             Text("Something went wrong: " + error.localizedDescription)
                 .font(.caption)
+        } else if case let .unknown(string) = status {
+            Text("Hmmmmm 🤔")
+                .padding(.bottom, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+            Text("Something went wrong: " + string)
+                .font(.caption)
         }
     }
     
@@ -80,6 +84,9 @@ struct ContentView: View {
             break;
         case .canceled:
             status = .reset
+            break;
+        @unknown default:
+            status = .unknown("Unknown case, check for more cases to cover")
             break;
         }
     }
@@ -167,4 +174,5 @@ enum MyAppStatus {
     case success(ApiPayment)
     case successToken(ApiToken)
     case failed(Error)
+    case unknown(String)
 }
