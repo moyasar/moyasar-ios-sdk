@@ -33,6 +33,8 @@ let token = ApiTokenRequest(
 class PaymentViewController: UIViewController {
     
     override func viewDidLoad() {
+        try! Moyasar.setApiKey("pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
+        
         view.backgroundColor = .white
         
         let creditCardView = CreditCardView(request: paymentRequest, callback: handlePaymentResult)
