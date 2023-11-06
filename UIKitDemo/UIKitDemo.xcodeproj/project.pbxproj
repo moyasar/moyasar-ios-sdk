@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		419D67D8270E2BC6003A0C62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419D67D7270E2BC6003A0C62 /* AppDelegate.swift */; };
-		419D67DA270E2BC6003A0C62 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419D67D9270E2BC6003A0C62 /* SceneDelegate.swift */; };
-		419D67DC270E2BC6003A0C62 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419D67DB270E2BC6003A0C62 /* ViewController.swift */; };
-		419D67DF270E2BC6003A0C62 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 419D67DD270E2BC6003A0C62 /* Main.storyboard */; };
+		419D67DC270E2BC6003A0C62 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419D67DB270E2BC6003A0C62 /* PaymentViewController.swift */; };
 		419D67E1270E2BC8003A0C62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 419D67E0270E2BC8003A0C62 /* Assets.xcassets */; };
-		419D67E4270E2BC8003A0C62 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 419D67E2270E2BC8003A0C62 /* LaunchScreen.storyboard */; };
 		419D67F2270E2BE4003A0C62 /* MoyasarSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419D67F1270E2BE4003A0C62 /* MoyasarSdk.framework */; };
 		419D67F3270E2BE4003A0C62 /* MoyasarSdk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 419D67F1270E2BE4003A0C62 /* MoyasarSdk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		892E62682AF53B9700D61F1A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 892E62662AF53B9700D61F1A /* Main.storyboard */; };
+		892E626B2AF53BD200D61F1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 892E62692AF53BD200D61F1A /* LaunchScreen.storyboard */; };
+		892E626F2AF6AB0700D61F1A /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892E626E2AF6AB0700D61F1A /* ResultViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,13 +34,14 @@
 /* Begin PBXFileReference section */
 		419D67D4270E2BC6003A0C62 /* UIKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UIKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		419D67D7270E2BC6003A0C62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		419D67D9270E2BC6003A0C62 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		419D67DB270E2BC6003A0C62 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		419D67DE270E2BC6003A0C62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		419D67DB270E2BC6003A0C62 /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		419D67E0270E2BC8003A0C62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		419D67E3270E2BC8003A0C62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		419D67E5270E2BC8003A0C62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		419D67F1270E2BE4003A0C62 /* MoyasarSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MoyasarSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		892E62672AF53B9700D61F1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		892E626A2AF53BD200D61F1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		892E626E2AF6AB0700D61F1A /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
+		892E63052AF6CEFA00D61F1A /* UIKitDemo.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = UIKitDemo.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,12 +77,13 @@
 			isa = PBXGroup;
 			children = (
 				419D67D7270E2BC6003A0C62 /* AppDelegate.swift */,
-				419D67D9270E2BC6003A0C62 /* SceneDelegate.swift */,
-				419D67DB270E2BC6003A0C62 /* ViewController.swift */,
-				419D67DD270E2BC6003A0C62 /* Main.storyboard */,
+				419D67DB270E2BC6003A0C62 /* PaymentViewController.swift */,
+				892E626E2AF6AB0700D61F1A /* ResultViewController.swift */,
+				892E62662AF53B9700D61F1A /* Main.storyboard */,
+				892E62692AF53BD200D61F1A /* LaunchScreen.storyboard */,
 				419D67E0270E2BC8003A0C62 /* Assets.xcassets */,
-				419D67E2270E2BC8003A0C62 /* LaunchScreen.storyboard */,
 				419D67E5270E2BC8003A0C62 /* Info.plist */,
+				892E63052AF6CEFA00D61F1A /* UIKitDemo.entitlements */,
 			);
 			path = UIKitDemo;
 			sourceTree = "<group>";
@@ -152,9 +154,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				419D67E4270E2BC8003A0C62 /* LaunchScreen.storyboard in Resources */,
+				892E626B2AF53BD200D61F1A /* LaunchScreen.storyboard in Resources */,
 				419D67E1270E2BC8003A0C62 /* Assets.xcassets in Resources */,
-				419D67DF270E2BC6003A0C62 /* Main.storyboard in Resources */,
+				892E62682AF53B9700D61F1A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,27 +167,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				419D67DC270E2BC6003A0C62 /* ViewController.swift in Sources */,
+				419D67DC270E2BC6003A0C62 /* PaymentViewController.swift in Sources */,
 				419D67D8270E2BC6003A0C62 /* AppDelegate.swift in Sources */,
-				419D67DA270E2BC6003A0C62 /* SceneDelegate.swift in Sources */,
+				892E626F2AF6AB0700D61F1A /* ResultViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		419D67DD270E2BC6003A0C62 /* Main.storyboard */ = {
+		892E62662AF53B9700D61F1A /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				419D67DE270E2BC6003A0C62 /* Base */,
+				892E62672AF53B9700D61F1A /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		419D67E2270E2BC8003A0C62 /* LaunchScreen.storyboard */ = {
+		892E62692AF53BD200D61F1A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				419D67E3270E2BC8003A0C62 /* Base */,
+				892E626A2AF53BD200D61F1A /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -197,6 +199,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -258,6 +261,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -317,6 +321,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z7ZLTTUKXR;
 				INFOPLIST_FILE = UIKitDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -336,6 +341,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z7ZLTTUKXR;
 				INFOPLIST_FILE = UIKitDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
