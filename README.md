@@ -50,6 +50,44 @@ try! Moyasar.setApiKey("pk_live_1234567")
 An error will be raised when the key format is incorrect.
 :::
 
+### Apple Pay Payments
+
+You can follow [Offering Apple Pay in Your App](https://developer.apple.com/documentation/passkit/apple_pay/offering_apple_pay_in_your_app) to implement Apple Pay within your app.
+
+When the user authorizes the payment using Face ID or Touch ID on their iOS device, the `didAuthorizePayment` event will be dispatched. In this step, you must pass the `token` to `ApplePayService` found within the `PKPayment` object. Here is an example:
+
+```swift
+let payment: PKPayment = // Payment object we got in the didAuthorizePayment event
+
+let service = ApplePayService() // From MoyasarSdk
+service.authorizePayment(request: request, token: payment.token) {result in
+    switch (result) {
+    case .success(let payment):
+        handleCompletedPaymentResult(payment)
+        break
+    case .error(let error):
+        handlePaymentError(error)
+        break
+    @unknown default:
+        // Handle any future cases
+        break
+    }
+}
+
+func handleCompletedPaymentResult(_ payment: ApiPayment) {
+        // ...
+    }
+    
+func handlePaymentError(_ error: Error) {
+        // Handle all MoyasarError enum cases
+    }
+
+```
+
+:::hint{type="info"}
+Don't forget to import `PassKit` and `MoyasarSdk`.
+:::
+
 ### Credit Card Payments
 
 The SDK provides a SwiftUI view called `CreditCardView` that allows you to easily create a credit card form, here is an example. But first, we need to prepare a `PaymentRequest` object:
@@ -146,7 +184,7 @@ func handlePaymentResult(result: PaymentResult) {
         handlePaymentError(error)
         break
     case .canceled:
-        // Handle Cancel Result
+        // Handle cancel Result
         break
     @unknown default:
         // Handle any future cases
@@ -174,7 +212,7 @@ The payment status could be `paid` or `failed`, we need to handle this:
 func handleCompletedPaymentResult(_ payment: ApiPayment) {
     switch payment.status {
     case "paid":
-        // Handle Paid!
+        // Handle paid!
         break
     default:
         // Handle other status like failed
@@ -182,31 +220,20 @@ func handleCompletedPaymentResult(_ payment: ApiPayment) {
 }
 ```
 
-### Apple Pay Payments
+### Objective-C Integration
 
-You can follow [Offering Apple Pay in Your App](https://developer.apple.com/documentation/passkit/apple_pay/offering_apple_pay_in_your_app)to implement Apple Pay within your app.
+Setup a Swift file for handling payments as described in:
 
-When the user authorizes the payment using Face ID or Touch ID on their iOS device, the `didAuthorizePayment` event will be dispatched. In this step, you must pass the `token` to `ApplePayService` found within the `PKPayment` object. Here is an example:
+* [Apple Pay Payments](#apple-pay-payments)
+* [Credit Card Payments](#credit-card-payments)
+* [UIKit Credit Card Payments](#uikit-credit-card-payments)
+* [Handling Result](#handling-result)
 
-```swift
-let payment: PKPayment = // Payment object we got in the didAuthorizePayment event
+After that you can initialize the Swift payments class when processing payments.
 
-let service = ApplePayService()
-service.authorizePayment(request: request, token: payment.token) {result in
-    switch (result) {
-    case .success(let payment):
-        handleCompletedPaymentResult(payment)
-        break
-    case .error(let error):
-        handlePaymentError(error)
-        break
-    @unknown default:
-        // Handle any future cases
-        break
-    }
-}
-```
+Learn more about integrating Swift files in Objective-C apps:
+<https://developer.apple.com/documentation/swift/importing-swift-into-objective-c>
 
-:::hint{type="info"}
-Don't forget to import `PassKit` for Apple Pay.
-:::
+### Checkout Demo Examples
+
+* <https://github.com/moyasar/moyasar-ios-sdk>
