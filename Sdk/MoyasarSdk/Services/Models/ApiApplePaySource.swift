@@ -2,6 +2,24 @@ import Foundation
 import PassKit
 
 public struct ApiApplePaySource: Codable {
+    public init(
+        type: String = "applepay",
+        token: String? = nil,
+        company: String? = nil,
+        name: String? = nil,
+        number: String? = nil,
+        message: String? = nil,
+        manual: String? = nil
+    ) {
+        self.type = type
+        self.token = token
+        self.company = company
+        self.name = name
+        self.number = number
+        self.message = message
+        self.manual = manual
+    }
+    
     var type: String = "applepay"
     var token: String?
     var company: String?
