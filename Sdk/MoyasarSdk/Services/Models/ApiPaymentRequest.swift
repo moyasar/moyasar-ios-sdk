@@ -1,6 +1,22 @@
 import Foundation
 
 public struct ApiPaymentRequest: Codable {
+    public init(
+        amount: Int,
+        currency: String,
+        description: String,
+        callbackUrl: String? = nil,
+        source: ApiPaymentSource,
+        metadata: [String : String]? = nil
+    ) {
+        self.amount = amount
+        self.currency = currency
+        self.description = description
+        self.callbackUrl = callbackUrl
+        self.source = source
+        self.metadata = metadata
+    }
+    
     var amount: Int
     var currency: String
     var description: String
