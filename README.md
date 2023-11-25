@@ -206,6 +206,10 @@ func handlePaymentError(_ error: Error) {
 You need to check the payment status as follows to make sure that the payment is successful.
 :::
 
+:::hint{type="warning"}
+Make sure to handle the screen navigation after getting the result.
+:::
+
 The payment status could be `paid` or `failed`, we need to handle this:
 
 ```swift
@@ -233,6 +237,10 @@ After that you can initialize the Swift payments class when processing payments.
 
 Learn more about integrating Swift files in Objective-C apps:
 <https://developer.apple.com/documentation/swift/importing-swift-into-objective-c>
+
+### Checkout APIs Documentation
+
+* <https://moyasar.github.io/moyasar-ios-sdk/documentation/moyasarsdk>
 
 ### Checkout Demo Examples
 
