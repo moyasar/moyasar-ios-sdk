@@ -2,17 +2,10 @@ import SwiftUI
 import MoyasarSdk
 import PassKit
 
-let handler = ApplePayPaymentHandler()
-let paymentRequest = PaymentRequest(
-    amount: 100,
-    currency: "SAR",
-    description: "Testing iOS SDK",
-    metadata: ["order_id": "ios_order_3214124"],
-    manual: true,
-    createSaveOnlyToken: true
-)
+// Below is a demo of how to use Moyasar's SDK
 
-let token = ApiTokenRequest(
+fileprivate let handler = ApplePayPaymentHandler(paymentRequest: paymentRequest)
+fileprivate let token = ApiTokenRequest(
     name: "source.name",
     number: "source.number",
     cvc: "source.cvc",
@@ -27,22 +20,30 @@ struct ContentView: View {
     
     init() {
         try! Moyasar.setApiKey("pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
-        
     }
 
     @ViewBuilder
     var body: some View {
         if case .reset = status {
-            VStack {
-                Text("hello")
-                    .padding()
-                
-                CreditCardView(request: paymentRequest) {result in
-                    handleFormResult(result)
+            NavigationView {
+                VStack {
+                    Text("hello")
+                        .padding()
+                    
+                    CreditCardView(request: paymentRequest) {result in
+                        handleFormResult(result)
+                    }
+                    
+                    ApplePayButton(action: UIAction(handler: applePayPressed))
+                        .frame(height: 50)
+                        .cornerRadius(10)
+                        .padding(.horizontal, 15)
+                    
+                    NavigationLink(destination: CustomView()) {
+                        Text("Checkout custom UI demo")
+                    }
+                    .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
                 }
-                ApplePayButton(action: UIAction(handler: applePayPressed))
-                    .frame(height: 50)
-                    .padding(.horizontal, 15)
             }
         } else if case let .success(payment) = status {
             VStack {
@@ -96,83 +97,10 @@ struct ContentView: View {
     }
 }
 
-class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate {
-    var applePayService = ApplePayService()
-    var controller: PKPaymentAuthorizationController?
-    var items = [PKPaymentSummaryItem]()
-    var networks: [PKPaymentNetwork] = [
-        .amex,
-        .mada,
-        .masterCard,
-        .visa
-    ]
-    
-    override init() {}
-    
-    func present() {
-        items = [
-            PKPaymentSummaryItem(label: "Moyasar", amount: 1.00, type: .final)
-        ]
-        
-        let request = PKPaymentRequest()
-        
-        request.paymentSummaryItems = items
-        request.merchantIdentifier = "merchant.nuha.io.second"
-        request.countryCode = "SA"
-        request.currencyCode = "SAR"
-        request.supportedNetworks = networks
-        request.merchantCapabilities = [
-            .capability3DS,
-            .capabilityCredit,
-            .capabilityDebit
-        ]
-        
-        controller = PKPaymentAuthorizationController(paymentRequest: request)
-        controller?.delegate = self
-        controller?.present(completion: {(p: Bool) in
-            print("Presented: " + (p ? "Yes" : "No"))
-        })
-    }
-    
-    func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didAuthorizePayment payment: PKPayment, completion: @escaping (PKPaymentAuthorizationStatus) -> Void) {
-        
-        do {
-            try applePayService.authorizePayment(request: paymentRequest, token: payment.token) {(result: ApiResult<ApiPayment>) in
-                switch (result) {
-                case .success(let payment):
-                    print("Got payment")
-                    print(payment.status)
-                    print(payment.id)
-                    break;
-                case .error(let error):
-                    print(error)
-                    break;
-                }
-            }
-        } catch {
-            print(error)
-        }
-        
-        completion(.success)
-    }
-    
-    func paymentAuthorizationControllerDidFinish(_ controller: PKPaymentAuthorizationController) {
-        controller.dismiss(completion: {})
-    }
-}
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .environment(\.locale, .init(identifier: "ar"))
             .preferredColorScheme(.dark)
     }
-}
-
-enum MyAppStatus {
-    case reset
-    case success(ApiPayment)
-    case successToken(ApiToken)
-    case failed(Error)
-    case unknown(String)
 }
