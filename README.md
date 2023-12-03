@@ -50,6 +50,21 @@ try! Moyasar.setApiKey("pk_live_1234567")
 An error will be raised when the key format is incorrect.
 :::
 
+### Configuring a Payment Request
+
+We need to prepare a `PaymentRequest` object:
+
+```swift
+let paymentRequest = PaymentRequest(
+    amount: 1000,
+    currency: "SAR",
+    description: "Flat White",
+    metadata: ["order_id": "ios_order_3214124"],
+    manual: false,
+    saveCard: false
+)
+```
+
 ### Apple Pay Payments
 
 You can follow [Offering Apple Pay in Your App](https://developer.apple.com/documentation/passkit/apple_pay/offering_apple_pay_in_your_app) to implement Apple Pay within your app.
@@ -60,7 +75,7 @@ When the user authorizes the payment using Face ID or Touch ID on their iOS devi
 let payment: PKPayment = // Payment object we got in the didAuthorizePayment event
 
 let service = ApplePayService() // From MoyasarSdk
-service.authorizePayment(request: request, token: payment.token) {result in
+service.authorizePayment(request: paymentRequest, token: payment.token) {result in
     switch (result) {
     case .success(let payment):
         handleCompletedPaymentResult(payment)
@@ -88,22 +103,9 @@ func handlePaymentError(_ error: Error) {
 Don't forget to import `PassKit` and `MoyasarSdk`.
 :::
 
-### Credit Card Payments
-
-The SDK provides a SwiftUI view called `CreditCardView` that allows you to easily create a credit card form, here is an example. But first, we need to prepare a `PaymentRequest` object:
-
-```swift
-let paymentRequest = PaymentRequest(
-    amount: 1000,
-    currency: "SAR",
-    description: "Flat White",
-    metadata: ["order_id": "ios_order_3214124"],
-    manual: false,
-    saveCard: false
-)
-```
-
 ### SwiftUI Credit Card Payments
+
+The SDK provides a SwiftUI view called `CreditCardView` that allows you to easily create a credit card form.
 
 We can add the `CreditCardView` to our view as follows:
 
@@ -168,7 +170,7 @@ If you are using UIKit you will need to create a wrapper to host the SwiftUI `Cr
 Don't forget to import `SwiftUI`.
 :::
 
-* ![IOS SDK dark ar](Docs/Images/ar-dark.png) ![IOS SDK light en](Docs/Images/en-light.png)
+* ![IOS SDK dark ar](assets/Images/ar-dark.png) ![IOS SDK light en](assets/Images/en-light.png)
 
 ### Handling Result
 
@@ -224,12 +226,106 @@ func handleCompletedPaymentResult(_ payment: ApiPayment) {
 }
 ```
 
+### Customizing Credit Card View
+
+Use the `create` method in the `PaymentService` class like this:
+
+```swift
+let paymentService = PaymentService()
+
+let source = ApiCreditCardSource(
+    name: "John Doe",
+    number: "4111111111111111",
+    month: "09",
+    year: "25",
+    cvc: "456",
+    manual: "false",
+    saveCard: "false"
+)
+
+let paymentRequest = ApiPaymentRequest(
+    amount: 1000,
+    currency: "SAR",
+    description: "Flat White",
+    callbackUrl: "https://sdk.moyasar.com/return",
+    source: ApiPaymentSource.creditCard(source),
+    metadata: ["sdk": "ios", "order_id": "ios_order_3214124"]
+)
+
+do {
+    try paymentService.create(paymentRequest, handler: {result in
+        DispatchQueue.main.async {
+            switch (result) {
+            case .success(let payment):
+                startPaymentAuthProcess(payment)
+                break;
+            case .error(let error):
+                handlePaymentError(error)
+                break;
+            }
+         }
+    })
+} catch {
+    // Handle error
+}
+
+func startPaymentAuthProcess(_ payment: ApiPayment) {
+    // ...
+}
+
+func handlePaymentError(_ error: Error) {
+    // Handle all MoyasarError enum cases
+}
+```
+
+:::hint{type="info"}
+Make sure to add the 'sdk' field with the value of 'ios' in `ApiPaymentRequest` metadata dictionary field. (Only when creating a custom UI)
+:::
+
+Now when the payment is initiated successfully you need to initialize the 3DS web view as follows:
+
+```swift
+func startPaymentAuthProcess(_ payment: ApiPayment) {
+    guard payment.isInitiated() else {
+        // Handle case
+        // Payment status could be paid, failed, authorized, etc...
+        return
+    }
+        
+    guard case let .creditCard(source) = payment.source else {
+        // Handle error
+        return
+    }
+        
+    guard let transactionUrl = source.transactionUrl, let url = URL(string: transactionUrl) else {
+        // Handle error
+        return
+    }
+        
+    showWebView(url)
+}
+
+func showWebView(_ url: URL) {
+    // Initialize the 3DS web view
+}
+```
+
+:::hint{type="info"}
+You can view the full example here:
+<https://github.com/moyasar/moyasar-ios-sdk/tree/master/SwiftUiDemo/SwiftUiDemo/Custom%20View>
+:::
+
+:::hint{type="info"}
+You can find all the possible payment statuses here:
+<https://docs.moyasar.com/payment-status-reference>
+:::
+
 ### Objective-C Integration
 
 Setup a Swift file for handling payments as described in:
 
+* [Configuring a Payment Request](#configuring-a-payment-request)
 * [Apple Pay Payments](#apple-pay-payments)
-* [Credit Card Payments](#credit-card-payments)
 * [UIKit Credit Card Payments](#uikit-credit-card-payments)
 * [Handling Result](#handling-result)
 
@@ -238,7 +334,7 @@ After that you can initialize the Swift payments class when processing payments.
 Learn more about integrating Swift files in Objective-C apps:
 <https://developer.apple.com/documentation/swift/importing-swift-into-objective-c>
 
-### Checkout APIs Documentation
+### APIs Documentation
 
 * <https://moyasar.github.io/moyasar-ios-sdk/documentation/moyasarsdk>
 

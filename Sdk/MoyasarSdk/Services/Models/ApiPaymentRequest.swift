@@ -17,12 +17,12 @@ public struct ApiPaymentRequest: Codable {
         self.metadata = metadata
     }
     
-    var amount: Int
-    var currency: String
-    var description: String
-    var callbackUrl: String?
-    var source: ApiPaymentSource
-    var metadata: [String: String]?
+    public var amount: Int
+    public var currency: String
+    public var description: String
+    public var callbackUrl: String?
+    public var source: ApiPaymentSource
+    public var metadata: [String: String]?
 }
 
 extension ApiPaymentRequest {
