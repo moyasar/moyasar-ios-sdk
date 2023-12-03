@@ -34,15 +34,15 @@ public struct ApiCreditCardSource: Codable {
         self.saveCard = saveCard
     }
     
-    var type: String = "creditcard"
-    var name: String
-    var number: String
-    var month: String?
-    var year: String?
-    var cvc: String?
-    var transactionUrl: String?
-    var message: String?
-    var token: String?
-    var manual: String?
-    var saveCard: String?
+    public var type: String = "creditcard"
+    public var name: String
+    public var number: String
+    public var month: String?
+    public var year: String?
+    public var cvc: String?
+    public var transactionUrl: String?
+    public var message: String?
+    public var token: String?
+    public var manual: String?
+    public var saveCard: String?
 }
