@@ -17,10 +17,6 @@ fileprivate let token = ApiTokenRequest(
 
 struct ContentView: View {
     @State var status = MyAppStatus.reset
-    
-    init() {
-        try! Moyasar.setApiKey("pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
-    }
 
     @ViewBuilder
     var body: some View {
@@ -30,8 +26,9 @@ struct ContentView: View {
                     Text("hello")
                         .padding()
                     
-                    CreditCardView(request: paymentRequest) {result in
-                        handleFormResult(result)
+                    CreditCardView(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
+                                   request: paymentRequest) {result in
+                        handleFromResult(result)
                     }
                     
                     ApplePayButton(action: UIAction(handler: applePayPressed))
@@ -72,10 +69,21 @@ struct ContentView: View {
         }
     }
     
-    func handleFormResult(_ result: PaymentResult) {
+    func handleFromResult(_ result: PaymentResult) {
         switch (result) {
         case .completed(let payment):
-            status = .success(payment)
+            if payment.status == .paid {
+                status = .success(payment)
+            } else {
+                if case let .creditCard(source) = payment.source, payment.status == .failed {
+                    status = .failed(PaymentErrorSample.webViewAuthFailed(source.message ?? ""))
+                    print("Payment failed: \(source.message ?? "")")
+                } else {
+                    // Handle payment statuses
+                    status = .success(payment)
+                    print("Payment: \(payment)")
+                }
+            }
             break;
         case .saveOnlyToken(let token):
             status = .successToken(token)

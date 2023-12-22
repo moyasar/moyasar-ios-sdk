@@ -7,7 +7,7 @@
 
 import MoyasarSdk
 
-fileprivate let paymentService = PaymentService()
+fileprivate let paymentService = PaymentService(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
 fileprivate var currentPayment: ApiPayment?
 
 class CustomViewModel: ObservableObject {
@@ -24,10 +24,6 @@ class CustomViewModel: ObservableObject {
         manual: "false",
         saveCard: "false"
     )
-    
-    init() {
-        try! Moyasar.setApiKey("pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
-    }
     
     func beginPayment() {
         // Make sure to validate user input before initializing the payment process
@@ -97,13 +93,16 @@ class CustomViewModel: ObservableObject {
             
             updatePaymentFromWebViewPaymentInfo(info, &currentPayment!)
 
-            if (currentPayment!.status == "paid") {
+            if (currentPayment!.status == .paid) {
                 appStatus = .success(currentPayment!)
             } else {
-                if case let .creditCard(source) = currentPayment!.source {
+                if case let .creditCard(source) = currentPayment!.source, currentPayment!.status == .failed {
                     appStatus = .failed(PaymentErrorSample.webViewAuthFailed(source.message ?? ""))
+                    print("Payment failed: \(source.message ?? "")")
                 } else {
-                    // Handle
+                    // Handle payment statuses
+                    appStatus = .success(currentPayment!)
+                    print("Payment: \(currentPayment!)")
                 }
             }
             break
@@ -115,7 +114,7 @@ class CustomViewModel: ObservableObject {
     }
     
     func updatePaymentFromWebViewPaymentInfo(_ info: WebViewPaymentInfo, _ currentPayment: inout ApiPayment) {
-        currentPayment.status = info.status
+        currentPayment.status = ApiPaymentStatus(rawValue: info.status)!
 
         if case var .creditCard(source) = currentPayment.source {
             source.message = info.message
@@ -128,8 +127,4 @@ enum CreditCardPaymentStatus {
     case reset
     case processing
     case paymentAuth(URL)
-}
-
-enum PaymentErrorSample: Error {
-    case webViewAuthFailed(String)
 }

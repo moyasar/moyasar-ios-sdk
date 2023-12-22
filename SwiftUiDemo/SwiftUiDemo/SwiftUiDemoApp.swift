@@ -13,8 +13,8 @@ let paymentRequest = PaymentRequest(
     currency: "SAR",
     description: "Testing iOS SDK",
     metadata: ["order_id": "ios_order_3214124"],
-    manual: true,
-    createSaveOnlyToken: true
+    manual: false,
+    createSaveOnlyToken: false
 )
 
 @main
@@ -32,4 +32,8 @@ enum MyAppStatus {
     case successToken(ApiToken)
     case failed(Error)
     case unknown(String)
+}
+
+enum PaymentErrorSample: Error {
+    case webViewAuthFailed(String)
 }

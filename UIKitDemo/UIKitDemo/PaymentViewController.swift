@@ -16,8 +16,8 @@ let paymentRequest = PaymentRequest(
     currency: "SAR",
     description: "Testing iOS SDK",
     metadata: ["order_id": "ios_order_3214124"],
-    manual: true,
-    createSaveOnlyToken: true
+    manual: false,
+    createSaveOnlyToken: false
 )
 
 let token = ApiTokenRequest(
@@ -33,11 +33,11 @@ let token = ApiTokenRequest(
 class PaymentViewController: UIViewController {
     
     override func viewDidLoad() {
-        try! Moyasar.setApiKey("pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
-        
         view.backgroundColor = .white
         
-        let creditCardView = CreditCardView(request: paymentRequest, callback: handlePaymentResult)
+        let creditCardView = CreditCardView(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
+                                            request: paymentRequest,
+                                            callback: handlePaymentResult)
         
         let creditCardHostingController = UIHostingController(rootView: creditCardView)
         creditCardHostingController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -62,7 +62,18 @@ class PaymentViewController: UIViewController {
     func handlePaymentResult(_ result: PaymentResult) {
         switch (result) {
         case .completed(let payment):
-            presentResultViewController(title: "Thank you for the payment", subtitle: "Your payment ID is " + payment.id)
+            if payment.status == .paid {
+                presentResultViewController(title: "Thank you for the payment", subtitle: "Your payment ID is " + payment.id)
+            } else {
+                if case let .creditCard(source) = payment.source, payment.status == .failed {
+                    presentResultViewController(title: "Whops 🤭", subtitle: "Something went wrong: " + (source.message ?? ""))
+                    print("Payment failed: \(source.message ?? "")")
+                } else {
+                    // Handle payment statuses
+                    presentResultViewController(title: "Thank you for the payment", subtitle: "Your payment ID is " + payment.id)
+                    print("Payment: \(payment)")
+                }
+            }
             break
         case .saveOnlyToken(let token):
             presentResultViewController(title: "Thank you for the token", subtitle: "Your token ID is " + token.id)
@@ -91,7 +102,7 @@ class PaymentViewController: UIViewController {
 }
 
 class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate {
-    var applePayService = ApplePayService()
+    var applePayService = ApplePayService(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
     var controller: PKPaymentAuthorizationController?
     var items = [PKPaymentSummaryItem]()
     var networks: [PKPaymentNetwork] = [
