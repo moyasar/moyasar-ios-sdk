@@ -5,8 +5,9 @@ public struct CreditCardView: View {
     
     let buttonColor = Color(red: 0.137, green: 0.359, blue: 0.882)
 
-    public init(request: PaymentRequest, callback: @escaping ResultCallback) {
+    public init(apiKey: String, request: PaymentRequest, callback: @escaping ResultCallback) {
         viewModel = CreditCardViewModel(
+            apiKey: apiKey,
             paymentRequest: request,
             resultCallback: callback)
     }
@@ -82,11 +83,13 @@ struct CreditCardView_Previews: PreviewProvider {
     )
     
     static var previews: some View {
-        CreditCardView(request: paymentRequest) {_ in
+        CreditCardView(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
+                       request: paymentRequest) {_ in
             print("Got a Result")
         }
         
-        CreditCardView(request: paymentRequest) {_ in
+        CreditCardView(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
+                       request: paymentRequest) {_ in
             print("Got a Result")
         }
         .preferredColorScheme(.dark)

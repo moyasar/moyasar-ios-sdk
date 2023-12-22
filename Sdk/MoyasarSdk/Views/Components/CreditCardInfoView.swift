@@ -105,7 +105,7 @@ struct CreditCardInfoView_Previews: PreviewProvider {
         description: "Testing iOS SDK"
     )
 
-    static var info = CreditCardViewModel(paymentRequest: paymentRequest) {result in
+    static var info = CreditCardViewModel(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3", paymentRequest: paymentRequest) {result in
         switch (result) {
         case .completed(let payment):
             print("Got payment")

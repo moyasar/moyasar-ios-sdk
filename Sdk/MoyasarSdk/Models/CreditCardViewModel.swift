@@ -5,7 +5,7 @@ import Combine
 public class CreditCardViewModel: ObservableObject {
     let formatter = CreditCardFormatter()
     let expiryFormatter = ExpiryFormatter()
-    var paymentService = PaymentService()
+    let paymentService: PaymentService
     let currencyUtil = CurrencyUtil()
 
     var paymentRequest: PaymentRequest
@@ -75,9 +75,10 @@ public class CreditCardViewModel: ObservableObject {
     lazy var expiryValidator = ExpiryValidator()
     lazy var securityCodeValidator = SecurityCodeValidator(getNumber: { self.number })
     
-    public init(paymentRequest: PaymentRequest, resultCallback: @escaping ResultCallback) {
+    public init(apiKey: String, paymentRequest: PaymentRequest, resultCallback: @escaping ResultCallback) {
         self.paymentRequest = paymentRequest
         self.resultCallback = resultCallback
+        self.paymentService = PaymentService(apiKey: apiKey)
     }
     
     func showNetworkLogo(_ network: CreditCardNetwork) -> Bool {
