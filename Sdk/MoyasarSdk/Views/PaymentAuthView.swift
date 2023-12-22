@@ -106,7 +106,7 @@ extension Array where Element == URLQueryItem {
 
 extension ApiPayment {
     mutating func updateFromWebViewPaymentInfo(_ info: WebViewPaymentInfo) {
-        self.status = info.status
+        self.status = ApiPaymentStatus(rawValue: info.status)!
         if case var .creditCard(source) = self.source {
             source.message = info.message
         }
