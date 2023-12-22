@@ -21,14 +21,14 @@ public struct ApiTokenRequest: Codable {
         self.metadata = metadata
     }
     
-    var name: String
-    var number: String
-    var cvc: String?
-    var month: String?
-    var year: String?
-    var saveOnly: Bool = false
-    var callbackUrl: String?
-    var metadata: [String: String]?
+    public var name: String
+    public var number: String
+    public var cvc: String?
+    public var month: String?
+    public var year: String?
+    public var saveOnly: Bool = false
+    public var callbackUrl: String?
+    public var metadata: [String: String]?
 }
 
 extension ApiTokenRequest {
