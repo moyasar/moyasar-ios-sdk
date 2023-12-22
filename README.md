@@ -36,7 +36,7 @@ pod 'MoyasarSdk', git: 'https://github.com/moyasar/moyasar-ios-pod.git'
 Make sure to add `use_frameworks!`
 :::
 
-### Configuring a Payment Request
+## Configuring a Payment Request
 
 We need to prepare a `PaymentRequest` object:
 
@@ -55,7 +55,7 @@ let paymentRequest = PaymentRequest(
 Don't forget to import `MoyasarSdk`.
 :::
 
-### Apple Pay Payments
+## Apple Pay Payments
 
 You can follow [Offering Apple Pay in Your App](https://developer.apple.com/documentation/passkit/apple_pay/offering_apple_pay_in_your_app) to implement Apple Pay within your app.
 
@@ -97,7 +97,7 @@ Don't forget to import `PassKit`.
 An error will be printed if the API key format is incorrect.
 :::
 
-### SwiftUI Credit Card Payments
+## SwiftUI Credit Card Payments
 
 The SDK provides a SwiftUI view called `CreditCardView` that allows you to easily create a credit card form.
 
@@ -125,7 +125,7 @@ struct ContentView: View {
 }
 ```
 
-### UIKit Credit Card Payments
+## UIKit Credit Card Payments
 
 If you are using UIKit you will need to create a wrapper to host the SwiftUI `CreditCardView` view:
 
@@ -170,7 +170,7 @@ Don't forget to import `SwiftUI`.
 
 * ![IOS SDK dark ar](assets/Images/ar-dark.png) ![IOS SDK light en](assets/Images/en-light.png)
 
-### Handling Credit Card Payment Result
+## Handling Credit Card Payment Result
 
 Now, we can handle the Credit Card payment result as follows:
 
@@ -205,7 +205,7 @@ func handlePaymentError(_ error: MoyasarError) {
 Make sure to handle the webview screen navigation after getting the result.
 :::
 
-### Handling Completed Payment Result
+## Handling Completed Payment Result
 
 The payment status could be `paid`, `failed` or other statuses, we need to handle this:
 
@@ -231,7 +231,7 @@ You can find payment statuses here:
 [Payment Statuses](#payment-statuses)
 :::
 
-### Customizing Credit Card View
+## Customizing Credit Card View
 
 Use the `create` method in the `PaymentService` class like this:
 
@@ -325,7 +325,7 @@ You can find payment statuses here:
 [Payment Statuses](#payment-statuses)
 :::
 
-### Objective-C Integration
+## Objective-C Integration
 
 Setup a Swift file for handling payments as described in:
 
@@ -341,14 +341,24 @@ After that you can initialize the Swift payments class when processing payments.
 Learn more about integrating Swift files in Objective-C apps:
 <https://developer.apple.com/documentation/swift/importing-swift-into-objective-c>
 
-### Payment Statuses
+## Testing
+
+### Credit Cards
+
+Moyasar provides a sandbox environment for testing credit card payments without charging any real money. This allows you to test your integration and ensure that everything is working correctly before going live with actual payments. Learn more about our testing cards [here](https://docs.moyasar.com/testing-cards)
+
+### Apple Pay
+
+Testing using a simulator will not work! Learn more about Apple Pay testing [here](https://docs.moyasar.com/apple-pay-testing).
+
+## Payment Statuses
 
 * <https://docs.moyasar.com/payment-status-reference>
 
-### APIs Documentation
+## APIs Documentation
 
 * <https://moyasar.github.io/moyasar-ios-sdk/documentation/moyasarsdk>
 
-### Demo Examples
+## Demo Examples
 
 * <https://github.com/moyasar/moyasar-ios-sdk>
