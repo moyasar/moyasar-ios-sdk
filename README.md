@@ -351,6 +351,39 @@ Moyasar provides a sandbox environment for testing credit card payments without 
 
 Testing using a simulator will not work! Learn more about Apple Pay testing [here](https://docs.moyasar.com/apple-pay-testing).
 
+## Migration Guide
+
+### From `0.4` to `1.0`
+
+This upgrade changes the following:
+
+#### Setting the API key
+
+```diff
+-   try! Moyasar.setApiKey("pk_live_1234567")
+
+  CreditCardView(
++   apiKey: "pk_live_1234567",
+    request: paymentRequest,
+    callback: handlePaymentResult
+)
+
+ApplePayService(
++   apiKey: "pk_live_1234567"
+)         
+```
+  
+#### Handling Payment Statuses
+
+```diff
+    switch payment.status {
+-   case "paid":
++   case .paid:
+}
+```
+
+* Also, now you can handle the errors based on `MoyasarError` enum.
+
 ## Payment Statuses
 
 * <https://docs.moyasar.com/payment-status-reference>
