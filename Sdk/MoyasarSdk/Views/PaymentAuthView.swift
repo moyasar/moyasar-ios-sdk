@@ -109,6 +109,7 @@ extension ApiPayment {
         self.status = ApiPaymentStatus(rawValue: info.status)!
         if case var .creditCard(source) = self.source {
             source.message = info.message
+            self.source = .creditCard(source)
         }
     }
 }
