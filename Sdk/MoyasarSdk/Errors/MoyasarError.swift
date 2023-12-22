@@ -7,4 +7,7 @@ public enum MoyasarError: Error {
     case authorizationError(String)
     case apiError(ApiError)
     case unexpectedError(String)
+    case webviewTimedOut(ApiPayment)
+    case notConnectedToInternet(ApiPayment)
+    case webviewUnexpectedError(ApiPayment, Error)
 }

@@ -145,6 +145,7 @@ public class CreditCardViewModel: ObservableObject {
                 }
             })
         } catch {
+            let error = MoyasarError.unexpectedError("Credit Card payment request failed: \(error.localizedDescription)")
             self.resultCallback(.failed(error))
         }
     }
@@ -177,6 +178,7 @@ public class CreditCardViewModel: ObservableObject {
                 }
             })
         } catch {
+            let error = MoyasarError.unexpectedError("Credit Card save only token request failed: \(error.localizedDescription)")
             self.resultCallback(.failed(error))
         }
     }
@@ -210,7 +212,17 @@ public class CreditCardViewModel: ObservableObject {
             self.currentPayment!.updateFromWebViewPaymentInfo(info)
             resultCallback(.completed(self.currentPayment!))
         case .failed(let error):
-            resultCallback(.failed(error))
+            switch error {
+            case .timeOut:
+                let callbackError = MoyasarError.webviewTimedOut(currentPayment!)
+                resultCallback(.failed(callbackError))
+            case .notConnectedToInternet:
+                let callbackError = MoyasarError.notConnectedToInternet(currentPayment!)
+                resultCallback(.failed(callbackError))
+            case .unexpectedError(let webviewError):
+                let callbackError = MoyasarError.webviewUnexpectedError(currentPayment!, webviewError)
+                resultCallback(.failed(callbackError))
+            }
             self.status = .reset
         }
     }

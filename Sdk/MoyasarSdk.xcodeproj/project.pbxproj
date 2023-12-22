@@ -36,7 +36,6 @@
 		416FCC3C26E3BDE50044639E /* ApiApplePaySource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416FCC3526E3BDE50044639E /* ApiApplePaySource.swift */; };
 		416FCC4226E3BDEB0044639E /* PaymentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416FCC3E26E3BDEB0044639E /* PaymentService.swift */; };
 		416FCC4326E3BDEB0044639E /* ApiResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416FCC3F26E3BDEB0044639E /* ApiResult.swift */; };
-		416FCC4426E3BDEB0044639E /* Moyasar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416FCC4026E3BDEB0044639E /* Moyasar.swift */; };
 		416FCC4A26E3BE120044639E /* TextEditGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416FCC4726E3BE120044639E /* TextEditGroup.swift */; };
 		416FCC4B26E3BE120044639E /* PaymentAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416FCC4826E3BE120044639E /* PaymentAuthView.swift */; };
 		416FCC4C26E3BE120044639E /* CreditCardInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416FCC4926E3BE120044639E /* CreditCardInfoView.swift */; };
@@ -56,6 +55,7 @@
 		41CEADCF26E7829C00A201B4 /* PaymentResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CEADCE26E7829C00A201B4 /* PaymentResult.swift */; };
 		41FFA9C226FF423200D7FD4A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41FFA9C426FF423200D7FD4A /* Localizable.strings */; };
 		41FFA9C726FF4BE800D7FD4A /* ApplePayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FFA9C626FF4BE800D7FD4A /* ApplePayService.swift */; };
+		894AF7A92B232F6000A5E46B /* ApiPaymentStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894AF7A82B232F6000A5E46B /* ApiPaymentStatus.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,7 +101,6 @@
 		416FCC3526E3BDE50044639E /* ApiApplePaySource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiApplePaySource.swift; sourceTree = "<group>"; };
 		416FCC3E26E3BDEB0044639E /* PaymentService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentService.swift; sourceTree = "<group>"; };
 		416FCC3F26E3BDEB0044639E /* ApiResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiResult.swift; sourceTree = "<group>"; };
-		416FCC4026E3BDEB0044639E /* Moyasar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Moyasar.swift; sourceTree = "<group>"; };
 		416FCC4726E3BE120044639E /* TextEditGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextEditGroup.swift; sourceTree = "<group>"; };
 		416FCC4826E3BE120044639E /* PaymentAuthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentAuthView.swift; sourceTree = "<group>"; };
 		416FCC4926E3BE120044639E /* CreditCardInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardInfoView.swift; sourceTree = "<group>"; };
@@ -122,6 +121,7 @@
 		41FFA9C326FF423200D7FD4A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		41FFA9C526FF423500D7FD4A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		41FFA9C626FF4BE800D7FD4A /* ApplePayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayService.swift; sourceTree = "<group>"; };
+		894AF7A82B232F6000A5E46B /* ApiPaymentStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiPaymentStatus.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,7 +236,6 @@
 			isa = PBXGroup;
 			children = (
 				416FCC3F26E3BDEB0044639E /* ApiResult.swift */,
-				416FCC4026E3BDEB0044639E /* Moyasar.swift */,
 				416FCC3E26E3BDEB0044639E /* PaymentService.swift */,
 				41FFA9C626FF4BE800D7FD4A /* ApplePayService.swift */,
 				416FCC2E26E3BDDC0044639E /* Models */,
@@ -251,6 +250,7 @@
 				416FCC3026E3BDE50044639E /* ApiCreditCardSource.swift */,
 				416FCC3226E3BDE50044639E /* ApiError.swift */,
 				416FCC3326E3BDE50044639E /* ApiPayment.swift */,
+				894AF7A82B232F6000A5E46B /* ApiPaymentStatus.swift */,
 				416FCC3426E3BDE50044639E /* ApiPaymentRequest.swift */,
 				419247D52AB7056200430845 /* ApiTokenRequest.swift */,
 				416FCC3126E3BDE50044639E /* ApiPaymentSource.swift */,
@@ -405,6 +405,7 @@
 				416FCC2C26E3BD970044639E /* NameOnCardValidator.swift in Sources */,
 				419247D82AB712A700430845 /* ApiToken.swift in Sources */,
 				416FCC3A26E3BDE50044639E /* ApiPayment.swift in Sources */,
+				894AF7A92B232F6000A5E46B /* ApiPaymentStatus.swift in Sources */,
 				416FCC4A26E3BE120044639E /* TextEditGroup.swift in Sources */,
 				416FCC3926E3BDE50044639E /* ApiError.swift in Sources */,
 				416FCC4226E3BDEB0044639E /* PaymentService.swift in Sources */,
@@ -433,7 +434,6 @@
 				416FCC0E26E3BC9A0044639E /* MadaUtil.swift in Sources */,
 				416FCC0A26E3BC9A0044639E /* CreditCardFormatter.swift in Sources */,
 				416FCC3B26E3BDE50044639E /* ApiPaymentRequest.swift in Sources */,
-				416FCC4426E3BDEB0044639E /* Moyasar.swift in Sources */,
 				416FCC4326E3BDEB0044639E /* ApiResult.swift in Sources */,
 				416FCC3626E3BDE50044639E /* ApiStcPaySource.swift in Sources */,
 				419247D62AB7056200430845 /* ApiTokenRequest.swift in Sources */,

@@ -2,7 +2,7 @@ import Foundation
 
 public enum ApiResult<T> {
     case success(T)
-    case error(Error)
+    case error(MoyasarError)
 }
 
 public typealias ApiResultHandler<T> = (_: ApiResult<T>) -> ()

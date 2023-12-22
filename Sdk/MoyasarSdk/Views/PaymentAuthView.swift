@@ -32,11 +32,9 @@ struct PaymentAuthView: UIViewRepresentable {
             self.webView = webView
         }
         
-        // Handle internet outage
+        // TODO: Handle navigation errors
         
-        // Handle navigation errors
-        
-        // Handle business and server errors
+        // TODO: Handle business and server errors
         
         func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
             switch navigationAction.request.url?.host {
@@ -46,6 +44,14 @@ struct PaymentAuthView: UIViewRepresentable {
                 default:
                     decisionHandler(.allow)
             }
+        }
+        
+        func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+            self.webView.returnFailureIfPossibleError(error: error)
+        }
+        
+        func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+            self.webView.returnFailureIfPossibleError(error: error)
         }
     }
     
@@ -57,9 +63,23 @@ struct PaymentAuthView: UIViewRepresentable {
         
         callback(WebViewResult.completed(WebViewPaymentInfo(id: id, status: status, message: message)))
     }
+    
+    /// Calls the callback with a failure case if the error is considered fatal
+    func returnFailureIfPossibleError(error: Error) {
+        let nsError = error as NSError
+        
+        // TODO: Should we cover more errors?
+        if nsError.code == NSURLErrorTimedOut {
+            callback(WebViewResult.failed(PaymentAuthError.timeOut))
+        } else if nsError.code == NSURLErrorNotConnectedToInternet {
+            callback(WebViewResult.failed(PaymentAuthError.notConnectedToInternet))
+        } else if nsError.code == NSURLErrorCannotConnectToHost || nsError.code == NSURLErrorCannotFindHost {
+            callback(WebViewResult.failed(PaymentAuthError.unexpectedError(error)))
+        }
+    }
 }
 
-typealias WebViewResultCallback = (_: WebViewResult) -> ()
+typealias WebViewResultCallback = (WebViewResult) -> ()
 
 struct WebViewPaymentInfo {
     var id: String
@@ -69,7 +89,13 @@ struct WebViewPaymentInfo {
 
 enum WebViewResult {
     case completed(WebViewPaymentInfo)
-    case failed(Error)
+    case failed(PaymentAuthError)
+}
+
+enum PaymentAuthError: Error {
+    case timeOut
+    case notConnectedToInternet
+    case unexpectedError(Error)
 }
 
 extension Array where Element == URLQueryItem {

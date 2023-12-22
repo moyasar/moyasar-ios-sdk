@@ -39,8 +39,9 @@ final public class PaymentService {
         request.httpBody = payload
         
         let task = session.dataTask(with: request) { data, response, error in
-            guard error == nil else {
-                handler(ApiResult.error(error!))
+            if let error = error {
+                let error = MoyasarError.unexpectedError("Request failed: \(error.localizedDescription)")
+                handler(ApiResult.error(error))
                 return
             }
             
@@ -62,6 +63,7 @@ final public class PaymentService {
                     let error = MoyasarError.apiError(apiError)
                     handler(ApiResult.error(error))
                 } catch {
+                    let error = MoyasarError.unexpectedError("Decoding API's error data failed: \(error.localizedDescription)")
                     handler(ApiResult.error(error))
                 }
                 return
@@ -71,6 +73,7 @@ final public class PaymentService {
                 let payment = try self.decoder.decode(ApiPayment.self, from: data)
                 handler(ApiResult.success(payment))
             } catch {
+                let error = MoyasarError.unexpectedError("Decoding API's payment data failed: \(error.localizedDescription)")
                 handler(ApiResult.error(error))
             }
         }
@@ -91,8 +94,9 @@ final public class PaymentService {
         request.httpBody = payload
         
         let task = session.dataTask(with: request) { data, response, error in
-            guard error == nil else {
-                handler(ApiResult.error(error!))
+            if let error = error {
+                let error = MoyasarError.unexpectedError("Request failed: \(error.localizedDescription)")
+                handler(ApiResult.error(error))
                 return
             }
             
@@ -114,6 +118,7 @@ final public class PaymentService {
                     let error = MoyasarError.apiError(apiError)
                     handler(ApiResult.error(error))
                 } catch {
+                    let error = MoyasarError.unexpectedError("Decoding API's error data failed: \(error.localizedDescription)")
                     handler(ApiResult.error(error))
                 }
                 return
@@ -123,6 +128,7 @@ final public class PaymentService {
                 let payment = try self.decoder.decode(ApiToken.self, from: data)
                 handler(ApiResult.success(payment))
             } catch {
+                let error = MoyasarError.unexpectedError("Decoding API's payment data failed: \(error.localizedDescription)")
                 handler(ApiResult.error(error))
             }
         }
