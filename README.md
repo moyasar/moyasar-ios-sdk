@@ -42,6 +42,7 @@ We need to prepare a `PaymentRequest` object:
 
 ```swift
 let paymentRequest = PaymentRequest(
+    apiKey: "pk_live_1234567",
     amount: 1000,
     currency: "SAR",
     description: "Flat White",
@@ -118,9 +119,10 @@ struct ContentView: View {
     }
 
     var body: some View {
-        CreditCardView(apiKey: "pk_live_1234567", 
-        request: paymentRequest, 
-        callback: handlePaymentResult)
+        CreditCardView(
+            request: paymentRequest,
+            callback: handlePaymentResult
+        )
     }
 }
 ```
@@ -131,9 +133,10 @@ If you are using UIKit you will need to create a wrapper to host the SwiftUI `Cr
 
 ```swift
     func makeCreditCardView() {
-        let creditCardView = CreditCardView(apiKey: "pk_live_1234567", 
-        request: paymentRequest, 
-        callback: handlePaymentResult)
+        let creditCardView = CreditCardView(
+            request: paymentRequest,
+            callback: handlePaymentResult
+            )
         
         let creditCardHostingController = UIHostingController(rootView: creditCardView)
         creditCardHostingController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -362,10 +365,14 @@ This upgrade changes the following:
 ```diff
 -   try! Moyasar.setApiKey("pk_live_1234567")
 
-  CreditCardView(
+PaymentRequest(
 +   apiKey: "pk_live_1234567",
-    request: paymentRequest,
-    callback: handlePaymentResult
+    amount: 1000,
+    currency: "SAR",
+    description: "Flat White",
+    metadata: ["order_id": "ios_order_3214124"],
+    manual: false,
+    saveCard: false
 )
 
 ApplePayService(
