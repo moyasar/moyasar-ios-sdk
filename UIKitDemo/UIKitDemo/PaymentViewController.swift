@@ -12,6 +12,7 @@ import PassKit
 
 let handler = ApplePayPaymentHandler()
 let paymentRequest = PaymentRequest(
+    apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
     amount: 100,
     currency: "SAR",
     description: "Testing iOS SDK",
@@ -35,8 +36,7 @@ class PaymentViewController: UIViewController {
     override func viewDidLoad() {
         view.backgroundColor = .white
         
-        let creditCardView = CreditCardView(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
-                                            request: paymentRequest,
+        let creditCardView = CreditCardView(request: paymentRequest,
                                             callback: handlePaymentResult)
         
         let creditCardHostingController = UIHostingController(rootView: creditCardView)

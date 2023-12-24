@@ -26,8 +26,7 @@ struct ContentView: View {
                     Text("hello")
                         .padding()
                     
-                    CreditCardView(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
-                                   request: paymentRequest) {result in
+                    CreditCardView(request: paymentRequest) {result in
                         handleFromResult(result)
                     }
                     
