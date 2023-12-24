@@ -2,6 +2,8 @@ import Foundation
 
 public struct PaymentRequest {
     public init(
+        apiKey: String,
+        baseUrl: String = "https://api.moyasar.com",
         amount: Int,
         currency: String = "SAR",
         description: String,
@@ -10,6 +12,8 @@ public struct PaymentRequest {
         saveCard: Bool = false,
         createSaveOnlyToken: Bool = false
     ) {
+        self.apiKey = apiKey
+        self.baseUrl = baseUrl
         self.amount = amount
         self.currency = currency
         self.description = description
@@ -19,6 +23,8 @@ public struct PaymentRequest {
         self.createSaveOnlyToken = createSaveOnlyToken
     }
     
+    public var apiKey: String
+    public var baseUrl: String
     public var amount: Int
     public var currency: String
     public var description: String

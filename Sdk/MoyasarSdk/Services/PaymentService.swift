@@ -29,7 +29,7 @@ final public class PaymentService {
         try! NSRegularExpression(pattern: #"^pk_(test|live)_.{40}$"#, options: [])
     }()
     
-    public init(baseUrl: String = "https://api.moyasar.com", apiKey: String) {
+    public init(apiKey: String, baseUrl: String = "https://api.moyasar.com") {
         self.baseUrl = baseUrl
         
         if (!apiKeyPattern.hasMatch(apiKey)) {
