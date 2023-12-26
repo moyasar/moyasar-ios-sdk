@@ -218,7 +218,7 @@ public class CreditCardViewModel: ObservableObject {
                 let callbackError = MoyasarError.webviewTimedOut(currentPayment!)
                 resultCallback(.failed(callbackError))
             case .notConnectedToInternet:
-                let callbackError = MoyasarError.notConnectedToInternet(currentPayment!)
+                let callbackError = MoyasarError.webviewNotConnectedToInternet(currentPayment!)
                 resultCallback(.failed(callbackError))
             case .unexpectedError(let webviewError):
                 let callbackError = MoyasarError.webviewUnexpectedError(currentPayment!, webviewError)
