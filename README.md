@@ -204,8 +204,12 @@ func handlePaymentError(_ error: MoyasarError) {
 }
 ```
 
+:::hint{type="info"}
+If the payment failed during the 3DS authentication process, the `PaymentResult` will be `.failed` with the `MoyasarError` enum case beggining with `webview...`. You should fetch the payment as per [this documentation](https://docs.moyasar.com/fetch-payment) and check it's status as it might be `paid`.
+:::
+
 :::hint{type="warning"}
-Make sure to handle the webview screen navigation after getting the result.
+Make sure to dismiss the webview screen after getting the result.
 :::
 
 ## Handling Completed Payment Result
