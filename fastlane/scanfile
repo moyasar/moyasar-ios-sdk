@@ -1,0 +1,7 @@
+workspace "Sdk/MoyasarSdk.xcodeproj/project.xcworkspace"
+scheme "MoyasarSdk"
+sdk "iphonesimulator"
+device "iPhone 15"
+code_coverage true
+xcargs '-parallelizeTargets'
+prelaunch_simulator true

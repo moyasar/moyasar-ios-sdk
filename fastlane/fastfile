@@ -1,0 +1,9 @@
+fastlane_version '2.157'
+default_platform :ios
+
+platform :ios do
+    desc 'Builds project and executes unit tests'
+    lane :unit_tests do
+      scan()
+    end
+end
