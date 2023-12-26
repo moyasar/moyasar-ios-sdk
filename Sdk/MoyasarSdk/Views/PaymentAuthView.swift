@@ -1,15 +1,15 @@
 import SwiftUI
 import WebKit
 
-struct PaymentAuthView: UIViewRepresentable {
-    var url: URL
-    var callback: WebViewResultCallback
+public struct PaymentAuthView: UIViewRepresentable {
+    public var url: URL
+    public var callback: WebViewResultCallback
     
-    func makeCoordinator() -> Coordinator {
+    public func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
     
-    func makeUIView(context: Context) -> WKWebView {
+    public func makeUIView(context: Context) -> WKWebView {
         let config = WKWebViewConfiguration()
         config.preferences.javaScriptEnabled = true
         
@@ -21,14 +21,14 @@ struct PaymentAuthView: UIViewRepresentable {
         return webView
     }
     
-    func updateUIView(_ wkWebView: WKWebView, context: Context) {
+    public func updateUIView(_ wkWebView: WKWebView, context: Context) {
         wkWebView.load(URLRequest(url: url))
     }
     
-    class Coordinator: NSObject, WKNavigationDelegate {
-        var webView: PaymentAuthView
+    public class Coordinator: NSObject, WKNavigationDelegate {
+        private var webView: PaymentAuthView
         
-        internal init(_ webView: PaymentAuthView) {
+        fileprivate init(_ webView: PaymentAuthView) {
             self.webView = webView
         }
         
@@ -36,7 +36,7 @@ struct PaymentAuthView: UIViewRepresentable {
         
         // TODO: Handle business and server errors
         
-        func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
             switch navigationAction.request.url?.host {
                 case "sdk.moyasar.com":
                     decisionHandler(.cancel)
@@ -46,16 +46,16 @@ struct PaymentAuthView: UIViewRepresentable {
             }
         }
         
-        func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
             self.webView.returnFailureIfPossibleError(error: error)
         }
         
-        func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
             self.webView.returnFailureIfPossibleError(error: error)
         }
     }
     
-    func returnResultFromUrl(url: URL) {
+    private func returnResultFromUrl(url: URL) {
         let comp = URLComponents(url: url, resolvingAgainstBaseURL: false)
         let id = comp?.queryItems?.getByKey("id") ?? ""
         let status = comp?.queryItems?.getByKey("status") ?? ""
@@ -65,7 +65,7 @@ struct PaymentAuthView: UIViewRepresentable {
     }
     
     /// Calls the callback with a failure case if the error is considered fatal
-    func returnFailureIfPossibleError(error: Error) {
+    private func returnFailureIfPossibleError(error: Error) {
         let nsError = error as NSError
         
         // TODO: Should we cover more errors?
@@ -79,20 +79,20 @@ struct PaymentAuthView: UIViewRepresentable {
     }
 }
 
-typealias WebViewResultCallback = (WebViewResult) -> ()
+public typealias WebViewResultCallback = (WebViewResult) -> ()
 
-struct WebViewPaymentInfo {
+public struct WebViewPaymentInfo {
     var id: String
     var status: String
     var message: String?
 }
 
-enum WebViewResult {
+public enum WebViewResult {
     case completed(WebViewPaymentInfo)
     case failed(PaymentAuthError)
 }
 
-enum PaymentAuthError: Error {
+public enum PaymentAuthError: Error {
     case timeOut
     case notConnectedToInternet
     case unexpectedError(Error)
