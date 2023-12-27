@@ -5,7 +5,7 @@ import Combine
 public class CreditCardViewModel: ObservableObject {
     let formatter = CreditCardFormatter()
     let expiryFormatter = ExpiryFormatter()
-    var paymentService = PaymentService()
+    let paymentService: PaymentService
     let currencyUtil = CurrencyUtil()
 
     var paymentRequest: PaymentRequest
@@ -78,6 +78,7 @@ public class CreditCardViewModel: ObservableObject {
     public init(paymentRequest: PaymentRequest, resultCallback: @escaping ResultCallback) {
         self.paymentRequest = paymentRequest
         self.resultCallback = resultCallback
+        self.paymentService = PaymentService(apiKey: paymentRequest.apiKey)
     }
     
     func showNetworkLogo(_ network: CreditCardNetwork) -> Bool {
@@ -145,6 +146,7 @@ public class CreditCardViewModel: ObservableObject {
                 }
             })
         } catch {
+            let error = MoyasarError.unexpectedError("Credit Card payment request failed: \(error.localizedDescription)")
             self.resultCallback(.failed(error))
         }
     }
@@ -177,6 +179,7 @@ public class CreditCardViewModel: ObservableObject {
                 }
             })
         } catch {
+            let error = MoyasarError.unexpectedError("Credit Card save only token request failed: \(error.localizedDescription)")
             self.resultCallback(.failed(error))
         }
     }
@@ -210,7 +213,17 @@ public class CreditCardViewModel: ObservableObject {
             self.currentPayment!.updateFromWebViewPaymentInfo(info)
             resultCallback(.completed(self.currentPayment!))
         case .failed(let error):
-            resultCallback(.failed(error))
+            switch error {
+            case .timeOut:
+                let callbackError = MoyasarError.webviewTimedOut(currentPayment!)
+                resultCallback(.failed(callbackError))
+            case .notConnectedToInternet:
+                let callbackError = MoyasarError.webviewNotConnectedToInternet(currentPayment!)
+                resultCallback(.failed(callbackError))
+            case .unexpectedError(let webviewError):
+                let callbackError = MoyasarError.webviewUnexpectedError(currentPayment!, webviewError)
+                resultCallback(.failed(callbackError))
+            }
             self.status = .reset
         }
     }

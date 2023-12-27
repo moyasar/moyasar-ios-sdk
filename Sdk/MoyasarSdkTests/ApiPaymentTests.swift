@@ -11,7 +11,7 @@ class ApiPaymentTests: XCTestCase {
     func testDecodeSuccessfully() {
         let payment = try! self.decoder.decode(ApiPayment.self, from: testPayment)
         
-        XCTAssertEqual("initiated", payment.status)
+        XCTAssertEqual(ApiPaymentStatus.initiated, payment.status)
         XCTAssertEqual("ios", payment.metadata!["sdk"])
         
         guard case let .creditCard(source) = payment.source else {

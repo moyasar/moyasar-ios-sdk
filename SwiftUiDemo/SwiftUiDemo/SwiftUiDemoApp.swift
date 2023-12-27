@@ -9,12 +9,13 @@ import SwiftUI
 import MoyasarSdk
 
 let paymentRequest = PaymentRequest(
+    apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
     amount: 100,
     currency: "SAR",
     description: "Testing iOS SDK",
     metadata: ["order_id": "ios_order_3214124"],
-    manual: true,
-    createSaveOnlyToken: true
+    manual: false,
+    createSaveOnlyToken: false
 )
 
 @main
@@ -32,4 +33,8 @@ enum MyAppStatus {
     case successToken(ApiToken)
     case failed(Error)
     case unknown(String)
+}
+
+enum PaymentErrorSample: Error {
+    case webViewAuthFailed(String)
 }

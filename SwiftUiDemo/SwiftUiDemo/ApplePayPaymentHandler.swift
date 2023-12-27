@@ -9,7 +9,7 @@ import MoyasarSdk
 import PassKit
 
 class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate {
-    var applePayService = ApplePayService()
+    var applePayService = ApplePayService(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
     var controller: PKPaymentAuthorizationController?
     var items = [PKPaymentSummaryItem]()
     var networks: [PKPaymentNetwork] = [

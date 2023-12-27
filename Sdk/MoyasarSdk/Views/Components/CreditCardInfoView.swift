@@ -100,6 +100,7 @@ struct CreditCardInfoView: View {
 
 struct CreditCardInfoView_Previews: PreviewProvider {
     static var paymentRequest = PaymentRequest(
+        apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
         amount: 100,
         currency: "SAR",
         description: "Testing iOS SDK"

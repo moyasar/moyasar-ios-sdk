@@ -2,7 +2,7 @@ import Foundation
 
 public struct ApiPayment: Codable {
     public var id: String
-    public var status: String
+    public var status: ApiPaymentStatus
     public var amount: Int
     public var amountFormat: String
     public var fee: Int
@@ -25,6 +25,6 @@ public struct ApiPayment: Codable {
     public var source: ApiPaymentSource
     
     public func isInitiated() -> Bool {
-        return status == "initiated"
+        return status == .initiated
     }
 }

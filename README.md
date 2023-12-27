@@ -36,26 +36,13 @@ pod 'MoyasarSdk', git: 'https://github.com/moyasar/moyasar-ios-pod.git'
 Make sure to add `use_frameworks!`
 :::
 
-### Configurations
-
-Before using the library, make sure to set your API key:
-
-```swift
-import MoyasarSdk
-
-try! Moyasar.setApiKey("pk_live_1234567")
-```
-
-:::hint{type="info"}
-An error will be raised when the key format is incorrect.
-:::
-
-### Configuring a Payment Request
+## Configuring a Payment Request
 
 We need to prepare a `PaymentRequest` object:
 
 ```swift
 let paymentRequest = PaymentRequest(
+    apiKey: "pk_live_1234567",
     amount: 1000,
     currency: "SAR",
     description: "Flat White",
@@ -65,7 +52,11 @@ let paymentRequest = PaymentRequest(
 )
 ```
 
-### Apple Pay Payments
+:::hint{type="info"}
+Don't forget to import `MoyasarSdk`.
+:::
+
+## Apple Pay Payments
 
 You can follow [Offering Apple Pay in Your App](https://developer.apple.com/documentation/passkit/apple_pay/offering_apple_pay_in_your_app) to implement Apple Pay within your app.
 
@@ -74,7 +65,7 @@ When the user authorizes the payment using Face ID or Touch ID on their iOS devi
 ```swift
 let payment: PKPayment = // Payment object we got in the didAuthorizePayment event
 
-let service = ApplePayService() // From MoyasarSdk
+let service = ApplePayService(apiKey: "pk_live_1234567") // From MoyasarSdk
 service.authorizePayment(request: paymentRequest, token: payment.token) {result in
     switch (result) {
     case .success(let payment):
@@ -93,17 +84,21 @@ func handleCompletedPaymentResult(_ payment: ApiPayment) {
         // ...
     }
     
-func handlePaymentError(_ error: Error) {
+func handlePaymentError(_ error: MoyasarError) {
         // Handle all MoyasarError enum cases
     }
 
 ```
 
 :::hint{type="info"}
-Don't forget to import `PassKit` and `MoyasarSdk`.
+Don't forget to import `PassKit`.
 :::
 
-### SwiftUI Credit Card Payments
+:::hint{type="info"}
+An error will be printed if the API key format is incorrect.
+:::
+
+## SwiftUI Credit Card Payments
 
 The SDK provides a SwiftUI view called `CreditCardView` that allows you to easily create a credit card form.
 
@@ -119,23 +114,29 @@ struct ContentView: View {
         // ...
     }
     
-    func handlePaymentError(_ error: Error) {
+    func handlePaymentError(_ error: MoyasarError) {
         // Handle all MoyasarError enum cases
     }
 
     var body: some View {
-        CreditCardView(request: paymentRequest, callback: handlePaymentResult)
+        CreditCardView(
+            request: paymentRequest,
+            callback: handlePaymentResult
+        )
     }
 }
 ```
 
-### UIKit Credit Card Payments
+## UIKit Credit Card Payments
 
 If you are using UIKit you will need to create a wrapper to host the SwiftUI `CreditCardView` view:
 
 ```swift
     func makeCreditCardView() {
-        let creditCardView = CreditCardView(request: paymentRequest, callback: handlePaymentResult)
+        let creditCardView = CreditCardView(
+            request: paymentRequest,
+            callback: handlePaymentResult
+            )
         
         let creditCardHostingController = UIHostingController(rootView: creditCardView)
         creditCardHostingController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -161,7 +162,7 @@ If you are using UIKit you will need to create a wrapper to host the SwiftUI `Cr
         // ...
     }
     
-    func handlePaymentError(_ error: Error) {
+    func handlePaymentError(_ error: MoyasarError) {
         // Handle all MoyasarError enum cases
     }
 ```
@@ -172,9 +173,9 @@ Don't forget to import `SwiftUI`.
 
 * ![IOS SDK dark ar](assets/Images/ar-dark.png) ![IOS SDK light en](assets/Images/en-light.png)
 
-### Handling Result
+## Handling Credit Card Payment Result
 
-Now, we can handle the result as follows:
+Now, we can handle the Credit Card payment result as follows:
 
 ```swift
 func handlePaymentResult(result: PaymentResult) {
@@ -198,40 +199,51 @@ func handleCompletedPaymentResult(_ payment: ApiPayment) {
         // ...
 }
     
-func handlePaymentError(_ error: Error) {
+func handlePaymentError(_ error: MoyasarError) {
         // Handle all MoyasarError enum cases
 }
 ```
 
 :::hint{type="info"}
-'Completed' payment doesn't necessarily mean that the payment is successful. It means that the payment process has been completed successfully.
-You need to check the payment status as follows to make sure that the payment is successful.
+If the payment failed during the 3DS authentication process, the `PaymentResult` will be `.failed` with the `MoyasarError` enum case beggining with `webview...`. You should fetch the payment as per [this documentation](https://docs.moyasar.com/fetch-payment) and check it's status as it might be `paid`.
 :::
 
 :::hint{type="warning"}
-Make sure to handle the screen navigation after getting the result.
+Make sure to dismiss the webview screen after getting the result.
 :::
 
-The payment status could be `paid` or `failed`, we need to handle this:
+## Handling Completed Payment Result
+
+The payment status could be `paid`, `failed` or other statuses, we need to handle this:
 
 ```swift
 func handleCompletedPaymentResult(_ payment: ApiPayment) {
     switch payment.status {
-    case "paid":
+    case .paid:
         // Handle paid!
         break
     default:
-        // Handle other status like failed
+        // Handle other statuses like failed
     }
 }
 ```
 
-### Customizing Credit Card View
+:::hint{type="info"}
+'Completed' payment doesn't necessarily mean that the payment is successful. It means that the payment process has been completed successfully.
+You need to check the payment status to make sure that the payment is successful.
+:::
+
+:::hint{type="info"}
+You can find payment statuses here:
+[Payment Statuses](#payment-statuses)
+:::
+
+## Customizing Credit Card View
 
 Use the `create` method in the `PaymentService` class like this:
 
 ```swift
-let paymentService = PaymentService()
+let paymentService = PaymentService(apiKey: "pk_live_1234567")
 
 let source = ApiCreditCardSource(
     name: "John Doe",
@@ -273,7 +285,7 @@ func startPaymentAuthProcess(_ payment: ApiPayment) {
     // ...
 }
 
-func handlePaymentError(_ error: Error) {
+func handlePaymentError(_ error: MoyasarError) {
     // Handle all MoyasarError enum cases
 }
 ```
@@ -316,28 +328,81 @@ You can view the full example here:
 :::
 
 :::hint{type="info"}
-You can find all the possible payment statuses here:
-<https://docs.moyasar.com/payment-status-reference>
+You can find payment statuses here:
+[Payment Statuses](#payment-statuses)
 :::
 
-### Objective-C Integration
+## Objective-C Integration
 
 Setup a Swift file for handling payments as described in:
 
+<!-- no toc -->
 * [Configuring a Payment Request](#configuring-a-payment-request)
 * [Apple Pay Payments](#apple-pay-payments)
 * [UIKit Credit Card Payments](#uikit-credit-card-payments)
-* [Handling Result](#handling-result)
+* [Handling Credit Card Payment Result](#handling-credit-card-payment-result)
+* [Handling Completed Payment Result](#handling-completed-payment-result)
 
 After that you can initialize the Swift payments class when processing payments.
 
 Learn more about integrating Swift files in Objective-C apps:
 <https://developer.apple.com/documentation/swift/importing-swift-into-objective-c>
 
-### APIs Documentation
+## Testing
+
+### Credit Cards
+
+Moyasar provides a sandbox environment for testing credit card payments without charging any real money. This allows you to test your integration and ensure that everything is working correctly before going live with actual payments. Learn more about our testing cards [here](https://docs.moyasar.com/testing-cards)
+
+### Apple Pay
+
+Testing using a simulator will not work! Learn more about Apple Pay testing [here](https://docs.moyasar.com/apple-pay-testing).
+
+## Migration Guide
+
+### From `0.4` to `1.0`
+
+This upgrade changes the following:
+
+#### Setting the API key
+
+```diff
+-   try! Moyasar.setApiKey("pk_live_1234567")
+
+PaymentRequest(
++   apiKey: "pk_live_1234567",
+    amount: 1000,
+    currency: "SAR",
+    description: "Flat White",
+    metadata: ["order_id": "ios_order_3214124"],
+    manual: false,
+    saveCard: false
+)
+
+ApplePayService(
++   apiKey: "pk_live_1234567"
+)         
+```
+  
+#### Handling Payment Statuses
+
+```diff
+    switch payment.status {
+-   case "paid":
++   case .paid:
+}
+```
+
+* Also, now you can handle the errors based on `MoyasarError` enum.
+
+## Payment Statuses
+
+* <https://docs.moyasar.com/payment-status-reference>
+
+## APIs Documentation
 
 * <https://moyasar.github.io/moyasar-ios-sdk/documentation/moyasarsdk>
 
-### Checkout Demo Examples
+## Demo Examples
 
 * <https://github.com/moyasar/moyasar-ios-sdk>

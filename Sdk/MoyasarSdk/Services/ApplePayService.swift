@@ -2,10 +2,14 @@ import Foundation
 import PassKit
 
 public final class ApplePayService {
-    let paymentService = PaymentService()
-    let encoder = JSONEncoder()
     
-    public init() {}
+    private let apiKey: String
+    private let paymentService: PaymentService
+    
+    public init(apiKey: String) {
+        self.apiKey = apiKey
+        self.paymentService = PaymentService(apiKey: apiKey)
+    }
     
     public func authorizePayment(request: PaymentRequest, token: PKPaymentToken, handler: @escaping ApiResultHandler<ApiPayment>) throws {
         var applePaySource = ApiApplePaySource.fromPKToken(token)
