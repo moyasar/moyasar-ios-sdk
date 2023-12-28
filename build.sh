@@ -1,19 +1,29 @@
 output_dir=$(pwd)
 
-if [ -d $1 ]; then
-    output_dir=$1
+if [ -n "$1" ]; then
+    desired_xcode_sdk_path=$1
+else
+    echo "Specify the path to the desired Xcode SDK to build this SDK (E.x: /Applications/Xcode_14.3.1.app/Contents/Developer/usr/bin)"
+    echo "Documentation of this SDK will be built with the default Xcode because it will not affect the shipped framework and it's better to build it with the latest Xcode version"
+    exit 1
+fi
+
+if [ -d "$2" ]; then
+    output_dir=$2
+else 
+    echo "Will use $output_dir as the default output path"
 fi
 
 rm -r archives
 
-xcodebuild archive \
+$desired_xcode_sdk_path/xcodebuild archive \
     -scheme MoyasarSdk \
     -sdk iphoneos \
     -archivePath "archives/ios_devices.xcarchive" \
     BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
     SKIP_INSTALL=NO
 
-xcodebuild archive \
+$desired_xcode_sdk_path/xcodebuild archive \
     -scheme MoyasarSdk \
     -sdk iphonesimulator \
     -archivePath "archives/ios_simulators.xcarchive" \
@@ -22,7 +32,13 @@ xcodebuild archive \
 
 rm -r $output_dir/MoyasarSdk.xcframework
 
-xcodebuild -create-xcframework \
+$desired_xcode_sdk_path/xcodebuild -create-xcframework \
     -framework archives/ios_devices.xcarchive/Products/Library/Frameworks/MoyasarSdk.framework \
     -framework archives/ios_simulators.xcarchive/Products/Library/Frameworks/MoyasarSdk.framework \
     -output $output_dir/MoyasarSdk.xcframework
+
+xcodebuild docbuild \
+    -scheme MoyasarSdk \
+    OTHER_DOCC_FLAGS='--transform-for-static-hosting 
+		--hosting-base-path moyasar-ios-sdk 
+		--output-path ../docs'
