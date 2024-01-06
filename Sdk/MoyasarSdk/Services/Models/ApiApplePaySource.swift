@@ -9,7 +9,11 @@ public struct ApiApplePaySource: Codable {
         name: String? = nil,
         number: String? = nil,
         message: String? = nil,
-        manual: String? = nil
+        manual: String? = nil,
+        gatewayId: String? = nil,
+        referenceNumber: String? = nil,
+        responseCode: String? = nil,
+        authorizationCode: String? = nil
     ) {
         self.type = type
         self.token = token
@@ -18,15 +22,23 @@ public struct ApiApplePaySource: Codable {
         self.number = number
         self.message = message
         self.manual = manual
+        self.gatewayId = gatewayId
+        self.referenceNumber = referenceNumber
+        self.responseCode = responseCode
+        self.authorizationCode = authorizationCode
     }
     
-    var type: String = "applepay"
-    var token: String?
-    var company: String?
-    var name: String?
-    var number: String?
-    var message: String?
-    var manual: String?
+    public var type: String = "applepay"
+    public var token: String?
+    public var company: String?
+    public var name: String?
+    public var number: String?
+    public var message: String?
+    public var manual: String?
+    public var gatewayId: String?
+    public var referenceNumber: String?
+    public var responseCode: String?
+    public var authorizationCode: String?
 }
 
 extension ApiApplePaySource {
