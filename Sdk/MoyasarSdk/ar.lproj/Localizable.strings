@@ -4,10 +4,10 @@
 "cvc" = "رمز الأمان";
 "card-number-required" = "رقم البطاقة مطلوب";
 "invalid-card-number" = "رقم البطاقة غير صحيح";
-"unsupported-network" = "شبكة غير مدعومة";
+"unsupported-network" = "شبكة البطاقة غير مدعومة";
 "expiry-is-required" = "تاريخ الإنتهاء مطلوب";
 "invalid-expiry" = "تاريخ الإنتهاء غير صحيح";
-"expired-card" = "بطاقة منتهية";
+"expired-card" = "البطاقة منتهية";
 "name-is-required" = "الاسم مطلوب";
 "both-names-required" = "الاسم الأول والثاني مطلوب";
 "only-english-alpha" = "يجب أن يحتوي الاسم على حروف إنجليزية فقط";
