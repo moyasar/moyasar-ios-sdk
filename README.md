@@ -3,3 +3,7 @@
 ## Installation
 
 To install and setup the SDK follow [this documentation](https://docs.moyasar.com/ios-sdk).
+
+## APIs Documentation
+
+* <https://moyasar.github.io/moyasar-ios-sdk/documentation/moyasarsdk>
