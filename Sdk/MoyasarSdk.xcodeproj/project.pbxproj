@@ -56,6 +56,7 @@
 		41FFA9C226FF423200D7FD4A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41FFA9C426FF423200D7FD4A /* Localizable.strings */; };
 		41FFA9C726FF4BE800D7FD4A /* ApplePayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FFA9C626FF4BE800D7FD4A /* ApplePayService.swift */; };
 		894AF7A92B232F6000A5E46B /* ApiPaymentStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894AF7A82B232F6000A5E46B /* ApiPaymentStatus.swift */; };
+		8981E7452BDD731C009594C4 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8981E7442BDD731C009594C4 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,6 +123,7 @@
 		41FFA9C526FF423500D7FD4A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		41FFA9C626FF4BE800D7FD4A /* ApplePayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayService.swift; sourceTree = "<group>"; };
 		894AF7A82B232F6000A5E46B /* ApiPaymentStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiPaymentStatus.swift; sourceTree = "<group>"; };
+		8981E7442BDD731C009594C4 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +175,7 @@
 				416FCBDF26E3BBF80044639E /* Info.plist */,
 				41879A1926E780EE00C62582 /* Media.xcassets */,
 				41FFA9C426FF423200D7FD4A /* Localizable.strings */,
+				8981E7442BDD731C009594C4 /* PrivacyInfo.xcprivacy */,
 			);
 			path = MoyasarSdk;
 			sourceTree = "<group>";
@@ -380,6 +383,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8981E7452BDD731C009594C4 /* PrivacyInfo.xcprivacy in Resources */,
 				41879A1A26E780EE00C62582 /* Media.xcassets in Resources */,
 				41FFA9C226FF423200D7FD4A /* Localizable.strings in Resources */,
 			);
