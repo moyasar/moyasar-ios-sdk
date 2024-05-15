@@ -12,7 +12,7 @@ public final class ApplePayService {
     }
     
     public func authorizePayment(request: PaymentRequest, token: PKPaymentToken, handler: @escaping ApiResultHandler<ApiPayment>) throws {
-        var applePaySource = ApiApplePaySource.fromPKToken(token)
+        var applePaySource = try ApiApplePaySource.fromPKToken(token)
         applePaySource.manual = request.manual ? "true" : "false"
         
         let source = ApiPaymentSource.applePay(applePaySource)
