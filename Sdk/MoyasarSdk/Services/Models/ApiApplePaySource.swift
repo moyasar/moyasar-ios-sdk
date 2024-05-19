@@ -42,9 +42,9 @@ public struct ApiApplePaySource: Codable {
 }
 
 extension ApiApplePaySource {
-    static public func fromPKToken(_ token: PKPaymentToken) -> ApiApplePaySource {
+    static public func fromPKToken(_ token: PKPaymentToken) throws -> ApiApplePaySource {
         let encoder = JSONEncoder()
-        let data = try! encoder.encode(ApplePayToken(token: token))
+        let data = try encoder.encode(ApplePayToken(token: token))
         
         return ApiApplePaySource(token: String(data: data, encoding: .utf8))
     }
@@ -57,10 +57,18 @@ public struct ApplePayToken: Codable {
     var transactionIdentifier: String
     var paymentData: ApplePayPaymentData
     
-    init(token: PKPaymentToken) {
+    init(token: PKPaymentToken) throws {
         paymentMethod = ApplePayPaymentMethod(method: token.paymentMethod)
         transactionIdentifier = token.transactionIdentifier
-        paymentData = try! ApplePayToken.decoder.decode(ApplePayPaymentData.self, from: token.paymentData)
+        
+        do {
+            paymentData = try ApplePayToken.decoder.decode(ApplePayPaymentData.self, from: token.paymentData)
+        } catch {
+#if targetEnvironment(simulator)
+            print("Apple Pay will not work on a Simulator, test on a real device")
+#endif
+            throw error
+        }
     }
 }
 
