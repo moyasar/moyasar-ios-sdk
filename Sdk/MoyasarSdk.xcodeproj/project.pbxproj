@@ -55,6 +55,8 @@
 		41CEADCF26E7829C00A201B4 /* PaymentResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CEADCE26E7829C00A201B4 /* PaymentResult.swift */; };
 		41FFA9C226FF423200D7FD4A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41FFA9C426FF423200D7FD4A /* Localizable.strings */; };
 		41FFA9C726FF4BE800D7FD4A /* ApplePayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FFA9C626FF4BE800D7FD4A /* ApplePayService.swift */; };
+		4BBA7B442C1860A300BBAFB4 /* CreditCardView+Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBA7B432C1860A300BBAFB4 /* CreditCardView+Properties.swift */; };
+		4BBA7B462C1860B600BBAFB4 /* CreditCardView+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBA7B452C1860B600BBAFB4 /* CreditCardView+Views.swift */; };
 		894AF7A92B232F6000A5E46B /* ApiPaymentStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894AF7A82B232F6000A5E46B /* ApiPaymentStatus.swift */; };
 		8981E7452BDD731C009594C4 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8981E7442BDD731C009594C4 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
@@ -122,6 +124,8 @@
 		41FFA9C326FF423200D7FD4A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		41FFA9C526FF423500D7FD4A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		41FFA9C626FF4BE800D7FD4A /* ApplePayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayService.swift; sourceTree = "<group>"; };
+		4BBA7B432C1860A300BBAFB4 /* CreditCardView+Properties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreditCardView+Properties.swift"; sourceTree = "<group>"; };
+		4BBA7B452C1860B600BBAFB4 /* CreditCardView+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreditCardView+Views.swift"; sourceTree = "<group>"; };
 		894AF7A82B232F6000A5E46B /* ApiPaymentStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiPaymentStatus.swift; sourceTree = "<group>"; };
 		8981E7442BDD731C009594C4 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -266,7 +270,7 @@
 		416FCC4526E3BDF70044639E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				416FCC4E26E3BE160044639E /* CreditCardView.swift */,
+				4BBA7B412C18601A00BBAFB4 /* CreditCardView */,
 				416FCC5026E3BE160044639E /* StcPayView.swift */,
 				416FCC4826E3BE120044639E /* PaymentAuthView.swift */,
 				416FCC4626E3BE0B0044639E /* Components */,
@@ -290,6 +294,16 @@
 				4178F05226F74B3900996AE0 /* MoyasarError.swift */,
 			);
 			path = Errors;
+			sourceTree = "<group>";
+		};
+		4BBA7B412C18601A00BBAFB4 /* CreditCardView */ = {
+			isa = PBXGroup;
+			children = (
+				416FCC4E26E3BE160044639E /* CreditCardView.swift */,
+				4BBA7B452C1860B600BBAFB4 /* CreditCardView+Views.swift */,
+				4BBA7B432C1860A300BBAFB4 /* CreditCardView+Properties.swift */,
+			);
+			path = CreditCardView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -428,12 +442,14 @@
 				416FCC0F26E3BC9A0044639E /* ExpiryFormatter.swift in Sources */,
 				416FCC4B26E3BE120044639E /* PaymentAuthView.swift in Sources */,
 				41CEADCF26E7829C00A201B4 /* PaymentResult.swift in Sources */,
+				4BBA7B442C1860A300BBAFB4 /* CreditCardView+Properties.swift in Sources */,
 				416FCC1D26E3BD730044639E /* CreditCardViewModel.swift in Sources */,
 				416FCC5226E3BE160044639E /* CreditCardView.swift in Sources */,
 				41CEADCD26E7825200A201B4 /* ResultCallback.swift in Sources */,
 				416FCC3726E3BDE50044639E /* ApiCreditCardSource.swift in Sources */,
 				4178F05B26F9128500996AE0 /* CurrencyUtil.swift in Sources */,
 				416FCC4C26E3BE120044639E /* CreditCardInfoView.swift in Sources */,
+				4BBA7B462C1860B600BBAFB4 /* CreditCardView+Views.swift in Sources */,
 				416FCC2926E3BD970044639E /* ExpiryValidator.swift in Sources */,
 				416FCC0E26E3BC9A0044639E /* MadaUtil.swift in Sources */,
 				416FCC0A26E3BC9A0044639E /* CreditCardFormatter.swift in Sources */,
