@@ -106,27 +106,32 @@ struct CreditCardInfoView_Previews: PreviewProvider {
         description: "Testing iOS SDK"
     )
 
-    static var info = CreditCardViewModel(paymentRequest: paymentRequest) {result in
-        switch (result) {
-        case .completed(let payment):
-            print("Got payment")
-            print("Payment status \(payment.status)")
-            print("Payment ID: \(payment.id)")
-            break;
-        case .saveOnlyToken(let token):
-            print("Got token")
-            print("Token status \(token.status)")
-            print("Token ID: \(token.id)")
-            break;
-        case .failed(let error):
-            print("Got an error: \(error.localizedDescription)")
-            break;
-        case .canceled:
-            print("Operation canceled")
-        }
-    }
-
     static var previews: some View {
-        CreditCardInfoView(cardInfo: info)
+        do {
+            let info = try CreditCardViewModel(paymentRequest: paymentRequest) { result in
+                switch (result) {
+                case .completed(let payment):
+                    print("Got payment")
+                    print("Payment status \(payment.status)")
+                    print("Payment ID: \(payment.id)")
+                case .saveOnlyToken(let token):
+                    print("Got token")
+                    print("Token status \(token.status)")
+                    print("Token ID: \(token.id)")
+                case .failed(let error):
+                    print("Got an error: \(error.localizedDescription)")
+                case .canceled:
+                    print("Operation canceled")
+                }
+            }
+            return AnyView(CreditCardInfoView(cardInfo: info))
+        } catch {
+            // Handle error here
+            // For example, print the error
+            print("Failed to initialize CreditCardViewModel: \(error)")
+            // Return some placeholder view or handle the error in another way
+            return AnyView(Text("Failed to initialize CreditCardViewModel")
+                .foregroundColor(.red))
+        }
     }
 }

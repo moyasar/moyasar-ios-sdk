@@ -2,75 +2,60 @@ import SwiftUI
 
 public struct CreditCardView: View {
     @ObservedObject var viewModel: CreditCardViewModel
-    
+
     let buttonColor = Color(red: 0.137, green: 0.359, blue: 0.882)
 
     public init(request: PaymentRequest, callback: @escaping ResultCallback) {
-        viewModel = CreditCardViewModel(
-            paymentRequest: request,
-            resultCallback: callback)
+        do {
+            viewModel = try CreditCardViewModel(paymentRequest: request, resultCallback: callback)
+        } catch {
+            // Handle error here, show error in view model
+            viewModel = try! CreditCardViewModel(paymentRequest: request, resultCallback: callback)
+            viewModel.error = "Failed to initialize CreditCardViewModel: \(error)"
+        }
     }
-    
+
     @ViewBuilder
     public var body: some View {
-        if (showAuth) {
-            PaymentAuthView(url: authUrl!) {r in viewModel.handleWebViewResult(r)}
+        if viewModel.showAuth {
+            PaymentAuthView(url: viewModel.authUrl!) { result in
+                viewModel.handleWebViewResult(result)
+            }
         } else {
             ZStack {
                 VStack {
                     CreditCardInfoView(cardInfo: viewModel)
 
                     Spacer()
-                    
+
                     Text(viewModel.error ?? "")
                         .foregroundColor(.red)
                         .padding(.bottom)
 
                     Button(action: {
-                        viewModel.beingTransaction()
+                        Task {
+                         await   viewModel.beginTransaction()
+                        }
                     }, label: {
                         HStack {
-                            if (shoudDisable()) {
+                            if viewModel.shoudDisable() {
                                 ActivityIndicator(style: .medium)
                             } else {
                                 Text(viewModel.formattedAmount)
                             }
                         }
-                    }).disabled(!viewModel.isValid)
+                    }).disabled(viewModel.shoudDisable() || !viewModel.isValid)
                     .frame(maxWidth: .infinity, minHeight: 25)
                     .padding(14)
                     .foregroundColor(.white)
                     .font(.headline)
-                    .background(shoudDisable() || !viewModel.isValid ? buttonColor.opacity(0.6) : buttonColor)
+                    .background(viewModel.shoudDisable() || !viewModel.isValid ? buttonColor.opacity(0.6) : buttonColor)
                     .cornerRadius(10)
                 }
-                .disabled(shoudDisable())
+                .disabled(viewModel.shoudDisable())
                 .padding()
             }
         }
-    }
-    
-    private func shoudDisable() -> Bool {
-        switch (viewModel.status) {
-        case .reset:
-            return false
-        default:
-            return true
-        }
-    }
-
-    var showAuth: Bool {
-        if case .paymentAuth(_) = viewModel.status {
-            return true
-        }
-        return false
-    }
-    
-    var authUrl: URL? {
-        if case .paymentAuth(let url) = viewModel.status {
-            return URL(string: url)!
-        }
-        return nil
     }
 }
 

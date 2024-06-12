@@ -38,11 +38,11 @@ public struct PaymentAuthView: UIViewRepresentable {
         
         public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
             switch navigationAction.request.url?.host {
-                case "sdk.moyasar.com":
-                    decisionHandler(.cancel)
-                    self.webView.returnResultFromUrl(url: navigationAction.request.url!)
-                default:
-                    decisionHandler(.allow)
+            case "sdk.moyasar.com":
+                decisionHandler(.cancel)
+                self.webView.returnResultFromUrl(url: navigationAction.request.url!)
+            default:
+                decisionHandler(.allow)
             }
         }
         
