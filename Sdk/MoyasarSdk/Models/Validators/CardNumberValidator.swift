@@ -8,7 +8,10 @@
 import Foundation
 
 class CardNumberValidator: FieldValidator {
-    override init() {
+    private var supportedNetworks: [CreditCardNetwork]
+
+    init(supportedNetworks: [CreditCardNetwork]) {
+        self.supportedNetworks = supportedNetworks
         super.init()
         addRule(error: "card-number-required".localized()) {
             ($0 ?? "").isEmpty
@@ -17,7 +20,7 @@ class CardNumberValidator: FieldValidator {
             ($0 ?? "").count < 16 || !isValidLuhnNumber($0 ?? "")
         }
         addRule(error: "unsupported-network".localized()) {
-            getCardNetwork($0 ?? "") == .unknown
+            getCardNetwork($0 ?? "", in: self.supportedNetworks) == .unknown
         }
     }
 }

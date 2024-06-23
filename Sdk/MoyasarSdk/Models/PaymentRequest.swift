@@ -10,7 +10,8 @@ public struct PaymentRequest {
         metadata: [String: String] = [:],
         manual: Bool = false,
         saveCard: Bool = false,
-        createSaveOnlyToken: Bool = false
+        createSaveOnlyToken: Bool = false,
+        allowedNetworks: [CreditCardNetwork] = CreditCardNetwork.allCases
     ) {
         self.apiKey = apiKey
         self.baseUrl = baseUrl
@@ -21,6 +22,7 @@ public struct PaymentRequest {
         self.manual = manual
         self.saveCard = saveCard
         self.createSaveOnlyToken = createSaveOnlyToken
+        self.allowedNetworks = allowedNetworks
     }
     
     public var apiKey: String
@@ -32,4 +34,5 @@ public struct PaymentRequest {
     public var manual: Bool
     public var saveCard: Bool
     public var createSaveOnlyToken: Bool
+    public var allowedNetworks: [CreditCardNetwork]
 }
