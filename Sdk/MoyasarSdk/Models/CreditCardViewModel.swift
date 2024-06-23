@@ -71,9 +71,10 @@ public class CreditCardViewModel: ObservableObject {
     }
     
     lazy var nameValidator = NameOnCardValidator()
-    lazy var numberValidator = CardNumberValidator()
+    lazy var numberValidator = CardNumberValidator(supportedNetworks: paymentRequest.allowedNetworks)
     lazy var expiryValidator = ExpiryValidator()
-    lazy var securityCodeValidator = SecurityCodeValidator(getNumber: { self.number })
+    lazy var securityCodeValidator = SecurityCodeValidator(getNumber: { self.number },
+                                                           supportedNetworks: paymentRequest.allowedNetworks)
     
     public init(paymentRequest: PaymentRequest, resultCallback: @escaping ResultCallback) {
         self.paymentRequest = paymentRequest
@@ -82,15 +83,16 @@ public class CreditCardViewModel: ObservableObject {
     }
     
     func showNetworkLogo(_ network: CreditCardNetwork) -> Bool {
-        let inferred = getCardNetwork(number)
+        let inferred = getCardNetwork(number, in: paymentRequest.allowedNetworks)
         switch inferred {
         case .unknown:
-            return true
+            return paymentRequest.allowedNetworks.contains(network)
         default:
             return inferred == network
         }
     }
     
+   
     func beingTransaction() {
         self.error = nil
         guard isValid else {

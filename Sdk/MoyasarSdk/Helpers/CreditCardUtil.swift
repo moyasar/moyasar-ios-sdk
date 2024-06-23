@@ -36,18 +36,20 @@ func isValidLuhnNumber(_ number: String) -> Bool {
     return sum % 10 == 0
 }
 
-func getCardNetwork(_ number: String) -> CreditCardNetwork {
+func getCardNetwork(_ number: String, in supportedNetworks: [CreditCardNetwork]) -> CreditCardNetwork {
     let clean = number.replacingOccurrences(of: " ", with: "")
     
-    if amexRangeRegex.hasMatch(clean) {
-        return .amex
-    } else if MadaUtil.instance.inMadaRange(clean) {
-        return .mada
-    } else if visaRangeRegex.hasMatch(clean) {
-        return .visa
-    } else if masterCardRangeRegex.hasMatch(clean) {
-        return .mastercard
-    } else {
-        return .unknown
-    }
+    // Check if the number matches known card types and if it's in supported networks
+       if amexRangeRegex.hasMatch(clean) && supportedNetworks.contains(.amex){
+           return .amex
+       } else if MadaUtil.instance.inMadaRange(clean) && ( supportedNetworks.contains(.mada) || supportedNetworks.contains(.visa) || supportedNetworks.contains(.mastercard) ) {
+           /// Here if the supported network is not mada but the user choosed master or visa in supported network we never block him
+           return .mada
+       } else if visaRangeRegex.hasMatch(clean) && supportedNetworks.contains(.visa)  {
+           return .visa
+       } else if masterCardRangeRegex.hasMatch(clean) && supportedNetworks.contains(.mastercard) {
+           return .mastercard 
+       } else {
+           return .unknown
+       }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum CreditCardNetwork {
+public enum CreditCardNetwork: CaseIterable {
     case amex
     case mada
     case visa
