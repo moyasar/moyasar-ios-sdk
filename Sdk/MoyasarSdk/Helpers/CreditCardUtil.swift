@@ -42,7 +42,7 @@ func getCardNetwork(_ number: String, in supportedNetworks: [CreditCardNetwork])
     // Check if the number matches known card types and if it's in supported networks
        if amexRangeRegex.hasMatch(clean) && supportedNetworks.contains(.amex){
            return .amex
-       } else if MadaUtil.instance.inMadaRange(clean) && ( supportedNetworks.contains(.mada) || supportedNetworks.contains(.visa) || supportedNetworks.contains(.mastercard) ) {
+       } else if MadaUtil.instance.inMadaRange(clean) && supportedNetworks.contains(.mada) {
            /// Here if the supported network is not mada but the user choosed master or visa in supported network we never block him
            return .mada
        } else if visaRangeRegex.hasMatch(clean) && supportedNetworks.contains(.visa)  {
