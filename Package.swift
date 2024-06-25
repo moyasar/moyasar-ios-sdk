@@ -29,7 +29,5 @@ let package = Package(
             path: "Sdk/MoyasarSdkTests",
             exclude: ["Info.plist"]
         ),
-    ],
-  // Exclude unwanted root-level directories
-    exclude: ["docs", "fastlane", "assets", "build", "Gemfile", "Gemfile.lock"]
+    ]
 )
