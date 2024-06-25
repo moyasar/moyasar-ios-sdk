@@ -1,11 +1,10 @@
 // swift-tools-version: 5.10
-// The swift-tools-version declares the minimum version of Swift required to build this package.
 import PackageDescription
 
 let package = Package(
     name: "MoyasarSdk",
     platforms: [
-        .iOS(.v13),
+        .iOS(.v13), // Update to the minimum version of iOS you support
     ],
     products: [
         .library(
@@ -16,7 +15,7 @@ let package = Package(
     targets: [
         .target(
             name: "MoyasarSdk",
-            path: "MoyasarSdk",
+            path: "/Sdk/MoyasarSdk",
             exclude: ["Info.plist", "Media", "PrivacyInfo"],
             resources: [
                 .process("Media.xcassets"),
@@ -26,7 +25,7 @@ let package = Package(
         .testTarget(
             name: "MoyasarSdkTests",
             dependencies: ["MoyasarSdk"],
-            path: "MoyasarSdkTests",
+            path: "/Sdk/MoyasarSdkTests",
             exclude: ["Info.plist"]
         ),
     ]
