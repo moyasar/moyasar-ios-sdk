@@ -3,9 +3,9 @@ import PackageDescription
 
 let package = Package(
     name: "MoyasarSdk",
-    defaultLocalization: "ar", // Set this to your default localization language code
+    defaultLocalization: "ar", // Set to your default localization language code
     platforms: [
-        .iOS(.v13), // Update to the minimum version of iOS you support
+        .iOS(.v13),
     ],
     products: [
         .library(
@@ -17,10 +17,10 @@ let package = Package(
         .target(
             name: "MoyasarSdk",
             path: "Sdk/MoyasarSdk",
-            exclude: ["Info.plist", "Media", "PrivacyInfo"],
+            exclude: ["Info.plist", "Media", "PrivacyInfo"], // Adjust exclusions as needed
             resources: [
                 .process("Media.xcassets"),
-                .process("Localizable") // Process resources from the Localizable folder
+                .process("Localizable")
             ]
         ),
         .testTarget(
@@ -30,6 +30,6 @@ let package = Package(
             exclude: ["Info.plist"]
         ),
     ],
- // Exclude unwanted root-level directories
-    exclude: ["docs", "fastlane", "assets"]
+    // Exclude unwanted root-level directories
+    exclude: ["docs", "fastlane"]
 )
