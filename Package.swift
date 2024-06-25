@@ -17,12 +17,12 @@ let package = Package(
         .target(
             name: "MoyasarSdk",
             path: "Sdk/MoyasarSdk",
-            exclude: ["Info.plist", "Media", "PrivacyInfo"], // Adjust exclusions as needed
+            exclude: ["Info.plist", "Media.xcassets", "PrivacyInfo.xcprivacy"],
             resources: [
-                .process("Media.xcassets"), // Ensure this path exists
-                .process("ar.lproj"), // Include Arabic localization
-                .process("en.lproj"),  // Include English localization
-                .process("PrivacyInfo") // Include PrivacyInfo
+                .process("Media.xcassets"),
+                .process("ar.lproj"),
+                .process("en.lproj"),
+                .process("PrivacyInfo.xcprivacy")
             ]
         ),
         .testTarget(
