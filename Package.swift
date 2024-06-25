@@ -17,7 +17,7 @@ let package = Package(
         .target(
             name: "MoyasarSdk",
             path: "Sdk/MoyasarSdk",
-            exclude: ["Info.plist", "Media.xcassets", "PrivacyInfo.xcprivacy"],
+            exclude: ["Info.plist"],
             resources: [
                 .process("Media.xcassets"),
                 .process("ar.lproj"),
