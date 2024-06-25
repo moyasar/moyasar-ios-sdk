@@ -15,7 +15,7 @@ let package = Package(
     targets: [
         .target(
             name: "MoyasarSdk",
-            path: "/Sdk/MoyasarSdk",
+            path: "Sdk/MoyasarSdk",
             exclude: ["Info.plist", "Media", "PrivacyInfo"],
             resources: [
                 .process("Media.xcassets"),
@@ -25,7 +25,7 @@ let package = Package(
         .testTarget(
             name: "MoyasarSdkTests",
             dependencies: ["MoyasarSdk"],
-            path: "/Sdk/MoyasarSdkTests",
+            path: "Sdk/MoyasarSdkTests",
             exclude: ["Info.plist"]
         ),
     ]
