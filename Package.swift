@@ -3,7 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "MoyasarSdk",
-    defaultLocalization: "ar", // Set to your default localization language code
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v13),
     ],
@@ -19,8 +19,10 @@ let package = Package(
             path: "Sdk/MoyasarSdk",
             exclude: ["Info.plist", "Media", "PrivacyInfo"], // Adjust exclusions as needed
             resources: [
-                .process("Media.xcassets"),
-                .process("Localizable")
+                .process("Media.xcassets"), // Ensure this path exists
+                .process("ar.lproj"), // Include Arabic localization
+                .process("en.lproj"),  // Include English localization
+                .process("PrivacyInfo") // Include PrivacyInfo
             ]
         ),
         .testTarget(
