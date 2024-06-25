@@ -3,6 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "MoyasarSdk",
+    defaultLocalization: "ar", // Set this to your default localization language code
     platforms: [
         .iOS(.v13), // Update to the minimum version of iOS you support
     ],
