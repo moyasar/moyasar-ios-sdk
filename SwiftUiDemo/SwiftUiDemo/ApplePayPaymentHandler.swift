@@ -9,7 +9,7 @@ import MoyasarSdk
 import PassKit
 
 class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate {
-    var applePayService = ApplePayService(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
+    var applePayService: ApplePayService?
     var controller: PKPaymentAuthorizationController?
     var items = [PKPaymentSummaryItem]()
     var networks: [PKPaymentNetwork] = [
@@ -22,6 +22,11 @@ class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate
     
     init(paymentRequest: PaymentRequest) {
         self.paymentRequest = paymentRequest
+        do {
+            var applePayService = try ApplePayService(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
+        } catch {
+            print("Failed to initialize ApplePayService: \(error)")
+        }
     }
     
     func present() {
@@ -50,28 +55,26 @@ class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate
     }
     
     func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didAuthorizePayment payment: PKPayment, completion: @escaping (PKPaymentAuthorizationStatus) -> Void) {
-        
-        do {
-            try applePayService.authorizePayment(request: paymentRequest, token: payment.token) {(result: ApiResult<ApiPayment>) in
-                switch (result) {
-                case .success(let payment):
+        Task {
+            do {
+                if let applePayService = applePayService {
+                    let paymentResult = try await applePayService.authorizePayment(request: paymentRequest, token: payment.token)
+                    // Handle the success case
                     print("Got payment")
-                    print(payment.status)
-                    print(payment.id)
-                    break;
-                case .error(let error):
-                    print(error)
-                    break;
-                @unknown default:
-                    print("Unknown case!")
-                    break;
+                    print(paymentResult.status)
+                    print(paymentResult.id)
+                    completion(.success)
+                } else {
+                    // Handle the case where applePayService is nil
+                    print("ApplePayService is not initialized")
+                    completion(.failure)
                 }
+            } catch {
+                // Handle the error case
+                print(error)
+                completion(.failure)
             }
-        } catch {
-            print(error)
         }
-        
-        completion(.success)
     }
     
     func paymentAuthorizationControllerDidFinish(_ controller: PKPaymentAuthorizationController) {
