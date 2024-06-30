@@ -17,13 +17,6 @@ Swift Package Manager (SPM) is a tool for managing the distribution of Swift cod
 - In the package repository URL field, enter: https://github.com/moyasar/moyasar-ios-sdk.git
  from master branch 
 
-##3- Manual Integration:
-- Download the latest release from the Moyasar GitHub Releases page
-- Drag the downloaded .framework file into your Xcode project.
-- Ensure that the framework is added to your target's "Link Binary With Libraries" build phase.
-- Go to your target's "General" settings.
-- Add the .framework under the "Frameworks, Libraries, and Embedded Content" section and ensure it is set to "Embed & Sign".
-https://github.com/moyasar/moyasar-ios-sdk.git
 
 For more details To install and setup the SDK follow [this documentation](https://docs.moyasar.com/ios-sdk).
 
