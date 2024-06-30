@@ -7,14 +7,22 @@
 
 import MoyasarSdk
 
-fileprivate let paymentService = PaymentService(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
-fileprivate var currentPayment: ApiPayment?
 
 class CustomViewModel: ObservableObject {
     
     @Published var appStatus = MyAppStatus.reset
     @Published var paymentStatus = CreditCardPaymentStatus.reset
     
+    var currentPayment: ApiPayment?
+    let paymentService: PaymentService
+
+    init() {
+        do {
+            self.paymentService = try  PaymentService(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
+        } catch {
+            print("Failed to initialize PaymentService: \(error)")
+        }
+    }
     var source = ApiCreditCardSource(
         name: "John Doe",
         number: "4111111111111111",
