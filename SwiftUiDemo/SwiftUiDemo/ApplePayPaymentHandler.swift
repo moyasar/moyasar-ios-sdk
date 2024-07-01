@@ -23,7 +23,7 @@ class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate
     init(paymentRequest: PaymentRequest) {
         self.paymentRequest = paymentRequest
         do {
-            var applePayService = try ApplePayService(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
+             applePayService = try ApplePayService(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
         } catch {
             print("Failed to initialize ApplePayService: \(error)")
         }

@@ -15,14 +15,7 @@ class CustomViewModel: ObservableObject {
     
     var currentPayment: ApiPayment?
     let paymentService: PaymentService
-
-    init() {
-        do {
-            self.paymentService = try  PaymentService(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
-        } catch {
-            print("Failed to initialize PaymentService: \(error)")
-        }
-    }
+    
     var source = ApiCreditCardSource(
         name: "John Doe",
         number: "4111111111111111",
@@ -32,6 +25,15 @@ class CustomViewModel: ObservableObject {
         manual: "false",
         saveCard: "false"
     )
+    
+    init() {
+        do {
+            self.paymentService = try  PaymentService(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
+        } catch {
+            print("Failed to initialize PaymentService: \(error)")
+            fatalError()
+        }
+    }
     
     func beginPayment() {
         // Make sure to validate user input before initializing the payment process
@@ -46,25 +48,16 @@ class CustomViewModel: ObservableObject {
             metadata: ["sdk": "ios", "order_id": "ios_order_3214124"]
         )
         
-        do {
-            try paymentService.create(paymentRequest, handler: {result in
+        Task {
+            do {
+                let payment = try await paymentService.createPayment(paymentRequest)
                 DispatchQueue.main.async {
-                    switch (result) {
-                    case .success(let payment):
-                        currentPayment = payment
-                        self.startPaymentAuthProcess(payment)
-                        break;
-                    case .error(_):
-                        // Handle error
-                        break;
-                    @unknown default:
-                        // Handle any future cases
-                        break
-                    }
+                    self.currentPayment = payment
+                    self.startPaymentAuthProcess(payment)
                 }
-            })
-        } catch {
-            // Handle error
+            } catch {
+                print("Payment creation error: \(error)")
+            }
         }
     }
     
@@ -91,7 +84,7 @@ class CustomViewModel: ObservableObject {
     
     func handleWebViewResult(_ result: WebViewResult) {
         paymentStatus = .reset
-
+        
         switch result {
         case .completed(let info):
             guard currentPayment != nil else {
@@ -100,7 +93,7 @@ class CustomViewModel: ObservableObject {
             }
             
             updatePaymentFromWebViewPaymentInfo(info, &currentPayment!)
-
+            
             if (currentPayment!.status == .paid) {
                 appStatus = .success(currentPayment!)
             } else {
@@ -123,7 +116,7 @@ class CustomViewModel: ObservableObject {
     
     func updatePaymentFromWebViewPaymentInfo(_ info: WebViewPaymentInfo, _ currentPayment: inout ApiPayment) {
         currentPayment.status = ApiPaymentStatus(rawValue: info.status)!
-
+        
         if case var .creditCard(source) = currentPayment.source {
             source.message = info.message
             currentPayment.source = .creditCard(source)
