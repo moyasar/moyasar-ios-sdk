@@ -24,8 +24,7 @@ public struct CreditCardView: View {
             viewModel = try CreditCardViewModel(paymentRequest: request, resultCallback: callback)
         } catch {
             // Handle error here, show error in view model
-            viewModel = try! CreditCardViewModel(paymentRequest: request, resultCallback: callback)
-            viewModel.error = "Failed to initialize CreditCardViewModel: \(error)"
+          fatalError("invalid api key")
         }
     }
     
