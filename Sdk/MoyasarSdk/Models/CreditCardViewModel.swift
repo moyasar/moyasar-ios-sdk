@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 import Combine
 
+@MainActor
 public class CreditCardViewModel: ObservableObject {
     let formatter = CreditCardFormatter()
     let expiryFormatter = ExpiryFormatter()
@@ -52,7 +53,7 @@ public class CreditCardViewModel: ObservableObject {
             }
         }
     }
-    
+  
     var formattedAmount: String {
         let majorAmount = currencyUtil.toMajor(paymentRequest.amount, currency: paymentRequest.currency)
         let amount = numberFormatter.string(from: majorAmount as NSNumber)!
