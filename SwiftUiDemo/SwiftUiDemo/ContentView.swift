@@ -4,7 +4,7 @@ import PassKit
 
 // Below is a demo of how to use Moyasar's SDK
 
-fileprivate let handler = ApplePayPaymentHandler(paymentRequest: paymentRequest)
+fileprivate let applePayHandler = ApplePayPaymentHandler(paymentRequest: paymentRequest)
 fileprivate let token = ApiTokenRequest(
     name: "source.name",
     number: "source.number",
@@ -70,7 +70,7 @@ struct ContentView: View {
     
     func handleFromResult(_ result: PaymentResult) {
         switch (result) {
-        case .completed(let payment):
+        case let .completed(payment):
             if payment.status == .paid {
                 status = .success(payment)
             } else {
@@ -84,10 +84,10 @@ struct ContentView: View {
                 }
             }
             break;
-        case .saveOnlyToken(let token):
+        case let .saveOnlyToken(token):
             status = .successToken(token)
             break;
-        case .failed(let error):
+        case let .failed( error):
             status = .failed(error)
             break;
         case .canceled:
@@ -100,7 +100,7 @@ struct ContentView: View {
     }
     
     func applePayPressed(action: UIAction) {
-        handler.present()
+        applePayHandler.present()
     }
 }
 

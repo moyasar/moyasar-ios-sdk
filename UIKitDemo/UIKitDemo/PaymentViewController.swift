@@ -25,8 +25,8 @@ let paymentRequest = PaymentRequest(
     description: "Testing iOS SDK",
     metadata: ["order_id": "ios_order_3214124"],
     manual: false,
-    createSaveOnlyToken: false,
-    allowedNetworks: [.visa, .mastercard]
+    createSaveOnlyToken: false//,
+    //allowedNetworks: [.visa, .mastercard]
 )
 
 let token = ApiTokenRequest(
@@ -71,7 +71,7 @@ class PaymentViewController: UIViewController {
     
     func handlePaymentResult(_ result: PaymentResult) {
         switch (result) {
-        case .completed(let payment):
+        case let .completed(payment):
             if payment.status == .paid {
                 presentResultViewController(title: "Thank you for the payment", subtitle: "Your payment ID is " + payment.id)
             } else {
@@ -85,10 +85,10 @@ class PaymentViewController: UIViewController {
                 }
             }
             break
-        case .saveOnlyToken(let token):
+        case let .saveOnlyToken(token):
             presentResultViewController(title: "Thank you for the token", subtitle: "Your token ID is " + token.id)
             break
-        case .failed(let error):
+        case let .failed(error):
             presentResultViewController(title: "Whops 🤭", subtitle: "Something went wrong: " + error.localizedDescription)
             break
         case .canceled:

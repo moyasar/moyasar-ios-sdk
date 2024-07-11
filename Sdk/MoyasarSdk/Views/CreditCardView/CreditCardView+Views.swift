@@ -44,7 +44,7 @@ extension CreditCardView {
     var payButtonView: some View {
         Button(action: {
             Task {
-                await   viewModel.beginTransaction()
+                await viewModel.beginTransaction()
             }
         }, label: {
             HStack {
