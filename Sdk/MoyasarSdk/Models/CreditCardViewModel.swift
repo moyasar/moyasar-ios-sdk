@@ -4,14 +4,26 @@ import Combine
 
 @MainActor
 public class CreditCardViewModel: ObservableObject {
+    
+    @Published var status = CreditCardViewModelStatus.reset
+    @Published var error: String? = nil
+    @Published var nameOnCard = ""
+    @Published var number = ""
+    @Published var expiryDate = ""
+    @Published var securityCode = ""
+  
     let formatter = CreditCardFormatter()
     let expiryFormatter = ExpiryFormatter()
     let currencyUtil = CurrencyUtil()
-
     var paymentRequest: PaymentRequest
     var resultCallback: ResultCallback
     var currentPayment: ApiPayment? = nil
     var paymentService: PaymentService
+    lazy var nameValidator = NameOnCardValidator()
+    lazy var numberValidator = CardNumberValidator(supportedNetworks: paymentRequest.allowedNetworks)
+    lazy var expiryValidator = ExpiryValidator()
+    lazy var securityCodeValidator = SecurityCodeValidator(getNumber: { self.number },
+                                                           supportedNetworks: paymentRequest.allowedNetworks)
     
     lazy var numberFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -22,38 +34,7 @@ public class CreditCardViewModel: ObservableObject {
         return formatter
     }()
     
-    @Published var status = CreditCardViewModelStatus.reset
-    @Published var error: String? = nil
-    @Published var nameOnCard = ""
-    
-    @Published var number = "" {
-        didSet {
-            let filtered = self.formatter.string(for: self.number)!
-            if number != filtered {
-                number = filtered
-            }
-        }
-    }
-
-    @Published var expiryDate = "" {
-        didSet {
-            let filtered = self.expiryFormatter.format(expiryDate)
-            if expiryDate != filtered {
-                expiryDate = filtered
-            }
-        }
-    }
-    
-    @Published var securityCode = "" {
-        didSet {
-            var filtered = ArabicNumberMapper.mapArabicNumbers(securityCode)
-            filtered = String(filtered.filter { $0.isNumber }.prefix(4))
-            if securityCode != filtered {
-                securityCode = filtered
-            }
-        }
-    }
-  
+ 
     var formattedAmount: String {
         let majorAmount = currencyUtil.toMajor(paymentRequest.amount, currency: paymentRequest.currency)
         let amount = numberFormatter.string(from: majorAmount as NSNumber)!
@@ -94,12 +75,7 @@ public class CreditCardViewModel: ObservableObject {
         return nil
     }
     
-    lazy var nameValidator = NameOnCardValidator()
-    lazy var numberValidator = CardNumberValidator(supportedNetworks: paymentRequest.allowedNetworks)
-    lazy var expiryValidator = ExpiryValidator()
-    lazy var securityCodeValidator = SecurityCodeValidator(getNumber: { self.number },
-                                                           supportedNetworks: paymentRequest.allowedNetworks)
-    
+   
     public init(paymentRequest: PaymentRequest, resultCallback: @escaping ResultCallback) throws {
         self.paymentRequest = paymentRequest
         self.resultCallback = resultCallback
