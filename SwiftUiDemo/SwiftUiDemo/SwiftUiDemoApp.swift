@@ -17,12 +17,13 @@ import MoyasarSdk
 /// 10 JPY = 10 JPY (Japanese Yen does not have fractions)
 let paymentRequest = PaymentRequest(
     apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
+    baseUrl: "https://apimig.moyasar.com",
     amount: 100,
     currency: "SAR",
     description: "Testing iOS SDK",
     metadata: ["order_id": "ios_order_3214124"],
     manual: false,
-    createSaveOnlyToken: false//,
+    createSaveOnlyToken: false
    // allowedNetworks: [.visa, .mastercard]
 )
 
@@ -40,10 +41,7 @@ enum MyAppStatus {
     case reset
     case success(ApiPayment)
     case successToken(ApiToken)
-    case failed(Error)
+    case failed(MoyasarError)
     case unknown(String)
 }
 
-enum PaymentErrorSample: Error {
-    case webViewAuthFailed(String)
-}

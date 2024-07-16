@@ -209,8 +209,12 @@ public class CreditCardViewModel: ObservableObject {
     }
     
     func handleError(_ error: Error) {
-        let callbackError = MoyasarError.unexpectedError("Credit Card payment request failed: \(error.localizedDescription)")
-        resultCallback(.failed(callbackError))
+        if let moyasarError = error as? MoyasarError {
+            resultCallback(.failed(moyasarError))
+        } else {
+            let callbackError = MoyasarError.unexpectedError("Credit Card payment request failed: \(error.localizedDescription)")
+            resultCallback(.failed(callbackError))
+        }
     }
 }
 

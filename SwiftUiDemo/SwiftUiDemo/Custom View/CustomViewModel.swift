@@ -98,7 +98,7 @@ class CustomViewModel: ObservableObject {
                 appStatus = .success(currentPayment!)
             } else {
                 if case let .creditCard(source) = currentPayment!.source, currentPayment!.status == .failed {
-                    appStatus = .failed(PaymentErrorSample.webViewAuthFailed(source.message ?? ""))
+                    appStatus = .unknown(source.message ?? "")
                     print("Payment failed: \(source.message ?? "")")
                 } else {
                     // Handle payment statuses
@@ -109,7 +109,7 @@ class CustomViewModel: ObservableObject {
             break
         case .failed(let error):
             // Handle error
-            appStatus = .failed(error)
+            appStatus = .unknown(error.localizedDescription)
             break
         }
     }
