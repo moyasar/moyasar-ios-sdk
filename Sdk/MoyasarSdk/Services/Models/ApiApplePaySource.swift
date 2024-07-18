@@ -13,7 +13,11 @@ public struct ApiApplePaySource: Codable {
         gatewayId: String? = nil,
         referenceNumber: String? = nil,
         responseCode: String? = nil,
-        authorizationCode: String? = nil
+        authorizationCode: String? = nil,
+        issuerName: String? = nil,
+        issuerCountry: String? = nil,
+        issuerCardType: String? = nil,
+        isserCardCategory: String? = nil
     ) {
         self.type = type
         self.token = token
@@ -26,6 +30,10 @@ public struct ApiApplePaySource: Codable {
         self.referenceNumber = referenceNumber
         self.responseCode = responseCode
         self.authorizationCode = authorizationCode
+        self.issuerName = issuerName
+        self.issuerCountry = issuerCountry
+        self.issuerCardType = issuerCardType
+        self.isserCardCategory = isserCardCategory
     }
     
     public var type: String = "applepay"
@@ -39,6 +47,10 @@ public struct ApiApplePaySource: Codable {
     public var referenceNumber: String?
     public var responseCode: String?
     public var authorizationCode: String?
+    public var issuerName: String?
+    public var issuerCountry: String?
+    public var issuerCardType: String?
+    public var isserCardCategory: String?
 }
 
 extension ApiApplePaySource {
