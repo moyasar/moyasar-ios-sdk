@@ -60,7 +60,7 @@ final class CreditCardFormatter {
         if cleaned.count > 2 {
             let month = cleaned.prefix(2)
             let year = cleaned.suffix(from: cleaned.index(cleaned.startIndex, offsetBy: 2))
-            return "\(month)/\(year)"
+            return "\(month) / \(year)"
         }
         return cleaned
     }

@@ -71,11 +71,9 @@ final public class PaymentService {
             }
             
             return try decoder.decode(T.self, from: data)
+        } catch let error as MoyasarError {
+            throw error
         } catch {
-            if let moyasarError = error as? MoyasarError {
-                throw error
-            }
-            
             throw MoyasarError.unexpectedError("Request failed: \(error.localizedDescription)")
         }
     }
