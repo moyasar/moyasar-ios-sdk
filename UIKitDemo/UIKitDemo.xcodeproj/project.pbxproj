@@ -12,6 +12,7 @@
 		419D67E1270E2BC8003A0C62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 419D67E0270E2BC8003A0C62 /* Assets.xcassets */; };
 		419D67F2270E2BE4003A0C62 /* MoyasarSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 419D67F1270E2BE4003A0C62 /* MoyasarSdk.framework */; };
 		419D67F3270E2BE4003A0C62 /* MoyasarSdk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 419D67F1270E2BE4003A0C62 /* MoyasarSdk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4B178CD62C31BFD400E33706 /* ApplePayPaymentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B178CD52C31BFD400E33706 /* ApplePayPaymentHandler.swift */; };
 		892E62682AF53B9700D61F1A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 892E62662AF53B9700D61F1A /* Main.storyboard */; };
 		892E626B2AF53BD200D61F1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 892E62692AF53BD200D61F1A /* LaunchScreen.storyboard */; };
 		892E626F2AF6AB0700D61F1A /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892E626E2AF6AB0700D61F1A /* ResultViewController.swift */; };
@@ -38,6 +39,7 @@
 		419D67E0270E2BC8003A0C62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		419D67E5270E2BC8003A0C62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		419D67F1270E2BE4003A0C62 /* MoyasarSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MoyasarSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B178CD52C31BFD400E33706 /* ApplePayPaymentHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplePayPaymentHandler.swift; sourceTree = "<group>"; };
 		892E62672AF53B9700D61F1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		892E626A2AF53BD200D61F1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		892E626E2AF6AB0700D61F1A /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 		419D67D6270E2BC6003A0C62 /* UIKitDemo */ = {
 			isa = PBXGroup;
 			children = (
+				4B178CD52C31BFD400E33706 /* ApplePayPaymentHandler.swift */,
 				419D67D7270E2BC6003A0C62 /* AppDelegate.swift */,
 				419D67DB270E2BC6003A0C62 /* PaymentViewController.swift */,
 				892E626E2AF6AB0700D61F1A /* ResultViewController.swift */,
@@ -170,6 +173,7 @@
 				419D67DC270E2BC6003A0C62 /* PaymentViewController.swift in Sources */,
 				419D67D8270E2BC6003A0C62 /* AppDelegate.swift in Sources */,
 				892E626F2AF6AB0700D61F1A /* ResultViewController.swift in Sources */,
+				4B178CD62C31BFD400E33706 /* ApplePayPaymentHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

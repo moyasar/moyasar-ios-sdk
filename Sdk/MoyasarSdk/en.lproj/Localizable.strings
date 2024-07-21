@@ -1,6 +1,6 @@
 "name-on-card" = "Name on Card";
 "card-number" = "Card Number";
-"expiry" = "Expiry";
+"expiry" = "Expiry (MM/YY)";
 "cvc" = "CVC";
 "card-number-required" = "Card number is required";
 "invalid-card-number" = "Invalid card number";

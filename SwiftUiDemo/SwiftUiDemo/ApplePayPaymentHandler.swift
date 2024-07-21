@@ -9,7 +9,9 @@ import MoyasarSdk
 import PassKit
 
 class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate {
-    var applePayService = ApplePayService(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
+    let paymentRequest: PaymentRequest
+
+    var applePayService: ApplePayService?
     var controller: PKPaymentAuthorizationController?
     var items = [PKPaymentSummaryItem]()
     var networks: [PKPaymentNetwork] = [
@@ -18,21 +20,21 @@ class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate
         .masterCard,
         .visa
     ]
-    let paymentRequest: PaymentRequest
-    
-    init(paymentRequest: PaymentRequest) {
+
+    init(paymentRequest: PaymentRequest) throws {
         self.paymentRequest = paymentRequest
+        self.applePayService = try ApplePayService(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
     }
-    
+
     func present() {
         items = [
             PKPaymentSummaryItem(label: "Moyasar", amount: 1.00, type: .final)
         ]
-        
+
         let request = PKPaymentRequest()
-        
+
         request.paymentSummaryItems = items
-        request.merchantIdentifier = "merchant.nuha.io.second"
+        request.merchantIdentifier = "merchant.mysr.fghurayri"
         request.countryCode = "SA"
         request.currencyCode = "SAR"
         request.supportedNetworks = networks
@@ -41,40 +43,48 @@ class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate
             .capabilityCredit,
             .capabilityDebit
         ]
-        
+
         controller = PKPaymentAuthorizationController(paymentRequest: request)
         controller?.delegate = self
         controller?.present(completion: {(p: Bool) in
             print("Presented: " + (p ? "Yes" : "No"))
         })
     }
-    
-    func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didAuthorizePayment payment: PKPayment, completion: @escaping (PKPaymentAuthorizationStatus) -> Void) {
-        
-        do {
-            try applePayService.authorizePayment(request: paymentRequest, token: payment.token) {(result: ApiResult<ApiPayment>) in
-                switch (result) {
-                case .success(let payment):
-                    print("Got payment")
-                    print(payment.status)
-                    print(payment.id)
-                    break;
-                case .error(let error):
-                    print(error)
-                    break;
-                @unknown default:
-                    print("Unknown case!")
-                    break;
+
+    func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
+        Task {
+            do {
+                let payment = try await applePayService!.authorizePayment(request: paymentRequest, token: payment.token)
+                print("Got payment, status: \(payment.status)")
+                print(payment.status)
+                print(payment.id)
+
+                switch (payment.status) {
+                case .paid:
+                    completion(PKPaymentAuthorizationResult(status: .success, errors: []))
+                case .failed:
+                    let message: String = if case let .applePay(source) = payment.source {
+                        source.message ?? "unspecified"
+                    } else {
+                        "Returned API source is not Apple Pay"
+                    }
+
+                    completion(PKPaymentAuthorizationResult(status: .failure, errors: [DemoError.paymentError(message)]))
+                default:
+                    completion(PKPaymentAuthorizationResult(status: .failure, errors: [DemoError.paymentError("Unexpected status returned by API")]))
                 }
+            } catch {
+                // Handle the error case
+                print(error)
+                completion(PKPaymentAuthorizationResult(status: .failure, errors: [error]))
             }
-        } catch {
-            print(error)
         }
-        
-        completion(.success)
     }
-    
     func paymentAuthorizationControllerDidFinish(_ controller: PKPaymentAuthorizationController) {
         controller.dismiss(completion: {})
     }
+}
+
+enum DemoError: Error {
+    case paymentError(String)
 }

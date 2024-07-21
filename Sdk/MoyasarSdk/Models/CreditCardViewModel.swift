@@ -2,15 +2,28 @@ import Foundation
 import SwiftUI
 import Combine
 
+@MainActor
 public class CreditCardViewModel: ObservableObject {
+    
+    @Published var status = CreditCardViewModelStatus.reset
+    @Published var error: String? = nil
+    @Published var nameOnCard = ""
+    @Published var number = ""
+    @Published var expiryDate = ""
+    @Published var securityCode = ""
+  
     let formatter = CreditCardFormatter()
     let expiryFormatter = ExpiryFormatter()
-    let paymentService: PaymentService
     let currencyUtil = CurrencyUtil()
-
     var paymentRequest: PaymentRequest
     var resultCallback: ResultCallback
     var currentPayment: ApiPayment? = nil
+    var paymentService: PaymentService
+    lazy var nameValidator = NameOnCardValidator()
+    lazy var numberValidator = CardNumberValidator(supportedNetworks: paymentRequest.allowedNetworks)
+    lazy var expiryValidator = ExpiryValidator()
+    lazy var securityCodeValidator = SecurityCodeValidator(getNumber: { self.number },
+                                                           supportedNetworks: paymentRequest.allowedNetworks)
     
     lazy var numberFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -21,38 +34,7 @@ public class CreditCardViewModel: ObservableObject {
         return formatter
     }()
     
-    @Published var status = CreditCardViewModelStatus.reset
-    @Published var error: String? = nil
-    @Published var nameOnCard = ""
-    
-    @Published var number = "" {
-        didSet {
-            let filtered = self.formatter.string(for: self.number)!
-            if number != filtered {
-                number = filtered
-            }
-        }
-    }
-
-    @Published var expiryDate = "" {
-        didSet {
-            let filtered = self.expiryFormatter.format(expiryDate)
-            if expiryDate != filtered {
-                expiryDate = filtered
-            }
-        }
-    }
-    
-    @Published var securityCode = "" {
-        didSet {
-            var filtered = ArabicNumberMapper.mapArabicNumbers(securityCode)
-            filtered = String(filtered.filter { $0.isNumber }.prefix(4))
-            if securityCode != filtered {
-                securityCode = filtered
-            }
-        }
-    }
-    
+ 
     var formattedAmount: String {
         let majorAmount = currencyUtil.toMajor(paymentRequest.amount, currency: paymentRequest.currency)
         let amount = numberFormatter.string(from: majorAmount as NSNumber)!
@@ -70,16 +52,34 @@ public class CreditCardViewModel: ObservableObject {
         return validations.allSatisfy({ $0 == nil })
     }
     
-    lazy var nameValidator = NameOnCardValidator()
-    lazy var numberValidator = CardNumberValidator(supportedNetworks: paymentRequest.allowedNetworks)
-    lazy var expiryValidator = ExpiryValidator()
-    lazy var securityCodeValidator = SecurityCodeValidator(getNumber: { self.number },
-                                                           supportedNetworks: paymentRequest.allowedNetworks)
+     func shoudDisable() -> Bool {
+        switch (status) {
+        case .reset:
+            return false
+        default:
+            return true
+        }
+    }
+
+    var showAuth: Bool {
+        if case .paymentAuth(_) = status {
+            return true
+        }
+        return false
+    }
     
-    public init(paymentRequest: PaymentRequest, resultCallback: @escaping ResultCallback) {
+    var authUrl: URL? {
+        if case .paymentAuth(let url) = status {
+            return URL(string: url)!
+        }
+        return nil
+    }
+    
+   
+    public init(paymentRequest: PaymentRequest, resultCallback: @escaping ResultCallback) throws {
         self.paymentRequest = paymentRequest
         self.resultCallback = resultCallback
-        self.paymentService = PaymentService(apiKey: paymentRequest.apiKey)
+        self.paymentService = try PaymentService(apiKey: paymentRequest.apiKey)
     }
     
     func showNetworkLogo(_ network: CreditCardNetwork) -> Bool {
@@ -92,8 +92,7 @@ public class CreditCardViewModel: ObservableObject {
         }
     }
     
-   
-    func beingTransaction() {
+    func beginTransaction() async {
         self.error = nil
         guard isValid else {
             return
@@ -113,83 +112,63 @@ public class CreditCardViewModel: ObservableObject {
             saveCard: paymentRequest.saveCard ? "true" : "false"
         )
         
+        do {
+            if (paymentRequest.createSaveOnlyToken) {
+                try await beginSaveOnlyToken(source)
+            } else {
+                try await beginPayment(source)
+            }
+        } catch {
+            handleError(error)
+        }
+    }
+    
+    func beginPayment(_ source: ApiCreditCardSource) async throws {
+        status = .processing
         
-        if (paymentRequest.createSaveOnlyToken) {
-            beginSaveOnlyToken(source)
-        } else {
-            beginPayment(source)
+        let request = ApiPaymentRequest(
+            amount: paymentRequest.amount,
+            currency: paymentRequest.currency,
+            description: paymentRequest.description,
+            callbackUrl: "https://sdk.moyasar.com/return",
+            source: ApiPaymentSource.creditCard(source),
+            metadata: paymentRequest.metadata.merging(["sdk": "ios"], uniquingKeysWith: {k, _ in k })
+        )
+        
+        do {
+            let payment = try await paymentService.createPayment(request)
+            currentPayment = payment
+            startPaymentAuthProcess()
+        } catch {
+            throw error
         }
     }
     
-    func beginPayment(_ source: ApiCreditCardSource) {
+    func beginSaveOnlyToken(_ source: ApiCreditCardSource) async throws {
+        status = .processing
+        
+        let request = ApiTokenRequest(
+            name: source.name,
+            number: source.number,
+            cvc: source.cvc,
+            month: source.month,
+            year: source.year,
+            saveOnly: true,
+            callbackUrl: "https://sdk.moyasar.com/return",
+            metadata: paymentRequest.metadata
+        )
+        
         do {
-            status = .processing
-            
-            let request = ApiPaymentRequest(
-                amount: paymentRequest.amount,
-                currency: paymentRequest.currency,
-                description: paymentRequest.description,
-                callbackUrl: "https://sdk.moyasar.com/return",
-                source: ApiPaymentSource.creditCard(source),
-                metadata: paymentRequest.metadata.merging(["sdk": "ios"], uniquingKeysWith: {k, _ in k })
-            )
-            
-            try paymentService.create(request, handler: {result in
-                DispatchQueue.main.async {
-                    switch (result) {
-                    case .success(let payment):
-                        self.currentPayment = payment
-                        self.startPaymentAuthProcess()
-                        break;
-                    case .error(let error):
-                        self.resultCallback(.failed(error))
-                        break;
-                    }
-                }
-            })
+            let token = try await paymentService.createToken(request)
+            resultCallback(.saveOnlyToken(token))
         } catch {
-            let error = MoyasarError.unexpectedError("Credit Card payment request failed: \(error.localizedDescription)")
-            self.resultCallback(.failed(error))
-        }
-    }
-    
-    func beginSaveOnlyToken(_ source: ApiCreditCardSource) {
-        do {
-            status = .processing
-            
-            let request = ApiTokenRequest(
-                name: source.name,
-                number: source.number,
-                cvc: source.cvc,
-                month: source.month,
-                year: source.year,
-                saveOnly: true,
-                callbackUrl: "https://sdk.moyasar.com/return",
-                metadata: paymentRequest.metadata
-            )
-            
-            try paymentService.createToken(request, handler: {result in
-                DispatchQueue.main.async {
-                    switch (result) {
-                    case .success(let token):
-                        self.resultCallback(.saveOnlyToken(token))
-                        break;
-                    case .error(let error):
-                        self.resultCallback(.failed(error))
-                        break;
-                    }
-                }
-            })
-        } catch {
-            let error = MoyasarError.unexpectedError("Credit Card save only token request failed: \(error.localizedDescription)")
-            self.resultCallback(.failed(error))
+            throw error
         }
     }
     
     func startPaymentAuthProcess() {
         guard let payment = currentPayment else {
-            let error = MoyasarError.unexpectedError("Current payment is nil")
-            resultCallback(.failed(error))
+            handleError(MoyasarError.unexpectedError("Current payment is nil"))
             return
         }
         
@@ -201,8 +180,7 @@ public class CreditCardViewModel: ObservableObject {
         
         // set status to paymentAuth and show webview
         guard case let .creditCard(source) = payment.source else {
-            let error = MoyasarError.unexpectedError("Initiated payment has invalid source type")
-            resultCallback(.failed(error))
+            handleError(MoyasarError.unexpectedError("Initiated payment has invalid source type"))
             return
         }
         
@@ -229,6 +207,15 @@ public class CreditCardViewModel: ObservableObject {
             self.status = .reset
         }
     }
+    
+    func handleError(_ error: Error) {
+        if let moyasarError = error as? MoyasarError {
+            resultCallback(.failed(moyasarError))
+        } else {
+            let callbackError = MoyasarError.unexpectedError("Credit Card payment request failed: \(error.localizedDescription)")
+            resultCallback(.failed(callbackError))
+        }
+    }
 }
 
 enum CreditCardViewModelStatus {
@@ -236,4 +223,3 @@ enum CreditCardViewModelStatus {
     case processing
     case paymentAuth(String)
 }
-
