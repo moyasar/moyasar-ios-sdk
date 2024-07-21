@@ -1,4 +1,4 @@
-import SwiftUI
+import Foundation
 
 class FieldValidator {
     var rules = [ValidationRule]()

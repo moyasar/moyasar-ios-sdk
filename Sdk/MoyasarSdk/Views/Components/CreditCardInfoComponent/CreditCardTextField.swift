@@ -9,9 +9,6 @@
 import SwiftUI
 import UIKit
 
-import SwiftUI
-import UIKit
-
 struct CreditCardTextField: UIViewRepresentable {
     class Coordinator: NSObject, UITextFieldDelegate {
         var parent: CreditCardTextField
