@@ -1,24 +1,63 @@
+
 # Moyasar iOS SDK
 
- ##The Moyasar iOS SDK provides a streamlined way to integrate Moyasar's payment solutions into your iOS applications. With support for CocoaPods, Swift Package Manager (SPM), and manual integration, developers have flexibility in how they incorporate the SDK into their projects.
+The Moyasar iOS SDK provides a streamlined way to integrate Moyasar's payment solutions into your iOS applications. With support for CocoaPods, Swift Package Manager (SPM), and manual integration, developers have flexibility in how they incorporate the SDK into their projects.
 
-
-# Installation
+## Installation
 
 You can integrate the Moyasar SDK into your project using one of the following methods:
-##1- CocoaPods
-- Add the following line to your Podfile: pod 'MoyasarSdk', git: 'https://github.com/moyasar/moyasar-ios-pod.git'
-- Install the Dependency: pod install
 
+### 1. CocoaPods
 
-##2- Swift Package Manager (SPM)
+1. Add the following line to your `Podfile`:
+    ```ruby
+    pod 'MoyasarSdk', git: 'https://github.com/moyasar/moyasar-ios-pod.git'
+    ```
+2. Install the dependency:
+    ```sh
+    pod install
+    ```
+
+### 2. Swift Package Manager (SPM)
+
 Swift Package Manager (SPM) is a tool for managing the distribution of Swift code. Starting from version 1.0.5, the Moyasar SDK supports integration via SPM. Here’s how you can add it to your project:
-- In Xcode, open your project and navigate to the project settings. Select your target, then go to the "Package Dependencies" tab. Click the "+" button to add a new package.
-- In the package repository URL field, enter: https://github.com/moyasar/moyasar-ios-sdk.git
- from master branch 
 
+1. In Xcode, open your project and navigate to the project settings.
+2. Select your target, then go to the "Package Dependencies" tab.
+3. Click the "+" button to add a new package.
+4. In the package repository URL field, enter:
+    ```
+    https://github.com/moyasar/moyasar-ios-sdk.git
+    ```
+5. Choose the branch `master`.
 
-For more details To install and setup the SDK follow [this documentation](https://docs.moyasar.com/ios-sdk).
+For more details, refer to the [official documentation](https://docs.moyasar.com/ios-sdk).
+
+## Migration from v1.0.5 to v2.0.0
+
+To migrate from version 1.0.5 to 2.0.0, please follow the [migration guide](https://docs.moyasar.com/ios-sdk).
+
+### Using Older Versions
+
+#### CocoaPods
+To use an older version, add the tag for it like this:
+```ruby
+pod 'MoyasarSdk', :git => 'https://github.com/moyasar/moyasar-ios-pod.git', :tag => 'v1.0.5'
+```
+
+#### Swift Package Manager (SPM)
+You can specify the versioning in SPM:
+- For version 1.0.5:
+  ```plaintext
+  https://github.com/moyasar/moyasar-ios-sdk.git, version: 1.0.5
+  ```
+- For version 2.0.0:
+  ```plaintext
+  https://github.com/moyasar/moyasar-ios-sdk.git, version: 2.0.0
+  ```
+
+By following these steps, you can easily integrate and migrate the Moyasar iOS SDK into your project. For any further details and documentation, visit [Moyasar's official documentation](https://docs.moyasar.com/ios-sdk).
+
 
 ## APIs Documentation
 
