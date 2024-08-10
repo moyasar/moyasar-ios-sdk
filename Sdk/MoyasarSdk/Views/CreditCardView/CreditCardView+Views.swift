@@ -52,14 +52,16 @@ extension CreditCardView {
                     ActivityIndicator(style: .medium)
                 } else {
                     Text(viewModel.formattedAmount)
+                        .frame(maxWidth: .infinity, minHeight: 25)
+                        .contentShape(Rectangle())
                 }
             }
         }).disabled(!viewModel.isValid)
             .frame(maxWidth: .infinity, minHeight: 25)
             .padding(14)
+            .background(shouldDisable() || !viewModel.isValid ? buttonColor.opacity(0.6) : buttonColor)
             .foregroundColor(.white)
             .font(.headline)
-            .background(shouldDisable() || !viewModel.isValid ? buttonColor.opacity(0.6) : buttonColor)
             .cornerRadius(10)
     }
 }
