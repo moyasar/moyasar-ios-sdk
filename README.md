@@ -46,14 +46,11 @@ pod 'MoyasarSdk', :git => 'https://github.com/moyasar/moyasar-ios-pod.git', :tag
 ```
 
 #### Swift Package Manager (SPM)
-You can specify the versioning in SPM:
-- For version 1.0.5:
+You can specify the versioning in SPM as flow:
+
+- For version 2.0.1:
   ```plaintext
-  https://github.com/moyasar/moyasar-ios-sdk.git, version: 1.0.5
-  ```
-- For version 2.0.0:
-  ```plaintext
-  https://github.com/moyasar/moyasar-ios-sdk.git, version: 2.0.0
+  https://github.com/moyasar/moyasar-ios-sdk.git, version: 2.0.1
   ```
 
 By following these steps, you can easily integrate and migrate the Moyasar iOS SDK into your project. For any further details and documentation, visit [Moyasar's official documentation](https://docs.moyasar.com/ios-sdk).
