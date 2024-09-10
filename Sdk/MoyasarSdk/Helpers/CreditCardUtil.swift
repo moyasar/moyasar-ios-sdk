@@ -12,28 +12,28 @@ var visaRangeRegex = try! NSRegularExpression(pattern: #"^4"#, options: [])
 var masterCardRangeRegex = try! NSRegularExpression(pattern: #"^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)"#, options: [])
 
 func isValidLuhnNumber(_ number: String) -> Bool {
-    let clean = number.replacingOccurrences(of: " ", with: "")
-    guard var sum = clean.last?.wholeNumberValue else {
+    let cleanNumber = number.replacingOccurrences(of: " ", with: "")
+    guard cleanNumber.isNumeric else {
         return false
     }
     
-    for index in 0..<clean.count - 1 {
-        let valueIndex = clean.index(clean.startIndex, offsetBy: index)
-        guard var value = clean[valueIndex].wholeNumberValue else {
+    let doubleSum = [0, 2, 4, 6, 8, 1, 3, 5, 7, 9]
+    var sum = 0
+    
+    for (index, character) in cleanNumber.reversed().enumerated() {
+        guard let digit = character.wholeNumberValue else {
             return false
         }
-        
-        if (index % 2 == 0) {
-            value *= 2
-        }
-        if (value > 9) {
-            value -= 9
-        }
-        
-        sum += value
+        sum += index % 2 == 0 ? digit : doubleSum[digit]
     }
     
     return sum % 10 == 0
+}
+
+extension String {
+    var isNumeric: Bool {
+        return !isEmpty && range(of: "\\D", options: .regularExpression) == nil
+    }
 }
 
 func getCardNetwork(_ number: String, in supportedNetworks: [CreditCardNetwork]) -> CreditCardNetwork {

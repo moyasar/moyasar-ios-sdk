@@ -4,7 +4,6 @@ import PassKit
 
 // Below is a demo of how to use Moyasar's SDK
 
-fileprivate let handler = ApplePayPaymentHandler(paymentRequest: paymentRequest)
 fileprivate let token = ApiTokenRequest(
     name: "source.name",
     number: "source.number",
@@ -58,7 +57,7 @@ struct ContentView: View {
         } else if case let .failed(error) = status {
             Text("Whops 🤭")
                 .padding(.bottom, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-            Text("Something went wrong: " + error.localizedDescription)
+            Text("Something went wrong: " + moyasarErrorToString(error))
                 .font(.caption)
         } else if case let .unknown(string) = status {
             Text("Hmmmmm 🤔")
@@ -70,12 +69,12 @@ struct ContentView: View {
     
     func handleFromResult(_ result: PaymentResult) {
         switch (result) {
-        case .completed(let payment):
+        case let .completed(payment):
             if payment.status == .paid {
                 status = .success(payment)
             } else {
                 if case let .creditCard(source) = payment.source, payment.status == .failed {
-                    status = .failed(PaymentErrorSample.webViewAuthFailed(source.message ?? ""))
+                    status = .unknown(source.message ?? "")
                     print("Payment failed: \(source.message ?? "")")
                 } else {
                     // Handle payment statuses
@@ -84,12 +83,11 @@ struct ContentView: View {
                 }
             }
             break;
-        case .saveOnlyToken(let token):
+        case let .saveOnlyToken(token):
             status = .successToken(token)
             break;
-        case .failed(let error):
+        case let .failed(error):
             status = .failed(error)
-            break;
         case .canceled:
             status = .reset
             break;
@@ -100,7 +98,45 @@ struct ContentView: View {
     }
     
     func applePayPressed(action: UIAction) {
-        handler.present()
+        do {
+            let applePayHandler = try ApplePayPaymentHandler(paymentRequest: paymentRequest)
+            applePayHandler.present()
+        } catch {
+            status = .failed(error as! MoyasarError)
+        }
+    }
+    
+    func encloseMoyasarError(_ error: Error) -> MoyasarError {
+        if let moyasarError = error as? MoyasarError {
+            return moyasarError
+        } else {
+            return MoyasarError.unexpectedError(error.localizedDescription)
+        }
+    }
+    
+    func moyasarErrorToString(_ error: MoyasarError) -> String {
+        switch (error) {
+        case let .apiError(apiError):
+            return apiError.message ?? "unspcified api error";
+        case .apiKeyNotSet:
+            return "API Key is not set";
+        case let .authorizationError(intError):
+            return intError;
+        case let .invalidApiKey(intError):
+            return intError;
+        case let .networkError(intError):
+            return intError.localizedDescription;
+        case let .webviewNotConnectedToInternet(payment):
+            return "Webview cannot connect to internet, payment id: \(payment.id)";
+        case let .webviewTimedOut(payment):
+            return "Webview timed out, payment id: \(payment.id)";
+        case let .webviewUnexpectedError(payment, webviewError):
+            return "Webview error, payment id: \(payment.id). Error: \(webviewError.localizedDescription)";
+        case let.unexpectedError(intError):
+            return intError
+        default:
+            return "Unexpected error"
+        }
     }
 }
 

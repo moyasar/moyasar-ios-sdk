@@ -4,6 +4,7 @@
 //
 //  Created by Mahmoud Abdelwahab on 30/06/2024.
 //
+import Foundation
 
 extension CreditCardView {
     

@@ -6,10 +6,9 @@
 //
 
 import SwiftUI
+import MoyasarSdk
 
 // Below is a basic demo of how to use Moyasar's APIs with your own UI implementation (You shouldn't implement your UI and logic exactly like below)
-
-fileprivate let applePayHandler = ApplePayPaymentHandler(paymentRequest: paymentRequest)
 
 struct CustomView: View {
     
@@ -80,7 +79,20 @@ struct CustomView: View {
     }
     
     func applePayPressed(action: UIAction) {
-        applePayHandler.present()
+        do {
+            let applePayHandler = try ApplePayPaymentHandler(paymentRequest: paymentRequest)
+            applePayHandler.present()
+        } catch {
+            viewModel.appStatus = .failed(encloseMoyasarError(error))
+        }
+    }
+    
+    func encloseMoyasarError(_ error: Error) -> MoyasarError {
+        if let moyasarError = error as? MoyasarError {
+            return moyasarError
+        } else {
+            return MoyasarError.unexpectedError(error.localizedDescription)
+        }
     }
 }
 

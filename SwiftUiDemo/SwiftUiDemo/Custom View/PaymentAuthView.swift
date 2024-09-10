@@ -18,8 +18,13 @@ struct PaymentAuthView: UIViewRepresentable {
     
     func makeUIView(context: Context) -> WKWebView {
         let config = WKWebViewConfiguration()
-        config.preferences.javaScriptEnabled = true
-        
+        if #available(iOS 14.0, *) {
+            let preferences = WKWebpagePreferences()
+            preferences.allowsContentJavaScript = true
+            config.defaultWebpagePreferences = preferences
+        } else {
+            config.preferences.javaScriptEnabled = true
+        }
         let webView = WKWebView(frame: .zero, configuration: config)
         webView.navigationDelegate = context.coordinator
         webView.allowsBackForwardNavigationGestures = false
