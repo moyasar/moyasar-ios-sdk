@@ -8,7 +8,6 @@
 import Foundation
 
 final class PhoneNumberFormatter {
-
     /// Format for phone number: xxx xxx xxxx --> 3-3-4
     ///
     func formatPhoneNumber(_ number: String) -> String {
@@ -17,16 +16,17 @@ final class PhoneNumberFormatter {
         let segments = [3, 3, 4]
         var startIndex = cleanNumber.startIndex
         
-        for segment in segments {
+        for (index, segment) in segments.enumerated() {
             let endIndex = cleanNumber.index(startIndex, offsetBy: segment, limitedBy: cleanNumber.endIndex) ?? cleanNumber.endIndex
             let segmentString = String(cleanNumber[startIndex..<endIndex])
             formattedNumber += segmentString
-            if endIndex < cleanNumber.endIndex {
+            
+            // Add a space if it's not the last segment
+            if endIndex < cleanNumber.endIndex && index < segments.count - 1 {
                 formattedNumber += " "
             }
             startIndex = endIndex
         }
-        
         return formattedNumber
     }
     

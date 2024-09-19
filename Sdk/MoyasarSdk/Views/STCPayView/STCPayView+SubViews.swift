@@ -12,9 +12,11 @@ extension STCPayView {
     var mobileNumberView: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text("mobile-number".localized())
+                let validatedText = viewModel.stcValidator.validate(value: viewModel.mobileNumber.cleanNumber)
+                let shouldShowHint = (viewModel.showErrorHintView.value && validatedText != nil)
+                Text((shouldShowHint ? validatedText : "mobile-number".localized()) ?? "mobile-number".localized())
                     .font(.system(size: 16, weight: .regular))
-                    .foregroundColor(MoyasarColors.primaryTextColor)
+                    .foregroundColor(shouldShowHint ? .red : MoyasarColors.primaryTextColor)
                 Spacer()
             }
             phoneNumberField
@@ -27,9 +29,10 @@ extension STCPayView {
     var otpView: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text("otp-title".localized())
+                let shouldShowHint =  (viewModel.showErrorHintView.value && !viewModel.isValidOtp )
+                Text(shouldShowHint ? "invalid-otp".localized() : "otp-title".localized())
                     .font(.system(size: 16, weight: .regular))
-                    .foregroundColor(MoyasarColors.primaryTextColor)
+                    .foregroundColor(shouldShowHint ? .red : MoyasarColors.primaryTextColor)
                 Spacer()
             }
             otpField
@@ -52,12 +55,6 @@ extension STCPayView {
                 )
                 .frame(height: 46)
                 .shadow(color: MoyasarColors.borderColor, radius: 3, x: 0, y: 2)
-            
-            if viewModel.showErrorHintView.value, !viewModel.isValidOtp {
-                withAnimation {
-                    validationText(for: "invalid-otp".localized())
-                }
-            }
         }
     }
     
@@ -65,7 +62,18 @@ extension STCPayView {
     var phoneNumberField: some View {
         VStack(alignment: .leading) {
             CreditCardTextField(
-                text: $viewModel.mobileNumber,
+                text: Binding(
+                                get: {
+                                    viewModel.mobileNumber
+                                },
+                                set: { newValue in
+                                    if !newValue.hasPrefix("05") {
+                                        viewModel.mobileNumber = "05" + newValue.drop(while: { $0 == "0" || $0 == "5" })
+                                    } else {
+                                        viewModel.mobileNumber = newValue
+                                    }
+                                }
+                            ),
                 placeholder: "mobile-number-placeholder".localized(),
                 formatter: viewModel.phoneNumberFormatter.formatPhoneNumber(_:)
             )
@@ -75,23 +83,9 @@ extension STCPayView {
             )
             .frame(height: 46)
             .shadow(color: MoyasarColors.borderColor, radius: 3, x: 0, y: 2)
-            
-            if viewModel.showErrorHintView.value, let validationResult = viewModel.stcValidator.validate(value: viewModel.mobileNumber.cleanNumber) {
-                withAnimation {
-                    validationText(for: validationResult)
-                }
-            }
         }
     }
-    /// Creates a view that displays validation error text.
-    /// - Parameter validationResult: The validation result to display.
-    /// - Returns: A view displaying the validation error text.
-    private func validationText(for validationResult: String) -> some View {
-        Text(validationResult)
-            .padding(.horizontal, 5)
-            .foregroundColor(.red)
-            .font(.caption)
-    }
+
     
     var payButtonView: some View {
         Button(action: {

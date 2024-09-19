@@ -41,7 +41,7 @@ public class STCPayViewModel: ObservableObject {
         $mobileNumber
             .dropFirst()
             .map { $0.cleanNumber }
-            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
+            .debounce(for: .seconds(0.3), scheduler: RunLoop.main)
             .removeDuplicates()
             .sink { [weak self] cleanedNumber in
                 guard let self = self else { return }
@@ -52,7 +52,7 @@ public class STCPayViewModel: ObservableObject {
         
         $otp
             .dropFirst()
-            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
+            .debounce(for: .seconds(0.3), scheduler: RunLoop.main)
             .removeDuplicates()
             .sink { [weak self] otp in
                 guard let self = self else { return }
