@@ -18,6 +18,8 @@ extension STCPayView {
                 Spacer()
             }
             phoneNumberField
+            Spacer()
+                .frame(height: 34)
             payButtonView
         }
     }
@@ -31,6 +33,8 @@ extension STCPayView {
                 Spacer()
             }
             otpField
+            Spacer()
+                .frame(height: 34)
             continueButtonView
         }
     }
@@ -49,9 +53,11 @@ extension STCPayView {
                 .frame(height: 46)
                 .shadow(color: MoyasarColors.borderColor, radius: 3, x: 0, y: 2)
             
-            //             if !viewModel.isValidOtp && !viewModel.otp.isEmpty {
-            //                 validationText(for: "invalid-otp".localized())
-            //             }
+            if viewModel.showErrorHintView.value, !viewModel.isValidOtp {
+                withAnimation {
+                    validationText(for: "invalid-otp".localized())
+                }
+            }
         }
     }
     
@@ -70,14 +76,18 @@ extension STCPayView {
             .frame(height: 46)
             .shadow(color: MoyasarColors.borderColor, radius: 3, x: 0, y: 2)
             
-            validationText(for: viewModel.stcValidator.validate(value: viewModel.mobileNumber.cleanNumber))
+            if viewModel.showErrorHintView.value, let validationResult = viewModel.stcValidator.validate(value: viewModel.mobileNumber.cleanNumber) {
+                withAnimation {
+                    validationText(for: validationResult)
+                }
+            }
         }
     }
     /// Creates a view that displays validation error text.
     /// - Parameter validationResult: The validation result to display.
     /// - Returns: A view displaying the validation error text.
-    private func validationText(for validationResult: String?) -> some View {
-        Text(validationResult ?? " ")
+    private func validationText(for validationResult: String) -> some View {
+        Text(validationResult)
             .padding(.horizontal, 5)
             .foregroundColor(.red)
             .font(.caption)
@@ -105,7 +115,6 @@ extension STCPayView {
             .foregroundColor(.white)
             .font(.headline)
             .cornerRadius(10)
-            .padding(.top, 23)
     }
     
     var continueButtonView: some View {
@@ -130,6 +139,5 @@ extension STCPayView {
             .foregroundColor(.white)
             .font(.headline)
             .cornerRadius(10)
-            .padding(.top, 23)
     }
 }

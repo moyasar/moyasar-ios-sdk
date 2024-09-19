@@ -9,35 +9,57 @@ import Combine
 
 @MainActor
 public class STCPayViewModel: ObservableObject {
-    enum ScreenStep {
-        case mobileNumber
-        case otp
-    }
+    
     @Published var isLoading: Bool = false
     @Published var screenStep: ScreenStep = .mobileNumber
     @Published var isValidPhoneNumber: Bool = false
     @Published var isValidOtp: Bool = false
-    @Published var mobileNumber: String = ""  {
-        didSet {
-            isValidPhoneNumber =  stcValidator.isValidSaudiPhoneNumber(mobileNumber.cleanNumber)
-        }
-    }
-    @Published var otp: String = ""  {
-        didSet {
-            isValidOtp = stcValidator.isValidOtp(otp)
-        }
-    }
+    @Published var mobileNumber: String = ""
+    @Published var otp: String = ""
+    
+    private var cancellables = Set<AnyCancellable>()
+    var showErrorHintView = CurrentValueSubject<Bool, Never>(false)
     lazy var stcValidator = STCValidator()
     lazy var phoneNumberFormatter = PhoneNumberFormatter()
     var transactionUrl: String?
     let paymentRequest: PaymentRequest
     let paymentService: PaymentService
     var resultCallback: STCResultCallback
+    enum ScreenStep {
+        case mobileNumber
+        case otp
+    }
     
     public init(paymentRequest: PaymentRequest, resultCallback: @escaping STCResultCallback) throws {
         self.paymentRequest = paymentRequest
         self.resultCallback = resultCallback
         self.paymentService = try PaymentService(apiKey: paymentRequest.apiKey)
+        setupBindings()
+    }
+    
+    private func setupBindings() {
+        $mobileNumber
+            .dropFirst()
+            .map { $0.cleanNumber }
+            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
+            .removeDuplicates()
+            .sink { [weak self] cleanedNumber in
+                guard let self = self else { return }
+                cleanedNumber.isEmpty  ?  showErrorHintView.send(false) :  showErrorHintView.send(true)
+                self.isValidPhoneNumber = self.stcValidator.isValidSaudiPhoneNumber(cleanedNumber)
+            }
+            .store(in: &cancellables)
+        
+        $otp
+            .dropFirst()
+            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
+            .removeDuplicates()
+            .sink { [weak self] otp in
+                guard let self = self else { return }
+                otp.isEmpty  ?  showErrorHintView.send(false) :  showErrorHintView.send(true)
+                isValidOtp = stcValidator.isValidOtp(otp)
+            }
+            .store(in: &cancellables)
     }
     
     public func initiatePayment() async {
@@ -49,6 +71,7 @@ public class STCPayViewModel: ObservableObject {
             if payment.isInitiated(), case .stcPay(let source) = payment.source, let url = source.transactionUrl {
                 isLoading = false
                 screenStep = .otp
+                showErrorHintView.send(false)
                 transactionUrl = url
             }
         } catch {
