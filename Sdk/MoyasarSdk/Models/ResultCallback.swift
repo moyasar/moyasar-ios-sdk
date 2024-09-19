@@ -8,3 +8,5 @@
 import Foundation
 
 public typealias ResultCallback = (_: PaymentResult) -> ()
+
+public typealias STCResultCallback = (_: STCPaymentResult) -> ()

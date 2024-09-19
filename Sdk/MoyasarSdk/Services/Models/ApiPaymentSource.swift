@@ -3,7 +3,7 @@ import Foundation
 public enum ApiPaymentSource {
     case creditCard(ApiCreditCardSource)
     case applePay(ApiApplePaySource)
-    case stcPay(ApiStcPaySource)
+    case stcPay(ApiSTCPaySource)
 }
 
 extension ApiPaymentSource: Codable {
@@ -28,7 +28,7 @@ extension ApiPaymentSource: Codable {
         case .applepay:
             self = .applePay(try unkeyedContainer.decode(ApiApplePaySource.self))
         case .stcpay:
-            self = .stcPay(try unkeyedContainer.decode(ApiStcPaySource.self))
+            self = .stcPay(try unkeyedContainer.decode(ApiSTCPaySource.self))
         }
         
     }

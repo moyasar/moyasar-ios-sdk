@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+// MARK: - ApiSTCPaySource
+public struct ApiSTCPaySource: Codable {
+    public let type, mobile, referenceNumber, branch: String?
+    public let cashier: String?
+    public let transactionUrl: String?
+    public let message: String?
+}
