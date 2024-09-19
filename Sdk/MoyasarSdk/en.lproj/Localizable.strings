@@ -14,3 +14,16 @@
 "cvc-required" = "Security code is required";
 "invalid-cvc" = "Invalid security code";
 "pay" = "Pay";
+
+// MARK: - STC
+
+"mobile-number" = "Mobile Number";
+"mobile-number-placeholder" = "05x xxx xxxx";
+
+"otp-title" = "One-Time Password";
+"otp-placeholder" = "xxxxxx";
+
+"phone-number-required" = "Phone number is required";
+"invalid-phone-number"  = "Invalid phone number";
+"invalid-otp" = "Invalid OTP";
+"confirm" = "Confirm";
