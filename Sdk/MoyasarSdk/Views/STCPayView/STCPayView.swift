@@ -1,8 +1,8 @@
 //
 //  StcPayView.swift
-//  MoyasarSdkApp
+//  MoyasarSdk
 //
-//  Created by Ali Alhoshaiyan on 25/08/2021.
+//  Created by Mahmoud Abdelwahab on 11/09/2024.
 //
 
 import SwiftUI
@@ -13,8 +13,6 @@ struct StcPayView: View {
     }
 }
 
-struct StcPayView_Previews: PreviewProvider {
-    static var previews: some View {
-        StcPayView()
-    }
+#Preview {
+    StcPayView()
 }
