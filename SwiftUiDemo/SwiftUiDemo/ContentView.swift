@@ -34,6 +34,13 @@ struct ContentView: View {
                         .cornerRadius(10)
                         .padding(.horizontal, 15)
                     
+                    NavigationLink(destination:  STCPayView(paymentRequest: paymentRequest){ result in
+                        handleFromSTCResult(result)
+                    }) {
+                        Text("STC Pay Demo")
+                    }
+                    .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
+                    
                     NavigationLink(destination: CustomView()) {
                         Text("Checkout custom UI demo")
                     }
@@ -94,6 +101,30 @@ struct ContentView: View {
         @unknown default:
             status = .unknown("Unknown case, check for more cases to cover")
             break;
+        }
+    }
+    
+    func handleFromSTCResult(_ result: STCPaymentResult) {
+        switch (result) {
+        case let .completed(payment):
+            if payment.status == .paid {
+                status = .success(payment)
+            } else {
+                if case let .stcPay(source) = payment.source, payment.status == .failed {
+                    status = .unknown(source.message ?? "")
+                    print("Payment failed: \(source.message ?? "")")
+                } else {
+                    // Handle payment statuses
+                    status = .success(payment)
+                    print("Payment: \(payment)")
+                }
+            }
+
+        case let .failed(error):
+            status = .failed(error)
+   
+        @unknown default:
+            status = .unknown("Unknown case, check for more cases to cover")
         }
     }
     
