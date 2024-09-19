@@ -44,30 +44,78 @@ class PaymentViewController: UIViewController {
     let handler = ApplePayPaymentHandler(paymentRequest: paymentRequest)
 
     override func viewDidLoad() {
-        view.backgroundColor = .white
-        
-        let creditCardView = CreditCardView(request: paymentRequest,
-                                            callback: handlePaymentResult)
-        
-        let creditCardHostingController = UIHostingController(rootView: creditCardView)
-        creditCardHostingController.view.translatesAutoresizingMaskIntoConstraints = false
-        addChild(creditCardHostingController)
-        view.addSubview(creditCardHostingController.view)
-        creditCardHostingController.didMove(toParent: self)
-        
-        NSLayoutConstraint.activate([
-            creditCardHostingController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            creditCardHostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            creditCardHostingController.view.widthAnchor.constraint(equalTo: view.widthAnchor),
-            creditCardHostingController.view.heightAnchor.constraint(equalTo: view.heightAnchor, constant: -100)
-        ])
-        
-        let applePayButton = PKPaymentButton(paymentButtonType: .checkout, paymentButtonStyle: .black)
-        applePayButton.addAction(UIAction(handler: handleApplePayPressed), for: .touchUpInside)
-        applePayButton.frame.size = CGSize(width: view.frame.width - 30, height: 50)
-        applePayButton.frame.origin = CGPoint(x: view.frame.size.width / 2 - applePayButton.frame.size.width / 2, y: view.frame.height - 100)
-        view.addSubview(applePayButton)
-    }
+          super.viewDidLoad()
+          view.backgroundColor = .white
+        navigationItem.title = "Moyasar SDK Demo"
+          // Create the scroll view
+          let scrollView = UIScrollView()
+          scrollView.translatesAutoresizingMaskIntoConstraints = false
+          view.addSubview(scrollView)
+          
+          // Create a content view to hold the stack view inside the scroll view
+          let contentView = UIView()
+          contentView.translatesAutoresizingMaskIntoConstraints = false
+          scrollView.addSubview(contentView)
+          
+          // Add Credit Card View
+          let creditCardView = CreditCardView(request: paymentRequest,
+                                              callback: handlePaymentResult)
+          let creditCardHostingController = UIHostingController(rootView: creditCardView)
+          creditCardHostingController.view.translatesAutoresizingMaskIntoConstraints = false
+          addChild(creditCardHostingController)
+          contentView.addSubview(creditCardHostingController.view)
+          creditCardHostingController.didMove(toParent: self)
+          
+          let applePayButton = PKPaymentButton(paymentButtonType: .checkout, paymentButtonStyle: .black)
+          applePayButton.addAction(UIAction(handler: handleApplePayPressed), for: .touchUpInside)
+          
+          let stcPayButton = UIButton(type: .system)
+          stcPayButton.setTitle("STC Pay Demo", for: .normal)
+          stcPayButton.addTarget(self, action: #selector(navigateToSTCView), for: .touchUpInside)
+          
+          let buttonStackView = UIStackView(arrangedSubviews: [creditCardHostingController.view, applePayButton, stcPayButton])
+          buttonStackView.axis = .vertical
+          buttonStackView.spacing = 12
+          buttonStackView.alignment = .fill
+          buttonStackView.distribution = .fill
+          buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+          contentView.addSubview(buttonStackView)
+          
+          // Set up constraints for the scroll view and content view
+          NSLayoutConstraint.activate([
+              scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+              scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+              scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+              scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+              
+              contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+              contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+              contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+              contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+              contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)  // Ensures content takes full width
+          ])
+          
+          // Set up constraints for the stack view inside the content view
+          NSLayoutConstraint.activate([
+              buttonStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+              buttonStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
+              buttonStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+              buttonStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
+              
+              applePayButton.heightAnchor.constraint(equalToConstant: 48),
+              stcPayButton.heightAnchor.constraint(equalToConstant: 48),
+              applePayButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -40),
+              stcPayButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -40)
+          ])
+      }
+    
+    @objc func navigateToSTCView() {
+           let stcPayView = STCPayView(paymentRequest: paymentRequest) { [weak self] result in
+               self?.handleFromSTCResult(result)
+           }
+           let hostingController = UIHostingController(rootView: stcPayView)
+        navigationController?.pushViewController(hostingController, animated: true)
+       }
     
     func handlePaymentResult(_ result: PaymentResult) {
         switch (result) {
@@ -97,6 +145,28 @@ class PaymentViewController: UIViewController {
         @unknown default:
             presentResultViewController(title: "Unknown case 🤔", subtitle: "Check for more cases to cover")
             break
+        }
+    }
+    
+    func handleFromSTCResult(_ result: STCPaymentResult) {
+        switch (result) {
+        case let .completed(payment):
+            if payment.status == .paid {
+                presentResultViewController(title: "Thank you for the payment", subtitle: "Your payment ID is " + payment.id)
+            } else {
+                if case let .creditCard(source) = payment.source, payment.status == .failed {
+                    presentResultViewController(title: "Whops 🤭", subtitle: "Something went wrong: " + (source.message ?? ""))
+                    print("Payment failed: \(source.message ?? "")")
+                } else {
+                    // Handle payment statuses
+                    presentResultViewController(title: "Thank you for the payment", subtitle: "Your payment ID is " + payment.id)
+                    print("Payment: \(payment)")
+                }
+            }
+        case let .failed(error):
+            presentResultViewController(title: "Whops 🤭", subtitle: "Something went wrong: " + error.localizedDescription)
+        @unknown default:
+            presentResultViewController(title: "Unknown case 🤔", subtitle: "Check for more cases to cover")
         }
     }
     
