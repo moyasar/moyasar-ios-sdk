@@ -215,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				416FCC0226E3BC9A0044639E /* CreditCardFormatter.swift */,
+				4B0F9EA42C96FB8F00F02CEE /* PhoneNumberFormatter.swift */,
 				416FCC0326E3BC9A0044639E /* CreditCardNetwork.swift */,
 				416FCC0526E3BC9A0044639E /* CreditCardUtil.swift */,
 				416FCC0126E3BC9A0044639E /* ExpiryDate.swift */,
@@ -246,6 +247,7 @@
 		416FCC2226E3BD8B0044639E /* Validators */ = {
 			isa = PBXGroup;
 			children = (
+				4B0F9EA22C92F0FC00F02CEE /* STCValidator.swift */,
 				416FCC2626E3BD970044639E /* CardNumberValidator.swift */,
 				416FCC2426E3BD970044639E /* ExpiryValidator.swift */,
 				416FCC2526E3BD970044639E /* FieldValidator.swift */,
@@ -285,7 +287,7 @@
 		416FCC4526E3BDF70044639E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4B0F9E9D2C91B5EB00F02CEE /* STCPayView */,
+				4B0F9E9D2C91B5EB00F02CEE /* STCPayModule */,
 				4B178CC92C3172F900E33706 /* CreditCardView */,
 				416FCC4826E3BE120044639E /* PaymentAuthView.swift */,
 				416FCC4626E3BE0B0044639E /* Components */,
@@ -311,16 +313,13 @@
 			path = Errors;
 			sourceTree = "<group>";
 		};
-		4B0F9E9D2C91B5EB00F02CEE /* STCPayView */ = {
+		4B0F9E9D2C91B5EB00F02CEE /* STCPayModule */ = {
 			isa = PBXGroup;
 			children = (
-				4B0F9E9E2C91B61A00F02CEE /* STCPayView.swift */,
-				4B5D93942C9C29D100D7A1C8 /* STCPayView+SubViews.swift */,
-				4B0F9EA02C91B65D00F02CEE /* STCPayViewModel.swift */,
-				4B0F9EA22C92F0FC00F02CEE /* STCValidator.swift */,
-				4B0F9EA42C96FB8F00F02CEE /* PhoneNumberFormatter.swift */,
+				4B2992E92CA0196C008E76DB /* View */,
+				4B2992EA2CA0199A008E76DB /* ViewModel */,
 			);
-			path = STCPayView;
+			path = STCPayModule;
 			sourceTree = "<group>";
 		};
 		4B178CC92C3172F900E33706 /* CreditCardView */ = {
@@ -341,6 +340,23 @@
 				4BE4FC9B2C3F83C800EF26F9 /* CreditCardTextField.swift */,
 			);
 			path = CreditCardInfoComponent;
+			sourceTree = "<group>";
+		};
+		4B2992E92CA0196C008E76DB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4B0F9E9E2C91B61A00F02CEE /* STCPayView.swift */,
+				4B5D93942C9C29D100D7A1C8 /* STCPayView+SubViews.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4B2992EA2CA0199A008E76DB /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4B0F9EA02C91B65D00F02CEE /* STCPayViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		4BBA7B532C18CC8E00BBAFB4 /* PaymentServices */ = {
