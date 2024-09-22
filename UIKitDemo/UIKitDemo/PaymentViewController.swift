@@ -11,23 +11,7 @@ import MoyasarSdk
 import PassKit
 
 
-/// No `allowedNetworks` set, defaults to all networks
-/// allowedNetworks: [.visa, .mastercard] // Only accept Visa and Mastercard
-///  Amount in the smallest currency unit.
-/// For example:
-/// 10 SAR = 10 * 100 Halalas
-/// 10 KWD = 10 * 1000 Fils
-/// 10 JPY = 10 JPY (Japanese Yen does not have fractions)
-let paymentRequest = PaymentRequest(
-    apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
-    amount: 100,
-    currency: "SAR",
-    description: "Testing iOS SDK",
-    metadata: ["order_id": "ios_order_3214124"],
-    manual: false,
-    createSaveOnlyToken: false//,
-    //allowedNetworks: [.visa, .mastercard]
-)
+
 
 let token = ApiTokenRequest(
     name: "source.name",
@@ -41,12 +25,14 @@ let token = ApiTokenRequest(
 
 class PaymentViewController: UIViewController {
     
-    let handler = ApplePayPaymentHandler(paymentRequest: paymentRequest)
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationItem.title = "Moyasar SDK Demo"
+        setupUI()
+    }
+    
+    private func setupUI() {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
@@ -55,7 +41,7 @@ class PaymentViewController: UIViewController {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(contentView)
         
-        let creditCardView = CreditCardView(request: paymentRequest,
+        let creditCardView = CreditCardView(request: createPaymentRequest(),
                                             callback: handlePaymentResult)
         let creditCardHostingController = UIHostingController(rootView: creditCardView)
         creditCardHostingController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -103,9 +89,51 @@ class PaymentViewController: UIViewController {
             stcPayButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -40)
         ])
     }
+
+    /// Create Payment Request using `Visa, Mastercard, Mada, AMEX` and `Apple Pay` initializer
+    /// - Returns: `PaymentRequest`
+    func createPaymentRequest() -> PaymentRequest{
+        /// No `allowedNetworks` set, defaults to all networks
+        /// allowedNetworks: [.visa, .mastercard] // Only accept Visa and Mastercard
+        ///  Amount in the smallest currency unit.
+        /// For example:
+        /// 10 SAR = 10 * 100 Halalas
+        /// 10 KWD = 10 * 1000 Fils
+        /// 10 JPY = 10 JPY (Japanese Yen does not have fractions)
+        return PaymentRequest(
+            apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
+            amount: 100,
+            currency: "SAR",
+            description: "Testing iOS SDK",
+            metadata: ["order_id": "ios_order_3214124"],
+            manual: false,
+            createSaveOnlyToken: false//,
+            //allowedNetworks: [.visa, .mastercard]
+        )
+    }
+    
+    /// Create Payment Request using `STC` initializer
+    /// - Returns: `PaymentRequest`
+    private func createSTCPaymentRequest() -> PaymentRequest {
+        /// Create Payment Request using STC initializer
+        /// Amount in the smallest currency unit.
+        /// For example:
+        /// 10 SAR = 10 * 100 Halalas
+        /// 10 KWD = 10 * 1000 Fils
+        /// 10 JPY = 10 JPY (Japanese Yen does not have fractions)
+        ///
+       return PaymentRequest(
+            apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
+            amount: 100,
+            currency: "SAR",
+            description: "Testing STC iOS",
+            cashier: nil,
+            branch: nil
+         )
+    }
     
     @objc func navigateToSTCView() {
-        let stcPayView = STCPayView(paymentRequest: paymentRequest) { [weak self] result in
+        let stcPayView = STCPayView(paymentRequest: createSTCPaymentRequest()) { [weak self] result in
             self?.handleFromSTCResult(result)
         }
         let hostingController = UIHostingController(rootView: stcPayView)
@@ -143,9 +171,9 @@ class PaymentViewController: UIViewController {
         }
     }
     
-    func handleFromSTCResult(_ result: STCPaymentResult) {
+    func handleFromSTCResult(_ result: Result<ApiPayment, MoyasarError>) {
         switch (result) {
-        case let .completed(payment):
+        case let .success(payment):
             if payment.status == .paid {
                 presentResultViewController(title: "Thank you for the payment", subtitle: "Your payment ID is " + payment.id)
             } else {
@@ -158,10 +186,8 @@ class PaymentViewController: UIViewController {
                     print("Payment: \(payment)")
                 }
             }
-        case let .failed(error):
+        case let .failure(error):
             presentResultViewController(title: "Whops 🤭", subtitle: "Something went wrong: " + error.localizedDescription)
-        @unknown default:
-            presentResultViewController(title: "Unknown case 🤔", subtitle: "Check for more cases to cover")
         }
     }
     
@@ -172,6 +198,7 @@ class PaymentViewController: UIViewController {
     }
     
     func handleApplePayPressed(action: UIAction) {
+        let handler = ApplePayPaymentHandler(paymentRequest: createPaymentRequest())
         handler.present()
     }
 }

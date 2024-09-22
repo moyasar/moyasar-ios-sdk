@@ -6,9 +6,3 @@ public enum PaymentResult {
     case failed(MoyasarError)
     case canceled
 }
-
-
-public enum STCPaymentResult {
-    case completed(ApiPayment)
-    case failed(MoyasarError)
-}

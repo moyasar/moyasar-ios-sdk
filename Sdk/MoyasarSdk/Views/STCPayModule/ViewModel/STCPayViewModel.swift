@@ -89,7 +89,7 @@ public class STCPayViewModel: ObservableObject {
         do {
             let payment = try await paymentService.sendSTCPaymentRequest(url: url, stcOtpRequest: request)
             isLoading = false
-            resultCallback(.completed(payment))
+            resultCallback(.success(payment))
         } catch {
             isLoading = false
             handleError(error)
@@ -98,10 +98,10 @@ public class STCPayViewModel: ObservableObject {
     
     func handleError(_ error: Error) {
         if let moyasarError = error as? MoyasarError {
-            resultCallback(.failed(moyasarError))
+            resultCallback(.failure(moyasarError))
         } else {
             let callbackError = MoyasarError.unexpectedError("Can't initialize payment: \(error.localizedDescription)")
-            resultCallback(.failed(callbackError))
+            resultCallback(.failure(callbackError))
         }
     }
     

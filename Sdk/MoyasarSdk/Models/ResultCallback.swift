@@ -9,4 +9,4 @@ import Foundation
 
 public typealias ResultCallback = (_: PaymentResult) -> ()
 
-public typealias STCResultCallback = (_: STCPaymentResult) -> ()
+public typealias STCResultCallback = (_: Result<ApiPayment, MoyasarError>) -> ()

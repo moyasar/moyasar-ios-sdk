@@ -25,7 +25,7 @@ struct ContentView: View {
                     Text("hello")
                         .padding()
                     
-                    CreditCardView(request: paymentRequest) {result in
+                    CreditCardView(request: createPaymentRequest()) {result in
                         handleFromResult(result)
                     }
                     
@@ -34,7 +34,7 @@ struct ContentView: View {
                         .cornerRadius(10)
                         .padding(.horizontal, 15)
                     
-                    NavigationLink(destination:  STCPayView(paymentRequest: paymentRequest){ result in
+                    NavigationLink(destination:  STCPayView(paymentRequest: createSTCPaymentRequest()){ result in
                         handleFromSTCResult(result)
                     }) {
                         Text("STC Pay Demo")
@@ -104,9 +104,9 @@ struct ContentView: View {
         }
     }
     
-    func handleFromSTCResult(_ result: STCPaymentResult) {
+    func handleFromSTCResult(_ result:  Result<ApiPayment, MoyasarError>) {
         switch (result) {
-        case let .completed(payment):
+        case let .success(payment):
             if payment.status == .paid {
                 status = .success(payment)
             } else {
@@ -120,17 +120,14 @@ struct ContentView: View {
                 }
             }
 
-        case let .failed(error):
+        case let .failure(error):
             status = .failed(error)
-   
-        @unknown default:
-            status = .unknown("Unknown case, check for more cases to cover")
         }
     }
     
     func applePayPressed(action: UIAction) {
         do {
-            let applePayHandler = try ApplePayPaymentHandler(paymentRequest: paymentRequest)
+            let applePayHandler = try ApplePayPaymentHandler(paymentRequest: createPaymentRequest())
             applePayHandler.present()
         } catch {
             status = .failed(error as! MoyasarError)

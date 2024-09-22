@@ -80,7 +80,7 @@ struct CustomView: View {
     
     func applePayPressed(action: UIAction) {
         do {
-            let applePayHandler = try ApplePayPaymentHandler(paymentRequest: paymentRequest)
+            let applePayHandler = try ApplePayPaymentHandler(paymentRequest: createPaymentRequest())
             applePayHandler.present()
         } catch {
             viewModel.appStatus = .failed(encloseMoyasarError(error))
