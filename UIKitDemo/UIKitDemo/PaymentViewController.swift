@@ -10,9 +10,6 @@ import SwiftUI
 import MoyasarSdk
 import PassKit
 
-
-
-
 let token = ApiTokenRequest(
     name: "source.name",
     number: "source.number",
@@ -30,6 +27,7 @@ class PaymentViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.title = "Moyasar SDK Demo"
         setupUI()
+        setupTapGesture()
     }
     
     private func setupUI() {
@@ -54,13 +52,14 @@ class PaymentViewController: UIViewController {
         
         let stcPayButton = UIButton(type: .system)
         stcPayButton.setTitle("STC Pay Demo", for: .normal)
+        stcPayButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         stcPayButton.addTarget(self, action: #selector(navigateToSTCView), for: .touchUpInside)
         
         let buttonStackView = UIStackView(arrangedSubviews: [creditCardHostingController.view, applePayButton, stcPayButton])
         buttonStackView.axis = .vertical
         buttonStackView.spacing = 12
         buttonStackView.alignment = .fill
-        buttonStackView.distribution = .fill
+        buttonStackView.distribution = .fillProportionally
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(buttonStackView)
         
@@ -80,7 +79,7 @@ class PaymentViewController: UIViewController {
         NSLayoutConstraint.activate([
             buttonStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
             buttonStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
-            buttonStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            buttonStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             buttonStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
             
             applePayButton.heightAnchor.constraint(equalToConstant: 48),
@@ -139,6 +138,15 @@ class PaymentViewController: UIViewController {
         let hostingController = UIHostingController(rootView: stcPayView)
         navigationController?.pushViewController(hostingController, animated: true)
     }
+    
+    private func setupTapGesture() {
+           let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+           view.addGestureRecognizer(tapGesture)
+       }
+
+       @objc private func dismissKeyboard() {
+           view.endEditing(true)
+       }
     
     func handlePaymentResult(_ result: PaymentResult) {
         switch (result) {

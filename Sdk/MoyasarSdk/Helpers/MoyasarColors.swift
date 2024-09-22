@@ -8,8 +8,20 @@
 import SwiftUI
 
 enum MoyasarColors {
-    static var stcButtonColor = Color(hex: "#4F008C") ?? Color.purple
-    static var primaryTextColor = Color(hex: "#1D1D1D") ?? Color.black
-    static var placeholderColor = Color(hex: "#9E9E9E") ?? Color.black
-    static var borderColor = Color(hex: "#E0E0E0") ?? Color.black
+    
+    static var stcButtonColor: Color {
+        UITraitCollection.current.userInterfaceStyle == .dark ? Color(hex: "#4F008C")! : Color(hex: "#4F008C")!
+    }
+    
+    static var primaryTextColor: Color {
+        UITraitCollection.current.userInterfaceStyle == .dark ? Color(hex: "#FFFFFF")! : Color(hex: "#1D1D1D")!
+    }
+    
+    static var placeholderColor: Color {
+        UITraitCollection.current.userInterfaceStyle == .dark ? Color(hex: "#9E9E9E")! : Color(hex: "#9E9E9E")!
+    }
+    
+    static var borderColor: Color {
+        UITraitCollection.current.userInterfaceStyle == .dark ? Color(hex: "#E0E0E0")! : Color(hex: "#E0E0E0")!
+    }
 }

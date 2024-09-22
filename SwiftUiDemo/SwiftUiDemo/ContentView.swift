@@ -22,7 +22,7 @@ struct ContentView: View {
         if case .reset = status {
             NavigationView {
                 VStack {
-                    Text("hello")
+                    Text("Moyasar SDK Demo")
                         .padding()
                     
                     CreditCardView(request: createPaymentRequest()) {result in
