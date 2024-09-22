@@ -45,7 +45,7 @@ public class STCPayViewModel: ObservableObject {
             .removeDuplicates()
             .sink { [weak self] cleanedNumber in
                 guard let self = self else { return }
-                cleanedNumber.isEmpty  ?  showErrorHintView.send(false) :  showErrorHintView.send(true)
+                cleanedNumber.isEmpty  ?  self.showErrorHintView.send(false) :  self.showErrorHintView.send(true)
                 self.isValidPhoneNumber = self.stcValidator.isValidSaudiPhoneNumber(cleanedNumber)
             }
             .store(in: &cancellables)
@@ -56,8 +56,8 @@ public class STCPayViewModel: ObservableObject {
             .removeDuplicates()
             .sink { [weak self] otp in
                 guard let self = self else { return }
-                otp.isEmpty  ?  showErrorHintView.send(false) :  showErrorHintView.send(true)
-                isValidOtp = stcValidator.isValidOtp(otp)
+                otp.isEmpty  ?  self.showErrorHintView.send(false) :  self.showErrorHintView.send(true)
+                self.isValidOtp = self.stcValidator.isValidOtp(otp)
             }
             .store(in: &cancellables)
     }
