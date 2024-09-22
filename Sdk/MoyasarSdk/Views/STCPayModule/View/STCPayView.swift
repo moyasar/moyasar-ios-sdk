@@ -40,14 +40,15 @@ public struct STCPayView: View {
     }
 }
 
-#Preview {
-    var paymentRequest = PaymentRequest(
+struct STCPayView_Previews: PreviewProvider {
+    static var paymentRequest = PaymentRequest(
         apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
         amount: 100,
         currency: "SAR",
         description: "Testing iOS SDK"
     )
-    return STCPayView(paymentRequest: paymentRequest) { result in
-        
+    static var previews: some View {
+        STCPayView(paymentRequest: paymentRequest) { _ in}
+        .preferredColorScheme(.dark)
     }
 }
