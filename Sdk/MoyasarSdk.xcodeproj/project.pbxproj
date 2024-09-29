@@ -61,6 +61,7 @@
 		4B5D93912C9B735900D7A1C8 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D93902C9B735900D7A1C8 /* Color+Extension.swift */; };
 		4B5D93932C9B73C800D7A1C8 /* MoyasarColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D93922C9B73C800D7A1C8 /* MoyasarColors.swift */; };
 		4B5D93952C9C29D100D7A1C8 /* STCPayView+SubViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D93942C9C29D100D7A1C8 /* STCPayView+SubViews.swift */; };
+		4B6746E62CA98C94001A801E /* STCValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6746E52CA98C91001A801E /* STCValidatorTests.swift */; };
 		4BBA7B552C18CCA900BBAFB4 /* PaymentServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBA7B542C18CCA900BBAFB4 /* PaymentServices.swift */; };
 		4BBA7B582C18CCEC00BBAFB4 /* ApplePayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBA7B572C18CCEC00BBAFB4 /* ApplePayService.swift */; };
 		4BE4FC9C2C3F83C800EF26F9 /* CreditCardTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE4FC9B2C3F83C800EF26F9 /* CreditCardTextField.swift */; };
@@ -137,6 +138,7 @@
 		4B5D93902C9B735900D7A1C8 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		4B5D93922C9B73C800D7A1C8 /* MoyasarColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyasarColors.swift; sourceTree = "<group>"; };
 		4B5D93942C9C29D100D7A1C8 /* STCPayView+SubViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "STCPayView+SubViews.swift"; sourceTree = "<group>"; };
+		4B6746E52CA98C91001A801E /* STCValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STCValidatorTests.swift; sourceTree = "<group>"; };
 		4BBA7B542C18CCA900BBAFB4 /* PaymentServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentServices.swift; sourceTree = "<group>"; };
 		4BBA7B572C18CCEC00BBAFB4 /* ApplePayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayService.swift; sourceTree = "<group>"; };
 		4BE4FC9B2C3F83C800EF26F9 /* CreditCardTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardTextField.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 		416FCBE826E3BBF80044639E /* MoyasarSdkTests */ = {
 			isa = PBXGroup;
 			children = (
+				4B6746E52CA98C91001A801E /* STCValidatorTests.swift */,
 				416FCBE926E3BBF80044639E /* MoyasarSdkTests.swift */,
 				4178F05426F764A900996AE0 /* ApiErrorTests.swift */,
 				4178F05626F77E1300996AE0 /* PaymentSourceTests.swift */,
@@ -547,6 +550,7 @@
 				41136EC428E6FC6200CBC079 /* ExpiryDateTests.swift in Sources */,
 				4178F05526F764A900996AE0 /* ApiErrorTests.swift in Sources */,
 				4178F05926F7AF9F00996AE0 /* ApiPaymentTests.swift in Sources */,
+				4B6746E62CA98C94001A801E /* STCValidatorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
