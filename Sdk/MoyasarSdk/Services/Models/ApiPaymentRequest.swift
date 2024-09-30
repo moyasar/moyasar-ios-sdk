@@ -13,7 +13,7 @@ public struct ApiPaymentRequest: Codable {
         publishableApiKey: String? = nil,
         amount: Int,
         currency: String,
-        description: String,
+        description: String? = nil,
         callbackUrl: String? = nil,
         source: ApiPaymentSource,
         metadata: [String : String]? = nil
@@ -30,7 +30,7 @@ public struct ApiPaymentRequest: Codable {
     public var publishableApiKey: String? /// we send it in STC pay
     public var amount: Int
     public var currency: String
-    public var description: String
+    public var description: String?
     public var callbackUrl: String?
     public var source: ApiPaymentSource
     public var metadata: [String: String]?

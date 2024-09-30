@@ -44,9 +44,7 @@ func createPaymentRequest() -> PaymentRequest{
         apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
         amount: 100,
         currency: "SAR",
-        description: "Testing STC iOS",
-        cashier: nil,
-        branch: nil
+        description: "Testing STC iOS"
      )
 }
 

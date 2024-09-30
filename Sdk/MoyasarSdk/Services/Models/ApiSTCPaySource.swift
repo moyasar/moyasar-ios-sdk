@@ -9,8 +9,9 @@ import Foundation
 
 // MARK: - ApiSTCPaySource
 public struct ApiSTCPaySource: Codable {
-    public let type, mobile, referenceNumber, branch: String?
-    public let cashier: String?
+    public let type: String?
+    public let mobile: String?
+    public let referenceNumber: String?
     public let transactionUrl: String?
     public let message: String?
 }

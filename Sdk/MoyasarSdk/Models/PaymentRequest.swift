@@ -5,7 +5,7 @@ public struct PaymentRequest {
         baseUrl: String = "https://api.moyasar.com",
         amount: Int,
         currency: String = "SAR",
-        description: String,
+        description: String? = nil,
         metadata: [String: String] = [:],
         manual: Bool = false,
         saveCard: Bool = false,
@@ -24,34 +24,11 @@ public struct PaymentRequest {
         self.allowedNetworks = allowedNetworks
     }
     
-    public init(
-        apiKey: String,
-        amount: Int,
-        currency: String = "SAR",
-        description: String,
-        cashier: String? = nil,
-        branch: String? = nil
-    ) {
-        self.apiKey = apiKey
-        self.amount = amount
-        self.currency = currency
-        self.description = description
-        self.cashier = cashier
-        self.branch = branch
-        
-        self.baseUrl = ""
-        self.metadata = [:]  // Default value
-        self.manual = false  // Default value
-        self.saveCard = false  // Default value
-        self.createSaveOnlyToken = false  // Default value
-        self.allowedNetworks = CreditCardNetwork.allCases  // Default value
-    }
-    
     public var apiKey: String
     public var baseUrl: String
     public var amount: Int
     public var currency: String
-    public var description: String
+    public var description: String?
     public var metadata: [String: String]
     public var manual: Bool
     public var saveCard: Bool

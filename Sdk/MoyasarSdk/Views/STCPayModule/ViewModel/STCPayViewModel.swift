@@ -114,8 +114,6 @@ public class STCPayViewModel: ObservableObject {
             type: "stcpay",
             mobile: mobileNumber,
             referenceNumber: nil,
-            branch: paymentRequest.branch,
-            cashier: paymentRequest.cashier,
             transactionUrl: nil,
             message: nil
         )
