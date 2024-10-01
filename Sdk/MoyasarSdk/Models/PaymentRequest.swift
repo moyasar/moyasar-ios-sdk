@@ -49,7 +49,6 @@ public struct PaymentRequest {
     }()
 }
 
-
 public enum PayButtonType {
     case plain
     case pay

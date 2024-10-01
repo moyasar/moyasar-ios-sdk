@@ -28,37 +28,35 @@ class CustomViewModel: ObservableObject {
     )
     
     init() {
-        do {
-            self.paymentService = try  PaymentService(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
-        } catch {
-            print("Failed to initialize PaymentService: \(error)")
-            fatalError()
-        }
+        paymentService = PaymentService(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
     }
     
     func beginPayment() {
         // Make sure to validate user input before initializing the payment process
         paymentStatus = .processing
         
-        let paymentRequest = ApiPaymentRequest(
-            amount: 100,
-            currency: "SAR",
-            description: "Flat White",
-            callbackUrl: "https://sdk.moyasar.com/return",
-            source: ApiPaymentSource.creditCard(source),
-            metadata: ["sdk": "ios", "order_id": "ios_order_3214124"]
-        )
-        
-        Task {
-            do {
-                let payment = try await paymentService.createPayment(paymentRequest)
+        do {
+            let paymentRequest = try PaymentRequest(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
+                                                    amount: 100,
+                                                    currency: "SAR",
+                                                    description: "Flat White",
+                                                    metadata: ["sdk": "ios", "order_id": "ios_order_3214124"])
+            
+            let request = ApiPaymentRequest(
+                paymentRequest: paymentRequest,
+                callbackUrl: "https://sdk.moyasar.com/return",
+                source: ApiPaymentSource.creditCard(source)
+            )
+            
+            Task {
+                let payment = try await paymentService.createPayment(request)
                 DispatchQueue.main.async {
                     self.currentPayment = payment
                     self.startPaymentAuthProcess(payment)
                 }
-            } catch {
-                print("Payment creation error: \(error)")
             }
+        } catch  {
+            print("Handle Erros :",error)
         }
     }
     

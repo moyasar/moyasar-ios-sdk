@@ -10,21 +10,17 @@ public struct StcOtpRequest: Codable {
 
 public struct ApiPaymentRequest: Codable {
     public init(
-        publishableApiKey: String? = nil,
-        amount: Int,
-        currency: String,
-        description: String? = nil,
+        paymentRequest: PaymentRequest,
         callbackUrl: String? = nil,
-        source: ApiPaymentSource,
-        metadata: [String : String]? = nil
+        source: ApiPaymentSource
     ) {
-        self.amount = amount
-        self.currency = currency
-        self.description = description
+        self.amount = paymentRequest.amount
+        self.currency = paymentRequest.currency
+        self.description = paymentRequest.description
         self.callbackUrl = callbackUrl
         self.source = source
-        self.metadata = metadata
-        self.publishableApiKey = publishableApiKey
+        self.metadata = paymentRequest.metadata
+        self.publishableApiKey = paymentRequest.apiKey
     }
     
     public var publishableApiKey: String? /// we send it in STC pay
@@ -49,11 +45,8 @@ public struct ApiPaymentRequest: Codable {
 extension ApiPaymentRequest {
     static func from(_ request: PaymentRequest, source: ApiPaymentSource) -> ApiPaymentRequest {
         return ApiPaymentRequest(
-            amount: request.amount,
-            currency: request.currency,
-            description: request.description,
-            source: source,
-            metadata: request.metadata
+            paymentRequest: request,
+            source: source
         )
     }
 }

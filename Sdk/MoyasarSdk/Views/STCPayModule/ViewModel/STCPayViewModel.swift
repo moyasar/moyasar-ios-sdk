@@ -119,10 +119,7 @@ public class STCPayViewModel: ObservableObject {
             message: nil
         )
         return ApiPaymentRequest(
-            publishableApiKey: paymentRequest.apiKey,
-            amount: paymentRequest.amount,
-            currency: paymentRequest.currency,
-            description: paymentRequest.description,
+            paymentRequest: paymentRequest,
             source: ApiPaymentSource.stcPay(source)
         )
     }
