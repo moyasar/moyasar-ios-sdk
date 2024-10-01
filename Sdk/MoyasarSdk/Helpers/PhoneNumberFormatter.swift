@@ -30,20 +30,22 @@ final class PhoneNumberFormatter {
         return formattedNumber
     }
     
-    private func numberFormatter(currencyCode: String) -> NumberFormatter {
+    private func numberFormatter() -> NumberFormatter {
         let formatter = NumberFormatter()
         formatter.usesGroupingSeparator = true
-        formatter.numberStyle = .currency
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
+        formatter.numberStyle = .decimal  // No currency symbol
         formatter.locale = Locale.current
-        formatter.currencyCode = currencyCode
         return formatter
     }
     
     func getFormattedAmount(paymentRequest: PaymentRequest) -> String {
         let currencyUtil = CurrencyUtil()
         let majorAmount = currencyUtil.toMajor(paymentRequest.amount, currency: paymentRequest.currency)
-        let formatter = numberFormatter(currencyCode: paymentRequest.currency)
-        let amount = formatter.string(from: majorAmount as NSNumber)!
-        return "pay".localized() + " \(amount)"
+        let amountString = numberFormatter().string(from: majorAmount as NSNumber)!
+        
+        // Combine title, amount, and currency code
+        return paymentRequest.payButtonType.title + " \(amountString) \("SAR".localized())"
     }
 }

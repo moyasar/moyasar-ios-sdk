@@ -20,12 +20,7 @@ public struct CreditCardView: View {
     ///   - request: The payment request containing details for the transaction.
     ///   - callback: A callback that handles the result of the payment.
     public init(request: PaymentRequest, callback: @escaping ResultCallback) {
-        do {
-            viewModel = try CreditCardViewModel(paymentRequest: request, resultCallback: callback)
-        } catch {
-            // Handle error here, show error in view model
-             fatalError("Invalid api key 🙁")
-        }
+        viewModel = CreditCardViewModel(paymentRequest: request, resultCallback: callback)
     }
     
     /// The content of the view.
@@ -35,7 +30,7 @@ public struct CreditCardView: View {
 }
 
 struct CreditCardView_Previews: PreviewProvider {
-    static var paymentRequest = PaymentRequest(
+    static  var paymentRequest = try! PaymentRequest(
         apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
         amount: 100,
         currency: "SAR",

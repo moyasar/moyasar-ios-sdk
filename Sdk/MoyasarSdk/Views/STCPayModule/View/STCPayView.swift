@@ -20,12 +20,7 @@ public struct STCPayView: View {
       /// - Throws: If the `STCPayViewModel` initialization fails due to an invalid API key,
       /// it throws an error, which is handled by showing a fatal error message.
     public init(paymentRequest: PaymentRequest, callback: @escaping STCResultCallback) {
-        do {
-            viewModel = try STCPayViewModel(paymentRequest: paymentRequest, resultCallback: callback)
-        } catch {
-            // Handle error here, show error in view model
-            fatalError("Invalid api key 🙁")
-        }
+            viewModel = STCPayViewModel(paymentRequest: paymentRequest, resultCallback: callback)
     }
     
     public var body: some View {
@@ -41,7 +36,7 @@ public struct STCPayView: View {
 }
 
 struct STCPayView_Previews: PreviewProvider {
-    static var paymentRequest = PaymentRequest(
+    static var paymentRequest =  try! PaymentRequest(
         apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
         amount: 100,
         currency: "SAR",

@@ -28,17 +28,20 @@ public class CreditCardViewModel: ObservableObject {
     lazy var numberFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.usesGroupingSeparator = true
-        formatter.numberStyle = .currency
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
+        formatter.numberStyle = .decimal  // No currency symbol
         formatter.locale = Locale.current
-        formatter.currencyCode = paymentRequest.currency
         return formatter
     }()
     
  
     var formattedAmount: String {
         let majorAmount = currencyUtil.toMajor(paymentRequest.amount, currency: paymentRequest.currency)
-        let amount = numberFormatter.string(from: majorAmount as NSNumber)!
-        return "pay".localized() + " \(amount)"
+        let amountString = numberFormatter.string(from: majorAmount as NSNumber)!
+        
+        // Combine title, amount, and currency code
+        return paymentRequest.payButtonType.title + " \(amountString) \("SAR".localized())"
     }
     
     var isValid: Bool {
@@ -75,11 +78,10 @@ public class CreditCardViewModel: ObservableObject {
         return nil
     }
     
-   
-    public init(paymentRequest: PaymentRequest, resultCallback: @escaping ResultCallback) throws {
+    public init(paymentRequest: PaymentRequest, resultCallback: @escaping ResultCallback) {
         self.paymentRequest = paymentRequest
         self.resultCallback = resultCallback
-        self.paymentService = try PaymentService(apiKey: paymentRequest.apiKey)
+        self.paymentService = PaymentService(apiKey: paymentRequest.apiKey)
     }
     
     func showNetworkLogo(_ network: CreditCardNetwork) -> Bool {

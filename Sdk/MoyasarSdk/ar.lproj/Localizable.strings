@@ -14,7 +14,7 @@
 "cvc-required" = "رمز التحقق مطلوب";
 "invalid-cvc" = "رمز تحقق غير صحيح";
 "pay" = "ادفع";
-
+"SAR" = "ر.س";
 // MARK: - Button Type Title
 
 "pay" = "ادفع";

@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Foundation
 
 @MainActor
 public class STCPayViewModel: ObservableObject {
@@ -30,10 +31,10 @@ public class STCPayViewModel: ObservableObject {
         case otp
     }
     
-    public init(paymentRequest: PaymentRequest, resultCallback: @escaping STCResultCallback) throws {
+    public init(paymentRequest: PaymentRequest, resultCallback: @escaping STCResultCallback) {
         self.paymentRequest = paymentRequest
         self.resultCallback = resultCallback
-        self.paymentService = try PaymentService(apiKey: paymentRequest.apiKey)
+        self.paymentService = PaymentService(apiKey: paymentRequest.apiKey)
         setupBindings()
     }
     
