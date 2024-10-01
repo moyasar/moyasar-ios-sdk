@@ -40,7 +40,10 @@ class CustomViewModel: ObservableObject {
                                                     amount: 100,
                                                     currency: "SAR",
                                                     description: "Flat White",
-                                                    metadata: ["sdk": "ios", "order_id": "ios_order_3214124"])
+                                                    metadata: [ "order_id": .stringValue("ios_order_3214124"),
+                                                                "user_id": .integerValue(12345),
+                                                                "isPremiumUser": .booleanValue(true),
+                                                                "amount": .floatValue(15.5)])
             
             let request = ApiPaymentRequest(
                 paymentRequest: paymentRequest,

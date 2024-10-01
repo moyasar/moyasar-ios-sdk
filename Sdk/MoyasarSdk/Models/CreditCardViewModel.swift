@@ -132,7 +132,7 @@ public class CreditCardViewModel: ObservableObject {
                                                     amount: paymentRequest.amount,
                                                     currency: paymentRequest.currency,
                                                     description: paymentRequest.description,
-                                                    metadata: paymentRequest.metadata.merging(["sdk": "ios"], uniquingKeysWith: {k, _ in k }))
+                                                    metadata: paymentRequest.metadata.merging(["sdk": .stringValue("ios")], uniquingKeysWith: {k, _ in k }))
             let request = ApiPaymentRequest(
                 paymentRequest: paymentRequest,
                 callbackUrl: "https://sdk.moyasar.com/return",

@@ -21,7 +21,7 @@ public struct ApiPayment: Codable {
     public var callbackUrl: String?
     public var createdAt: String
     public var updatedAt: String
-    public var metadata: [String: String]?
+    public var metadata: [String: MetadataValue]?
     public var source: ApiPaymentSource
     
     public func isInitiated() -> Bool {

@@ -88,7 +88,7 @@ class PaymentViewController: UIViewController {
             stcPayButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -40)
         ])
     }
-
+    
     /// Create Payment Request using `Visa, Mastercard, Mada, AMEX` and `Apple Pay` initializer
     /// - Returns: `PaymentRequest`
     func createPaymentRequest() -> PaymentRequest{
@@ -105,7 +105,10 @@ class PaymentViewController: UIViewController {
                 amount: 100,
                 currency: "SAR",
                 description: "Testing iOS SDK",
-                metadata: ["order_id": "ios_order_3214124"],
+                metadata: [ "order_id": .stringValue("ios_order_3214124"),
+                            "user_id": .integerValue(12345),
+                            "isPremiumUser": .booleanValue(true),
+                            "amount": .floatValue(15.5)],
                 manual: false,
                 createSaveOnlyToken: false//,
                 // allowedNetworks: [.visa, .mastercard]
@@ -116,7 +119,7 @@ class PaymentViewController: UIViewController {
             fatalError("Invalid api key 🙁")
         }
     }
-
+    
     /// Create Payment Request using `STC` initializer
     /// - Returns: `PaymentRequest`
     func createSTCPaymentRequest() -> PaymentRequest {
@@ -132,7 +135,11 @@ class PaymentViewController: UIViewController {
                 apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
                 amount: 100,
                 currency: "SAR",
-                description: "Testing STC iOS"
+                description: "Testing STC iOS",
+                metadata: [ "order_id": .stringValue("ios_order_3214124"),
+                            "user_id": .integerValue(12345),
+                            "isPremiumUser": .booleanValue(true),
+                            "amount": .floatValue(15.5)]
             )
         } catch {
             // Handle error here, show error in view model
@@ -149,13 +156,13 @@ class PaymentViewController: UIViewController {
     }
     
     private func setupTapGesture() {
-           let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-           view.addGestureRecognizer(tapGesture)
-       }
-
-       @objc private func dismissKeyboard() {
-           view.endEditing(true)
-       }
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
     
     func handlePaymentResult(_ result: PaymentResult) {
         switch (result) {
@@ -187,7 +194,7 @@ class PaymentViewController: UIViewController {
             break
         }
     }
-
+    
     func handleFromSTCResult(_ result: Result<ApiPayment, MoyasarError>) {
         switch (result) {
         case let .success(payment):

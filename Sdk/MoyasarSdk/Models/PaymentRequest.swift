@@ -6,7 +6,7 @@ public struct PaymentRequest {
         amount: Int,
         currency: String = "SAR",
         description: String? = nil,
-        metadata: [String: String] = [:],
+        metadata: [String: MetadataValue] = [:],
         manual: Bool = false,
         saveCard: Bool = false,
         createSaveOnlyToken: Bool = false,
@@ -34,7 +34,7 @@ public struct PaymentRequest {
     public var amount: Int
     public var currency: String
     public var description: String?
-    public var metadata: [String: String]
+    public var metadata: [String: MetadataValue]
     public var manual: Bool
     public var saveCard: Bool
     public var createSaveOnlyToken: Bool

@@ -9,7 +9,7 @@ public struct ApiTokenRequest: Codable {
         year: String?,
         saveOnly: Bool = false,
         callbackUrl: String?,
-        metadata: [String: String]? = [:]
+        metadata: [String: MetadataValue]? = [:]
     ) {
         self.name = name
         self.number = number
@@ -28,7 +28,7 @@ public struct ApiTokenRequest: Codable {
     public var year: String?
     public var saveOnly: Bool = false
     public var callbackUrl: String?
-    public var metadata: [String: String]?
+    public var metadata: [String: MetadataValue]?
 }
 
 extension ApiTokenRequest {

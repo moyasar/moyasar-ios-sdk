@@ -26,7 +26,10 @@ func createPaymentRequest() -> PaymentRequest{
             amount: 100,
             currency: "SAR",
             description: "Testing iOS SDK",
-            metadata: ["order_id": "ios_order_3214124"],
+            metadata: [ "order_id": .stringValue("ios_order_3214124"),
+                        "user_id": .integerValue(12345),
+                        "isPremiumUser": .booleanValue(true),
+                        "amount": .floatValue(15.5)],
             manual: false,
             createSaveOnlyToken: false//,
             // allowedNetworks: [.visa, .mastercard]
@@ -53,7 +56,11 @@ func createSTCPaymentRequest() -> PaymentRequest {
             apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
             amount: 100,
             currency: "SAR",
-            description: "Testing STC iOS"
+            description: "Testing STC iOS",
+            metadata: ["order_id": .stringValue("ios_order_3214124"),
+                       "user_id": .integerValue(12345),
+                       "isPremiumUser": .booleanValue(true),
+                       "amount": .floatValue(15.5)]
         )
     } catch {
         // Handle error here, show error in view model
