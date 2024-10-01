@@ -187,14 +187,14 @@ class PaymentViewController: UIViewController {
             break
         }
     }
-    
+
     func handleFromSTCResult(_ result: Result<ApiPayment, MoyasarError>) {
         switch (result) {
         case let .success(payment):
             if payment.status == .paid {
                 presentResultViewController(title: "Thank you for the payment", subtitle: "Your payment ID is " + payment.id)
             } else {
-                if case let .creditCard(source) = payment.source, payment.status == .failed {
+                if case let .stcPay(source) = payment.source, payment.status == .failed {
                     presentResultViewController(title: "Whops 🤭", subtitle: "Something went wrong: " + (source.message ?? ""))
                     print("Payment failed: \(source.message ?? "")")
                 } else {
