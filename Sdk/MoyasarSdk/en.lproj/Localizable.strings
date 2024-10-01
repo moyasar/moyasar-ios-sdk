@@ -15,6 +15,17 @@
 "invalid-cvc" = "Invalid security code";
 "pay" = "Pay";
 
+// MARK: - Button Type Title
+"pay" = "Pay";
+"buy" = "Buy";
+"book" = "Book";
+"rent" = "Rent";
+"continue" = "Continue";
+"donate" = "Donate";
+"topUp" = "Top Up";
+"order" = "Order";
+"support" = "Support";
+
 // MARK: - STC
 
 "mobile-number" = "Mobile Number";

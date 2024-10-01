@@ -15,6 +15,18 @@
 "invalid-cvc" = "رمز تحقق غير صحيح";
 "pay" = "ادفع";
 
+// MARK: - Button Type Title
+
+"pay" = "ادفع";
+"buy" = "شراء";
+"book" = "حجز";
+"rent" = "استأجر";
+"continue" = "استمرار";
+"donate" = "تبرع";
+"topUp" = "اشحن";
+"order" = "إتمام الطلب";
+"support" = "دعم";
+
 // MARK: - STC
 
 "mobile-number" = "رقم الجوال";
