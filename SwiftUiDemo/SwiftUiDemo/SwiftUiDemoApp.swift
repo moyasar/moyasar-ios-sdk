@@ -70,6 +70,10 @@ func createSTCPaymentRequest() -> PaymentRequest {
 
 @main
 struct SwiftUiDemoApp: App {
+    
+    init () {
+        MoyasarLanguageManager.shared.setLanguage(.ar)
+    }
     var body: some Scene {
         WindowGroup {
             ContentView()
