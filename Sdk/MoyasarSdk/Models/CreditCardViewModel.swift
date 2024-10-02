@@ -19,12 +19,12 @@ public class CreditCardViewModel: ObservableObject {
     var resultCallback: ResultCallback
     var currentPayment: ApiPayment? = nil
     var paymentService: PaymentService
+    let layoutDirection = MoyasarLanguageManager.shared.currentLanguage
     lazy var nameValidator = NameOnCardValidator()
     lazy var numberValidator = CardNumberValidator(supportedNetworks: paymentRequest.allowedNetworks)
     lazy var expiryValidator = ExpiryValidator()
     lazy var securityCodeValidator = SecurityCodeValidator(getNumber: { self.number },
                                                            supportedNetworks: paymentRequest.allowedNetworks)
-    
     lazy var numberFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.usesGroupingSeparator = true

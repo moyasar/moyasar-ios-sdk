@@ -20,6 +20,7 @@ public class STCPayViewModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
     var showErrorHintView = CurrentValueSubject<Bool, Never>(false)
+    let layoutDirection = MoyasarLanguageManager.shared.currentLanguage
     lazy var stcValidator = STCValidator()
     lazy var phoneNumberFormatter = PhoneNumberFormatter()
     var transactionUrl: String?
