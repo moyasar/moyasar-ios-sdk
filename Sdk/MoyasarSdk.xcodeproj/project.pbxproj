@@ -63,6 +63,7 @@
 		4B5D93952C9C29D100D7A1C8 /* STCPayView+SubViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5D93942C9C29D100D7A1C8 /* STCPayView+SubViews.swift */; };
 		4B6746E62CA98C94001A801E /* STCValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6746E52CA98C91001A801E /* STCValidatorTests.swift */; };
 		4B6746EA2CAAA16A001A801E /* FormatPhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6746E92CAAA163001A801E /* FormatPhoneNumber.swift */; };
+		4B6746F22CAC17A5001A801E /* MoyasarLanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6746F12CAC17A3001A801E /* MoyasarLanguageManager.swift */; };
 		4BBA7B552C18CCA900BBAFB4 /* PaymentServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBA7B542C18CCA900BBAFB4 /* PaymentServices.swift */; };
 		4BBA7B582C18CCEC00BBAFB4 /* ApplePayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBA7B572C18CCEC00BBAFB4 /* ApplePayService.swift */; };
 		4BE4FC9C2C3F83C800EF26F9 /* CreditCardTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE4FC9B2C3F83C800EF26F9 /* CreditCardTextField.swift */; };
@@ -141,6 +142,7 @@
 		4B5D93942C9C29D100D7A1C8 /* STCPayView+SubViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "STCPayView+SubViews.swift"; sourceTree = "<group>"; };
 		4B6746E52CA98C91001A801E /* STCValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STCValidatorTests.swift; sourceTree = "<group>"; };
 		4B6746E92CAAA163001A801E /* FormatPhoneNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatPhoneNumber.swift; sourceTree = "<group>"; };
+		4B6746F12CAC17A3001A801E /* MoyasarLanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyasarLanguageManager.swift; sourceTree = "<group>"; };
 		4BBA7B542C18CCA900BBAFB4 /* PaymentServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentServices.swift; sourceTree = "<group>"; };
 		4BBA7B572C18CCEC00BBAFB4 /* ApplePayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayService.swift; sourceTree = "<group>"; };
 		4BE4FC9B2C3F83C800EF26F9 /* CreditCardTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardTextField.swift; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 		416FCC0026E3BC880044639E /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				4B6746F12CAC17A3001A801E /* MoyasarLanguageManager.swift */,
 				416FCC0226E3BC9A0044639E /* CreditCardFormatter.swift */,
 				4B0F9EA42C96FB8F00F02CEE /* PhoneNumberFormatter.swift */,
 				416FCC0326E3BC9A0044639E /* CreditCardNetwork.swift */,
@@ -502,6 +505,7 @@
 				4B0F9E9F2C91B61A00F02CEE /* STCPayView.swift in Sources */,
 				419247D82AB712A700430845 /* ApiToken.swift in Sources */,
 				4B5D93912C9B735900D7A1C8 /* Color+Extension.swift in Sources */,
+				4B6746F22CAC17A5001A801E /* MoyasarLanguageManager.swift in Sources */,
 				4B178CCB2C31733600E33706 /* CreditCardView.swift in Sources */,
 				416FCC3A26E3BDE50044639E /* ApiPayment.swift in Sources */,
 				4BBA7B552C18CCA900BBAFB4 /* PaymentServices.swift in Sources */,
