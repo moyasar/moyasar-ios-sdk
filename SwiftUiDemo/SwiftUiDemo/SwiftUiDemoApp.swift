@@ -72,7 +72,9 @@ func createSTCPaymentRequest() -> PaymentRequest {
 struct SwiftUiDemoApp: App {
     
     init () {
-        MoyasarLanguageManager.shared.setLanguage(.ar)
+        /// If you want the sdk language to be  same as the system language `you don't need to use this manager at all`
+        /// If you want to set custom langauge for sdk please use the below line when you lunch the app we support Arabic and English ,
+       /// MoyasarLanguageManager.shared.setLanguage(.ar)
     }
     var body: some Scene {
         WindowGroup {

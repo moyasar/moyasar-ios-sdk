@@ -14,7 +14,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-         MoyasarLanguageManager.shared.setLanguage(.en)
+        /// If you want the sdk language to be  same as the system language `you don't need to use this manager at all`
+        /// If you want to set custom langauge for sdk please use the below line when you lunch the app we support Arabic and English ,
+       /// MoyasarLanguageManager.shared.setLanguage(.ar)
         return true
     }
 }
