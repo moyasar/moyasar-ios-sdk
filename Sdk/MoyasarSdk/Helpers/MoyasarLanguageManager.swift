@@ -8,32 +8,30 @@
 import Foundation
 import SwiftUI
 
-public enum LanguageCode: String {
+public enum MoyasarLanguageCode: String {
     case ar = "ar"
     case en = "en"
 }
 
-private var bundleKey: UInt8 = 0
+private var moyasarBundleKey: UInt8 = 1
 public class MoyasarLanguageManager {
-    
     public static let shared = MoyasarLanguageManager()
     
     private init() {}
     
-    /// Default retrun system langauge if not setted
-    ///
     private var selectedLanguage: String = Locale.current.languageCode ?? "en"
     
-    // Set the language based on the app’s or request's preferences
-    public func setLanguage(_ language: LanguageCode) {
+    public func setLanguage(_ language: MoyasarLanguageCode) {
         guard let languageBundlePath = Bundle.moyasar.path(forResource: language.rawValue, ofType: "lproj"),
               let languageBundle = Bundle(path: languageBundlePath) else {
             print("Language bundle not found for language code: \(language.rawValue)")
             return
         }
+        
+        // Ensure swizzling only happens once
         Bundle.swizzleMoyasarLocalization()
         selectedLanguage = language.rawValue
-        objc_setAssociatedObject(Bundle.moyasar, &bundleKey, languageBundle, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        objc_setAssociatedObject(Bundle.moyasar, &moyasarBundleKey, languageBundle, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
     
     public var currentLanguage: LayoutDirection {
@@ -49,9 +47,9 @@ extension Bundle {
         }
         method_exchangeImplementations(originalMethod, swizzledMethod)
     }
-
+    
     @objc func customMoyasarLocalizedString(forKey key: String, value: String?, table tableName: String?) -> String {
-        if let bundle = objc_getAssociatedObject(self, &bundleKey) as? Bundle {
+        if let bundle = objc_getAssociatedObject(self, &moyasarBundleKey) as? Bundle {
             return bundle.customMoyasarLocalizedString(forKey: key, value: value, table: tableName)
         } else {
             return self.customMoyasarLocalizedString(forKey: key, value: value, table: tableName)
