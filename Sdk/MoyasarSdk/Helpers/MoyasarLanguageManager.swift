@@ -26,12 +26,12 @@ public class MoyasarLanguageManager {
     
     // Set the language based on the app’s or request's preferences
     public func setLanguage(_ language: LanguageCode) {
-        Bundle.swizzleMoyasarLocalization()
         guard let languageBundlePath = Bundle.moyasar.path(forResource: language.rawValue, ofType: "lproj"),
               let languageBundle = Bundle(path: languageBundlePath) else {
             print("Language bundle not found for language code: \(language.rawValue)")
             return
         }
+        Bundle.swizzleMoyasarLocalization()
         selectedLanguage = language.rawValue
         objc_setAssociatedObject(Bundle.moyasar, &bundleKey, languageBundle, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
