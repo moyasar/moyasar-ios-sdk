@@ -26,6 +26,7 @@ public struct CreditCardView: View {
     /// The content of the view.
     public var body: some View {
         content
+            .environment(\.layoutDirection, viewModel.layoutDirection)
     }
 }
 

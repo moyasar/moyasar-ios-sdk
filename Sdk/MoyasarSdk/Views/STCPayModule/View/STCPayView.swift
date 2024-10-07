@@ -24,6 +24,12 @@ public struct STCPayView: View {
     }
     
     public var body: some View {
+        content
+            .environment(\.layoutDirection, viewModel.layoutDirection)
+    }
+    
+    @ViewBuilder
+    var content: some View {
         VStack {
             switch viewModel.screenStep {
             case .mobileNumber:
