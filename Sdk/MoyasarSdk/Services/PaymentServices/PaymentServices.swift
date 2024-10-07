@@ -26,17 +26,8 @@ final public class PaymentService {
         return dec
     }()
     
-    var apiKeyPattern = {
-        try! NSRegularExpression(pattern: #"^pk_(test|live)_.{40}$"#, options: [])
-    }()
-    
-    public init(apiKey: String, baseUrl: String = "https://api.moyasar.com") throws {
+    public init(apiKey: String, baseUrl: String = "https://api.moyasar.com") {
         self.baseUrl = baseUrl
-        
-        if !apiKeyPattern.hasMatch(apiKey) {
-            throw MoyasarError.invalidApiKey(apiKey)
-        }
-        
         self.apiKey = apiKey
     }
     
@@ -48,15 +39,7 @@ final public class PaymentService {
         return URL(string: baseUrl + (baseUrl.last == "/" ? "" : "/") + "v1/tokens")!
     }
     
-    private func makeRequest<T: Decodable>(_ url: URL, method: String, payload: Data?) async throws -> T {
-        var request = URLRequest(url: url)
-        let auth = "\(apiKey):".data(using: .utf8)?.base64EncodedString()
-        
-        request.setValue("Basic \(auth!)", forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("moyasar-ios-sdk", forHTTPHeaderField: "X-MOYASAR-LIB")
-        request.httpMethod = method
-        request.httpBody = payload
+    private func makeRequest<T: Decodable>(_ request: URLRequest) async throws -> T {
         
         do {
             let (data, response) = try await session.data(for: request)
@@ -80,11 +63,45 @@ final public class PaymentService {
     
     public func createPayment(_ paymentRequest: ApiPaymentRequest) async throws -> ApiPayment {
         let payload = try encoder.encode(paymentRequest)
-        return try await makeRequest(createUrl, method: "POST", payload: payload)
+        let request = createPaymentURLRequest(payload: payload, url: createUrl)
+        return try await makeRequest(request)
     }
     
     public func createToken(_ tokenRequest: ApiTokenRequest) async throws -> ApiToken {
         let payload = try encoder.encode(tokenRequest)
-        return try await makeRequest(createTokenUrl, method: "POST", payload: payload)
+        let request = createPaymentURLRequest(payload: payload, url: createTokenUrl)
+        return try await makeRequest(request)
+    }
+    
+    private func createPaymentURLRequest(payload: Data, url: URL) -> URLRequest {
+        var request = URLRequest(url: url)
+        let auth = "\(apiKey):".data(using: .utf8)?.base64EncodedString()
+        request.setValue("Basic \(auth!)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("moyasar-ios-sdk", forHTTPHeaderField: "X-MOYASAR-LIB")
+        if let sdkVersion = Bundle(for: PaymentService.self).infoDictionary?["CFBundleShortVersionString"] as? String {
+            request.addValue(sdkVersion, forHTTPHeaderField: "SDK-Version")
+        }
+        request.httpMethod = "POST"
+        request.httpBody = payload
+        return request
+    }
+    
+    public func sendSTCPaymentRequest(url: URL, stcOtpRequest: StcOtpRequest) async throws -> ApiPayment {
+        let payload = try encoder.encode(stcOtpRequest)
+        let request = createStcPaymentURLRequest(payload: payload, url: url)
+        return try await makeRequest(request)
+    }
+    
+    private func createStcPaymentURLRequest(payload: Data, url: URL) -> URLRequest {
+        var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("moyasar-ios-sdk", forHTTPHeaderField: "X-MOYASAR-LIB")
+        if let sdkVersion = Bundle(for: PaymentService.self).infoDictionary?["CFBundleVersion"] as? String {
+            request.addValue(sdkVersion, forHTTPHeaderField: "SDK-Version")
+        }
+        request.httpMethod = "POST"
+        request.httpBody = payload
+        return request
     }
 }

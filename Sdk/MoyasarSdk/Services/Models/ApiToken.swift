@@ -10,7 +10,7 @@ public struct ApiToken: Codable {
     public var year: String
     public var name: String
     public var lastFour: String
-    public var metadata: [String: String]?
+    public var metadata: [String: MetadataValue]?
     public var message: String?
     public var verificationUrl: String?
     public var createdAt: String

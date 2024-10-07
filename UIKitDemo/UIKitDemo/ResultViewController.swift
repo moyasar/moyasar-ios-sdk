@@ -40,6 +40,7 @@ class ResultViewController: UIViewController {
         resultSubTitleLabel.isEditable = false
         resultSubTitleLabel.frame.size = CGSize(width: view.frame.size.width - 50, height: 100)
         resultSubTitleLabel.textColor = .black
+        resultSubTitleLabel.backgroundColor = .white
         resultSubTitleLabel.center = CGPoint(x: view.center.x, y: view.center.y + 60)
         view.addSubview(resultSubTitleLabel)
     }

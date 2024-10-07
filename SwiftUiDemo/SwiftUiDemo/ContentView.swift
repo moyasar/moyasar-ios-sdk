@@ -22,10 +22,10 @@ struct ContentView: View {
         if case .reset = status {
             NavigationView {
                 VStack {
-                    Text("hello")
+                    Text("Moyasar SDK Demo")
                         .padding()
                     
-                    CreditCardView(request: paymentRequest) {result in
+                    CreditCardView(request: createPaymentRequest()) {result in
                         handleFromResult(result)
                     }
                     
@@ -33,6 +33,13 @@ struct ContentView: View {
                         .frame(height: 50)
                         .cornerRadius(10)
                         .padding(.horizontal, 15)
+                    
+                    NavigationLink(destination:  STCPayView(paymentRequest: createSTCPaymentRequest()){ result in
+                        handleFromSTCResult(result)
+                    }) {
+                        Text("STC Pay Demo")
+                    }
+                    .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
                     
                     NavigationLink(destination: CustomView()) {
                         Text("Checkout custom UI demo")
@@ -97,9 +104,30 @@ struct ContentView: View {
         }
     }
     
+    func handleFromSTCResult(_ result:  Result<ApiPayment, MoyasarError>) {
+        switch (result) {
+        case let .success(payment):
+            if payment.status == .paid {
+                status = .success(payment)
+            } else {
+                if case let .stcPay(source) = payment.source, payment.status == .failed {
+                    status = .unknown(source.message ?? "")
+                    print("Payment failed: \(source.message ?? "")")
+                } else {
+                    // Handle payment statuses
+                    status = .success(payment)
+                    print("Payment: \(payment)")
+                }
+            }
+
+        case let .failure(error):
+            status = .failed(error)
+        }
+    }
+    
     func applePayPressed(action: UIAction) {
         do {
-            let applePayHandler = try ApplePayPaymentHandler(paymentRequest: paymentRequest)
+            let applePayHandler = try ApplePayPaymentHandler(paymentRequest: createPaymentRequest())
             applePayHandler.present()
         } catch {
             status = .failed(error as! MoyasarError)

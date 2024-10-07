@@ -15,11 +15,7 @@ public final class ApplePayService {
     
     public init(apiKey: String) throws {
         self.apiKey = apiKey
-        do {
-            self.paymentService = try PaymentService(apiKey: apiKey)
-        } catch {
-            throw error
-        }
+        paymentService =  PaymentService(apiKey: apiKey)
     }
     
     public func authorizePayment(request: PaymentRequest, token: PKPaymentToken) async throws -> ApiPayment {

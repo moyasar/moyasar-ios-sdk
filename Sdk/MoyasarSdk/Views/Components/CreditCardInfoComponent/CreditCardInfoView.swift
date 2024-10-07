@@ -26,7 +26,7 @@ struct CreditCardInfoView: View {
 
 
 struct CreditCardInfoView_Previews: PreviewProvider {
-    static var paymentRequest = PaymentRequest(
+    static var paymentRequest = try! PaymentRequest(
         apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
         amount: 100,
         currency: "SAR",
@@ -34,8 +34,7 @@ struct CreditCardInfoView_Previews: PreviewProvider {
     )
     
     static var previews: some View {
-        do {
-            let info = try CreditCardViewModel(paymentRequest: paymentRequest) { result in
+            let info = CreditCardViewModel(paymentRequest: paymentRequest) { result in
                 switch (result) {
                 case .completed(let payment):
                     print("Got payment")
@@ -52,13 +51,5 @@ struct CreditCardInfoView_Previews: PreviewProvider {
                 }
             }
             return AnyView(CreditCardInfoView(cardInfo: info))
-        } catch {
-            // Handle error here
-            // For example, print the error
-            print("Failed to initialize CreditCardViewModel: \(error)")
-            // Return some placeholder view or handle the error in another way
-            return AnyView(Text("Failed to initialize CreditCardViewModel")
-                .foregroundColor(.red))
-        }
     }
 }

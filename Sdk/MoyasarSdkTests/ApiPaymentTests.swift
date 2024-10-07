@@ -10,9 +10,12 @@ class ApiPaymentTests: XCTestCase {
     
     func testDecodeSuccessfully() {
         let payment = try! self.decoder.decode(ApiPayment.self, from: testPayment)
-        
         XCTAssertEqual(ApiPaymentStatus.initiated, payment.status)
-        XCTAssertEqual("ios", payment.metadata!["sdk"])
+        if case .stringValue(let sdkValue) = payment.metadata!["sdk"] {
+            XCTAssertEqual(sdkValue, "ios")
+        } else {
+            XCTFail("Expected stringValue for sdk but got something else.")
+        }
         
         guard case let .creditCard(source) = payment.source else {
             XCTAssert(false)

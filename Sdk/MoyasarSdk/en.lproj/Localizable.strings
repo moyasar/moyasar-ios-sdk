@@ -14,3 +14,28 @@
 "cvc-required" = "Security code is required";
 "invalid-cvc" = "Invalid security code";
 "pay" = "Pay";
+"SAR" = "SAR";
+
+// MARK: - Button Type Title
+"pay" = "Pay";
+"buy" = "Buy";
+"book" = "Book";
+"rent" = "Rent";
+"continue" = "Continue";
+"donate" = "Donate";
+"topUp" = "Top Up";
+"order" = "Order";
+"support" = "Support";
+
+// MARK: - STC
+
+"mobile-number" = "Mobile Number";
+"mobile-number-placeholder" = "05x xxx xxxx";
+
+"otp-title" = "One-Time Password";
+"otp-placeholder" = "xxxxxx";
+
+"phone-number-required" = "Phone number is required";
+"invalid-phone-number"  = "Invalid phone number";
+"invalid-otp" = "Invalid OTP";
+"confirm" = "Confirm";
