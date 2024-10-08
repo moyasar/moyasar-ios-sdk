@@ -33,9 +33,9 @@ Swift Package Manager (SPM) is a tool for managing the distribution of Swift cod
 
 For more details, refer to the [official documentation](https://docs.moyasar.com/ios-sdk).
 
-## Migration from v1.0.5 to v2.0.0
+## Migration from v2.0.1 to v3.0.0
 
-To migrate from version 1.0.5 to 2.0.0, please follow the [migration guide](https://docs.moyasar.com/ios-sdk).
+To migrate from version 2.0.1 to 3.0.0, please follow the [migration guide](https://docs.moyasar.com/ios-sdk).
 
 ### Using Older Versions
 
@@ -53,7 +53,7 @@ You can specify the versioning in SPM as flow:
   https://github.com/moyasar/moyasar-ios-sdk.git, version: 2.0.1
   ```
 
-By following these steps, you can easily integrate and migrate the Moyasar iOS SDK into your project. For any further details and documentation, visit [Moyasar's official documentation](https://docs.moyasar.com/ios-sdk).
+By following these steps, you can easily integrate and migrate the Moyasar iOS SDK into your project. For any further details and documentation, visit [Moyasar's official documentation](https://docs.mysr.dev/sdk/ios/installation).
 
 
 ## APIs Documentation
