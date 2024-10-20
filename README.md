@@ -31,11 +31,11 @@ Swift Package Manager (SPM) is a tool for managing the distribution of Swift cod
     ```
 5. Choose the branch `master`.
 
-For more details, refer to the [official documentation](https://docs.moyasar.com/ios-sdk).
+For more details, refer to the [official documentation](https://docs.mysr.dev/sdk/ios/installation).
 
 ## Migration from v2.0.1 to v3.0.0
 
-To migrate from version 2.0.1 to 3.0.0, please follow the [migration guide](https://docs.moyasar.com/ios-sdk).
+To migrate from version 2.0.1 to 3.0.0, please follow the [migration guide](https://docs.mysr.dev/sdk/ios/installation).
 
 ### Using Older Versions
 
