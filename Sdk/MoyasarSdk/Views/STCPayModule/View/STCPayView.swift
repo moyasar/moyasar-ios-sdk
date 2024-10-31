@@ -16,9 +16,7 @@ public struct STCPayView: View {
       /// - Parameters:
       ///   - paymentRequest: The request containing payment details, including the API key.
       ///   - callback: A closure that gets called when the payment process finishes with success or failure.
-      ///
-      /// - Throws: If the `STCPayViewModel` initialization fails due to an invalid API key,
-      /// it throws an error, which is handled by showing a fatal error message.
+    
     public init(paymentRequest: PaymentRequest, callback: @escaping STCResultCallback) {
             viewModel = STCPayViewModel(paymentRequest: paymentRequest, resultCallback: callback)
     }
