@@ -13,7 +13,16 @@ extension CreditCardInfoView {
     
     /// View for the "Name on Card" input field and validation.
     var nameField: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                let validatedText = cardInfo.nameValidator.visualValidate(value: cardInfo.nameOnCard)
+             
+                Text(validatedText ?? "name-on-card".localized())
+                    .font(.system(size: 16, weight: .regular))
+                    .foregroundColor(validatedText != nil ? .red : MoyasarColors.primaryTextColor)
+                Spacer()
+            }
+            
             creditCardTextField(
                 title: "name-on-card".localized(),
                 text: $cardInfo.nameOnCard,
@@ -21,7 +30,7 @@ extension CreditCardInfoView {
                 autocapitalization: .none,
                 disableAutocorrection: true
             )
-            validationText(for: cardInfo.nameValidator.visualValidate(value: cardInfo.nameOnCard))
+           // validationText(for: cardInfo.nameValidator.visualValidate(value: cardInfo.nameOnCard))
         }
     }
     
