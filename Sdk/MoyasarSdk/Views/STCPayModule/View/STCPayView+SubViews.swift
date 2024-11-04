@@ -50,10 +50,9 @@ extension STCPayView {
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(shouldShowHint ? .red : MoyasarColors.borderColor, lineWidth: 1)
-                   // .stroke(MoyasarColors.borderColor, lineWidth: 1.5)
             )
             .frame(height: 46)
-            .shadow(color: MoyasarColors.borderColor, radius: 3, x: 0, y: 2)
+            //.shadow(color: MoyasarColors.borderColor, radius: 3, x: 0, y: 2)
         }
     }
     
@@ -85,7 +84,7 @@ extension STCPayView {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(shouldShowHint ? Color.red :MoyasarColors.borderColor, lineWidth: 1))
                 .frame(height: 46)
-                .shadow(color: MoyasarColors.borderColor, radius: 3, x: 0, y: 2)
+               // .shadow(color: MoyasarColors.borderColor, radius: 3, x: 0, y: 2)
         }
     }
     
