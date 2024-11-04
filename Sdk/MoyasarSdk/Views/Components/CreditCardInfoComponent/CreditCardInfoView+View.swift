@@ -29,6 +29,7 @@ extension CreditCardInfoView {
                 disableAutocorrection: true,
                 showError: validatedText != nil
             )
+           
         }
     }
     
@@ -47,23 +48,24 @@ extension CreditCardInfoView {
                 // Card Number
                 cardNumberField
                     .padding(.horizontal,10)
-                Divider()
-                    .frame(height: 0.5)
+                Rectangle()
+                    .fill(MoyasarColors.borderColor)
+                    .frame(height: 1)
                 HStack(spacing: 0) {
                     // Expiry Date
                     expiryDateField
-                    Divider()
-                        .frame(height: 46)
+                    Rectangle()
+                        .fill(MoyasarColors.borderColor)
+                        .frame(width: 1, height: 46)
                     // CVC Code
                     cvcField
                         .padding(.leading, 10)
                 }
                 .padding(.horizontal,10)
             }
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(validatedText == nil ? MoyasarColors.borderColor : Color.red, lineWidth: 0.5)
-                    .shadow(color: Color.gray.opacity(0.8), radius: 3, x: 0, y: 4)
+            .background(  RoundedRectangle(cornerRadius: 8)
+                .stroke(validatedText == nil ? MoyasarColors.borderColor : Color.red, lineWidth: 1)
+//                .shadow(color: Color.black.opacity(0.3), radius: 2, x: 0, y: 0)
             )
         }
     }
@@ -131,7 +133,8 @@ extension CreditCardInfoView {
         .padding(10)
         .overlay(
             RoundedRectangle(cornerRadius: 7)
-                .stroke(showError ? Color.red : Color.gray.opacity(0.5), lineWidth: 0.5)
+                .stroke(showError ? Color.red : MoyasarColors.borderColor, lineWidth: 1)
+//                .shadow(color: Color.black.opacity(0.5), radius: 7, x: 0, y: 0)
         )
     }
     
