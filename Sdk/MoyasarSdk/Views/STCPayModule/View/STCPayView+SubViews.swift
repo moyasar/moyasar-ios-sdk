@@ -76,7 +76,7 @@ extension STCPayView {
                             ),
                 placeholder: "mobile-number-placeholder".localized(),
                 formatter: viewModel.phoneNumberFormatter.formatPhoneNumber(_:)
-            )
+            ).padding(.horizontal,10)
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(MoyasarColors.borderColor, lineWidth: 1.5)
