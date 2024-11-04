@@ -15,6 +15,7 @@
 "invalid-cvc" = "Invalid security code";
 "pay" = "Pay";
 "SAR" = "SAR";
+"card" = "Card";
 
 // MARK: - Button Type Title
 "pay" = "Pay";
