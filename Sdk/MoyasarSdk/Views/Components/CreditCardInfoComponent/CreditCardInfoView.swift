@@ -6,16 +6,12 @@ struct CreditCardInfoView: View {
     @Environment(\.locale) var locale: Locale
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            // Name on Card
+        VStack(alignment: .leading, spacing: 30) {
             nameField
             cardView
         }
     }
 }
-
-
-
 
 struct CreditCardInfoView_Previews: PreviewProvider {
     static var paymentRequest = try! PaymentRequest(

@@ -17,8 +17,8 @@ extension CreditCardInfoView {
             let validatedText = cardInfo.nameValidator.visualValidate(value: cardInfo.nameOnCard)
             HStack {
                 Text(validatedText ?? "name-on-card".localized())
-                    .font(.system(size: 16, weight: .regular))
-                    .foregroundColor(validatedText != nil ? .red : MoyasarColors.primaryTextColor)
+                    .font(.system(size: 18, weight: .regular))
+                    .foregroundColor(validatedText != nil ? MoyasarColors.errorColor : MoyasarColors.primaryTextColor)
                 Spacer()
             }
             creditCardTextField(
@@ -40,8 +40,8 @@ extension CreditCardInfoView {
             cardInfo.securityCodeValidator.visualValidate(value: cardInfo.securityCode)
             HStack {
                 Text(validatedText ?? "card".localized())
-                    .font(.system(size: 16, weight: .regular))
-                    .foregroundColor(validatedText != nil ? .red : MoyasarColors.primaryTextColor)
+                    .font(.system(size: 18, weight: .regular))
+                    .foregroundColor(validatedText != nil ? MoyasarColors.errorColor : MoyasarColors.primaryTextColor)
                 Spacer()
             }
             VStack(spacing: 0) {
@@ -64,7 +64,7 @@ extension CreditCardInfoView {
                 .padding(.horizontal,10)
             }
             .background(  RoundedRectangle(cornerRadius: 8)
-                .stroke(validatedText == nil ? MoyasarColors.borderColor : Color.red, lineWidth: 1)
+                .stroke(validatedText == nil ? MoyasarColors.borderColor : MoyasarColors.errorColor, lineWidth: 1)
 //                .shadow(color: Color.black.opacity(0.3), radius: 2, x: 0, y: 0)
             )
         }
