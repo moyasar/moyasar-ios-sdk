@@ -16,7 +16,7 @@ extension STCPayView {
                 let shouldShowHint = (viewModel.showErrorHintView.value && validatedText != nil)
                 Text((shouldShowHint ? validatedText : "mobile-number".localized()) ?? "mobile-number".localized())
                     .font(.system(size: 16, weight: .regular))
-                    .foregroundColor(shouldShowHint ? .red : MoyasarColors.primaryTextColor)
+                    .foregroundColor(shouldShowHint ? MoyasarColors.errorColor : MoyasarColors.primaryTextColor)
                 Spacer()
             }
             phoneNumberField
@@ -49,7 +49,7 @@ extension STCPayView {
             ).padding(.horizontal,10)
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
-                    .stroke(shouldShowHint ? .red : MoyasarColors.borderColor, lineWidth: 1)
+                    .stroke(shouldShowHint ? MoyasarColors.errorColor : MoyasarColors.borderColor, lineWidth: 1)
             )
             .frame(height: 46)
             //.shadow(color: MoyasarColors.borderColor, radius: 3, x: 0, y: 2)
@@ -62,7 +62,7 @@ extension STCPayView {
                 let shouldShowHint = (viewModel.showErrorHintView.value && !viewModel.isValidOtp)
                 Text(shouldShowHint ? "invalid-otp".localized() : "otp-title".localized())
                     .font(.system(size: 16, weight: .regular))
-                    .foregroundColor(shouldShowHint ? .red : MoyasarColors.primaryTextColor)
+                    .foregroundColor(shouldShowHint ? MoyasarColors.errorColor : MoyasarColors.primaryTextColor)
                 Spacer()
             }
             otpField
@@ -82,7 +82,7 @@ extension STCPayView {
                 .padding(10)
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(shouldShowHint ? Color.red :MoyasarColors.borderColor, lineWidth: 1))
+                        .stroke(shouldShowHint ? MoyasarColors.errorColor : MoyasarColors.borderColor, lineWidth: 1))
                 .frame(height: 46)
                // .shadow(color: MoyasarColors.borderColor, radius: 3, x: 0, y: 2)
         }
