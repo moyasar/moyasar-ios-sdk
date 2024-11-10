@@ -29,7 +29,6 @@ extension CreditCardInfoView {
                 disableAutocorrection: true,
                 showError: validatedText != nil
             )
-           
         }
     }
     
@@ -65,7 +64,6 @@ extension CreditCardInfoView {
             }
             .background(  RoundedRectangle(cornerRadius: 8)
                 .stroke(validatedText == nil ? MoyasarColors.borderColor : MoyasarColors.errorColor, lineWidth: 1)
-//                .shadow(color: Color.black.opacity(0.3), radius: 2, x: 0, y: 0)
             )
         }
     }
@@ -134,7 +132,6 @@ extension CreditCardInfoView {
         .overlay(
             RoundedRectangle(cornerRadius: 7)
                 .stroke(showError ? Color.red : MoyasarColors.borderColor, lineWidth: 1)
-//                .shadow(color: Color.black.opacity(0.5), radius: 7, x: 0, y: 0)
         )
     }
     
