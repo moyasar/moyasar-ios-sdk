@@ -24,4 +24,8 @@ enum MoyasarColors {
     static var borderColor: Color {
         UITraitCollection.current.userInterfaceStyle == .dark ? Color(hex: "#E0E0E0")! : Color(hex: "#E0E0E0")!
     }
+    
+    static var errorColor: Color {
+        UITraitCollection.current.userInterfaceStyle == .dark ? Color(hex: "#F62323")! : Color(hex: "#F62323")!
+    }
 }

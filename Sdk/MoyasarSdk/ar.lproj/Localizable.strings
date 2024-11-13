@@ -15,6 +15,7 @@
 "invalid-cvc" = "رمز تحقق غير صحيح";
 "pay" = "ادفع";
 "SAR" = "ر.س";
+"card" = "معلومات بطاقة الإئتمان";
 // MARK: - Button Type Title
 
 "pay" = "ادفع";

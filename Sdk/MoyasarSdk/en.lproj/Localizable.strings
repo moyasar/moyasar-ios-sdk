@@ -1,4 +1,4 @@
-"name-on-card" = "Name on Card";
+"name-on-card" = "Name on card";
 "card-number" = "Card Number";
 "expiry" = "Expiry (MM/YY)";
 "cvc" = "CVC";
@@ -15,6 +15,7 @@
 "invalid-cvc" = "Invalid security code";
 "pay" = "Pay";
 "SAR" = "SAR";
+"card" = "Card information";
 
 // MARK: - Button Type Title
 "pay" = "Pay";

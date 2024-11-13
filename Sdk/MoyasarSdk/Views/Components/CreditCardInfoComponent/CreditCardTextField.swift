@@ -47,11 +47,8 @@ struct CreditCardTextField: UIViewRepresentable {
         textField.keyboardType = .numberPad
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
-        textField.borderStyle = .roundedRect
-        
-        // Set text alignment and semantic content attribute based on the language direction
+        textField.borderStyle = .none
         updateTextFieldDirection(textField)
-        
         return textField
     }
     

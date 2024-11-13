@@ -55,13 +55,13 @@ final class CreditCardFormatter {
     /// Formats the expiry date (e.g., "1225" to "12/25")
     ///
     func formatExpiryDate(_ date: String) -> String {
-        let cleaned = cleanNumber(date)
+        let cleaned = cleanNumber(date).prefix(6)
         if cleaned.count > 2 {
             let month = cleaned.prefix(2)
             let year = cleaned.suffix(from: cleaned.index(cleaned.startIndex, offsetBy: 2))
             return "\(month) / \(year)"
         }
-        return cleaned
+        return String(cleaned)
     }
     
     /// Formats the CVC

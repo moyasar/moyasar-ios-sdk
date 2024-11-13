@@ -6,24 +6,12 @@ struct CreditCardInfoView: View {
     @Environment(\.locale) var locale: Locale
     
     var body: some View {
-        VStack(alignment: .leading) {
-            // Name on Card
+        VStack(alignment: .leading, spacing: 30) {
             nameField
-            
-            // Card Number
-            cardNumberField
-            
-            // Expiry Date
-            expiryDateField
-            
-            // CVC Code
-            cvcField
+            cardView
         }
     }
 }
-
-
-
 
 struct CreditCardInfoView_Previews: PreviewProvider {
     static var paymentRequest = try! PaymentRequest(
