@@ -20,7 +20,7 @@ public struct CreditCardView: View {
     ///   - request: The payment request containing details for the transaction.
     ///   - callback: A callback that handles the result of the payment.
     public init(request: PaymentRequest, callback: @escaping ResultCallback) {
-        viewModel = CreditCardViewModel(paymentRequest: request, resultCallback: callback)
+        _viewModel = ObservedObject(wrappedValue: CreditCardViewModel(paymentRequest: request, resultCallback: callback))
     }
     
     /// The content of the view.
