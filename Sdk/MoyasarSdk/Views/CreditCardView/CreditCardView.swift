@@ -31,12 +31,8 @@ public struct CreditCardView: View {
     
     /// The content of the view.
     public var body: some View {
-        let _ = print("🤣",Self.self)
-        let _ = print("😀",viewModel.number)
-        let _ = print("😅",viewModel.nameOnCard)
         content
             .environment(\.layoutDirection, viewModel.layoutDirection)
-         
     }
 }
 
