@@ -84,6 +84,7 @@ final public class PaymentService {
         if let sdkVersion = sdkVersion {
             request.addValue(sdkVersion, forHTTPHeaderField: "SDK-Version")
         }
+        request.setValue(getHostProjectMinIOSVersion(), forHTTPHeaderField: "Host-MinIOSVersion")
         request.httpMethod = "POST"
         request.httpBody = payload
         return request
@@ -102,8 +103,13 @@ final public class PaymentService {
         if let sdkVersion = sdkVersion {
             request.addValue(sdkVersion, forHTTPHeaderField: "SDK-Version")
         }
+        request.setValue(getHostProjectMinIOSVersion(), forHTTPHeaderField: "Host-MinIOSVersion")
         request.httpMethod = "POST"
         request.httpBody = payload
         return request
+    }
+    
+    func getHostProjectMinIOSVersion() -> String? {
+        return Bundle.main.infoDictionary?["MinimumOSVersion"] as? String
     }
 }
