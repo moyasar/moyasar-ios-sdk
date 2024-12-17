@@ -148,6 +148,7 @@ extension CreditCardInfoView {
     }
     
     /// View for displaying card network logos.
+    @ViewBuilder
     private var cardNetworkLogos: some View {
         HStack {
             if cardInfo.showNetworkLogo(.mada) {
