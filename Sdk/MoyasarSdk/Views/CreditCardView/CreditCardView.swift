@@ -23,6 +23,12 @@ public struct CreditCardView: View {
         viewModel = CreditCardViewModel(paymentRequest: request, resultCallback: callback)
     }
     
+    public init(
+        viewModel: CreditCardViewModel
+    ) {
+        self.viewModel = viewModel
+    }
+    
     /// The content of the view.
     public var body: some View {
         content

@@ -26,6 +26,8 @@ final public class PaymentService {
         return dec
     }()
     
+    private let sdkVersion = Bundle.moyasar.infoDictionary?["CFBundleShortVersionString"] as? String
+
     public init(apiKey: String, baseUrl: String = "https://api.moyasar.com") {
         self.baseUrl = baseUrl
         self.apiKey = apiKey
@@ -79,9 +81,10 @@ final public class PaymentService {
         request.setValue("Basic \(auth!)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("moyasar-ios-sdk", forHTTPHeaderField: "X-MOYASAR-LIB")
-        if let sdkVersion = Bundle.moyasar.infoDictionary?["CFBundleShortVersionString"] as? String {
+        if let sdkVersion = sdkVersion {
             request.addValue(sdkVersion, forHTTPHeaderField: "SDK-Version")
         }
+        request.setValue(getHostProjectMinIOSVersion(), forHTTPHeaderField: "Host-MinIOSVersion")
         request.httpMethod = "POST"
         request.httpBody = payload
         return request
@@ -97,11 +100,16 @@ final public class PaymentService {
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("moyasar-ios-sdk", forHTTPHeaderField: "X-MOYASAR-LIB")
-        if let sdkVersion = Bundle.moyasar.infoDictionary?["CFBundleShortVersionString"] as? String {
+        if let sdkVersion = sdkVersion {
             request.addValue(sdkVersion, forHTTPHeaderField: "SDK-Version")
         }
+        request.setValue(getHostProjectMinIOSVersion(), forHTTPHeaderField: "Host-MinIOSVersion")
         request.httpMethod = "POST"
         request.httpBody = payload
         return request
+    }
+    
+    func getHostProjectMinIOSVersion() -> String? {
+        return Bundle.main.infoDictionary?["MinimumOSVersion"] as? String
     }
 }
