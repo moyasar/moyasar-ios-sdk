@@ -44,8 +44,6 @@ final class PhoneNumberFormatter {
         let currencyUtil = CurrencyUtil()
         let majorAmount = currencyUtil.toMajor(paymentRequest.amount, currency: paymentRequest.currency)
         let amountString = numberFormatter().string(from: majorAmount as NSNumber)!
-        
-        // Combine title, amount, and currency code
-        return paymentRequest.payButtonType.title + " \(amountString) \("SAR".localized())"
+        return  " \(amountString)"
     }
 }

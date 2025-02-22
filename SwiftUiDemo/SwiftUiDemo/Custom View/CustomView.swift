@@ -33,7 +33,14 @@ struct CustomView: View {
                             viewModel.beginPayment()
                         }, label: {
                             HStack {
-                                Text("Pay 1.00 SAR")
+                                /// Handle your langauge direcion as needed
+                                Text("Pay")
+                                Image("sar")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundColor(Color.white)
+                                Text("1.00")
                             }
                         })
                         .frame(maxWidth: .infinity, minHeight: 25)

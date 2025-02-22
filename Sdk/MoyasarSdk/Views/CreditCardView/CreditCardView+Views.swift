@@ -51,9 +51,31 @@ extension CreditCardView {
                 if (shouldDisable()) {
                     ActivityIndicator(style: .medium)
                 } else {
-                    Text(viewModel.formattedAmount)
-                        .frame(maxWidth: .infinity, minHeight: 25)
-                        .contentShape(Rectangle())
+                    HStack(spacing: 0) {
+                            if viewModel.layoutDirection == .leftToRight {
+                                // English and LTR languages
+                                Text(viewModel.paymentRequest.payButtonType.title)
+                                    .padding(.horizontal, 3)
+                        "sar".sdkImage
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 18, height: 18)
+                                    .foregroundColor(Color.white)
+                                Text(viewModel.formattedAmount)
+                            } else {
+                                // RTL languages like Arabic
+                                Text(viewModel.paymentRequest.payButtonType.title)
+                                    .padding(.horizontal, 3)
+                                Text(viewModel.formattedAmount)
+                                "sar".sdkImage
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 18, height: 18)
+                                    .foregroundColor(Color.white)
+                            }
+                    }
+                    .frame(maxWidth: .infinity, minHeight: 25)
+                    .contentShape(Rectangle())
                 }
             }
         }).disabled(!viewModel.isValid)
