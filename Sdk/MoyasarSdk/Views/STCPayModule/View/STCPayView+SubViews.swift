@@ -98,9 +98,28 @@ extension STCPayView {
                 if viewModel.isLoading {
                     ActivityIndicator(style: .medium)
                 } else {
-                    Text(viewModel.phoneNumberFormatter.getFormattedAmount(paymentRequest: viewModel.paymentRequest))
-                        .frame(maxWidth: .infinity, minHeight: 25)
-                        .contentShape(Rectangle())
+                    HStack(spacing: 3) {
+                            if viewModel.layoutDirection == .leftToRight {
+                                // English and LTR languages
+                                Text(viewModel.paymentRequest.payButtonType.title)
+                        "sar".sdkImage
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 18, height: 18)
+                                    .foregroundColor(Color.white)
+                                Text(viewModel.phoneNumberFormatter.getFormattedAmount(paymentRequest: viewModel.paymentRequest))
+                            } else {
+                                // RTL languages like Arabic
+                                Text(viewModel.phoneNumberFormatter.getFormattedAmount(paymentRequest: viewModel.paymentRequest))
+                                "sar".sdkImage
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 18, height: 18)
+                                    .foregroundColor(Color.white)
+                            }
+                    }
+                    .frame(maxWidth: .infinity, minHeight: 25)
+                    .contentShape(Rectangle())
                 }
             }
         }).disabled(!viewModel.isValidPhoneNumber)
