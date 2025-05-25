@@ -17,6 +17,7 @@ public struct PaymentRequest {
         metadata: [String: MetadataValue] = [:],
         manual: Bool = false,
         saveCard: Bool = false,
+        givenID: String? = nil,
         createSaveOnlyToken: Bool = false,
         allowedNetworks: [CreditCardNetwork] = [.mada, .visa, .mastercard],
         payButtonType: PayButtonType = .pay
@@ -32,6 +33,7 @@ public struct PaymentRequest {
         self.metadata = metadata
         self.manual = manual
         self.saveCard = saveCard
+        self.givenID = givenID
         self.createSaveOnlyToken = createSaveOnlyToken
         self.allowedNetworks = allowedNetworks
         self.payButtonType = payButtonType
@@ -45,6 +47,7 @@ public struct PaymentRequest {
     public var metadata: [String: MetadataValue]
     public var manual: Bool
     public var saveCard: Bool
+    public var givenID: String?
     public var createSaveOnlyToken: Bool
     public var allowedNetworks: [CreditCardNetwork]
     public var cashier: String? = nil

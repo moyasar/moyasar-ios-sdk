@@ -21,6 +21,7 @@ public struct ApiPaymentRequest: Codable {
         self.source = source
         self.metadata = paymentRequest.metadata
         self.publishableApiKey = paymentRequest.apiKey
+        self.givenID = paymentRequest.givenID
     }
     
     public var publishableApiKey: String? /// we send it in STC pay
@@ -28,11 +29,13 @@ public struct ApiPaymentRequest: Codable {
     public var currency: String
     public var description: String?
     public var callbackUrl: String?
+    public var givenID: String?
     public var source: ApiPaymentSource
     public var metadata: [String: MetadataValue]?
  
     enum CodingKeys: String, CodingKey {
           case publishableApiKey = "publishable_api_key"
+          case givenID = "given_id"
           case amount, currency, description, callbackUrl, source, metadata
       }
 }
