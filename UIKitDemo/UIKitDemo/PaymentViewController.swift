@@ -99,6 +99,8 @@ class PaymentViewController: UIViewController {
         /// 10 SAR = 10 * 100 Halalas
         /// 10 KWD = 10 * 1000 Fils
         /// 10 JPY = 10 JPY (Japanese Yen does not have fractions)
+        /// givenID --> A UUID (v4 is recommended) that you generate from your side and attach it with the payment creation request
+
         do {
             return try PaymentRequest(
                 apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
@@ -110,6 +112,7 @@ class PaymentViewController: UIViewController {
                             "isPremiumUser": .booleanValue(true),
                             "amount": .floatValue(15.5)],
                 manual: false,
+                //givenID: "UUID",
                 createSaveOnlyToken: false//,
                 // allowedNetworks: [.visa, .mastercard]
                 // payButtonType: .book
@@ -129,7 +132,7 @@ class PaymentViewController: UIViewController {
         /// 10 SAR = 10 * 100 Halalas
         /// 10 KWD = 10 * 1000 Fils
         /// 10 JPY = 10 JPY (Japanese Yen does not have fractions)
-        ///
+        /// givenID --> A UUID (v4 is recommended) that you generate from your side and attach it with the payment creation request
         do {
             return try PaymentRequest(
                 apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
@@ -140,6 +143,7 @@ class PaymentViewController: UIViewController {
                             "user_id": .integerValue(12345),
                             "isPremiumUser": .booleanValue(true),
                             "amount": .floatValue(15.5)]
+                //givenID: "UUID",
             )
         } catch {
             // Handle error here, show error in view model
