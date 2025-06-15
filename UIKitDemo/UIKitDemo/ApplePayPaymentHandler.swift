@@ -63,6 +63,12 @@ class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate
                     print("Got payment")
                     print(paymentResult.status)
                     print(paymentResult.id)
+                    if paymentResult.status == .paid {
+                        if case let .applePay(source) = paymentResult.source {
+                            debugPrint( source.referenceNumber ?? "")
+                            print( source.token ?? "")
+                        }
+                    }
                     completion(.success)
                 } else {
                     // Handle the case where applePayService is nil
