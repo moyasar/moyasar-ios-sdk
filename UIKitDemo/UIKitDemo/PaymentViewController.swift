@@ -22,12 +22,15 @@ let token = ApiTokenRequest(
 
 class PaymentViewController: UIViewController {
     
+    var handler: ApplePayPaymentHandler?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationItem.title = "Moyasar SDK Demo"
         setupUI()
         setupTapGesture()
+        handler = ApplePayPaymentHandler(paymentRequest: createPaymentRequest())
     }
     
     private func setupUI() {
@@ -227,7 +230,6 @@ class PaymentViewController: UIViewController {
     }
     
     func handleApplePayPressed(action: UIAction) {
-        let handler = ApplePayPaymentHandler(paymentRequest: createPaymentRequest())
-        handler.present()
+        handler!.present()
     }
 }
