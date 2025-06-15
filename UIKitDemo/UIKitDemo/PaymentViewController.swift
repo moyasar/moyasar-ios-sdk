@@ -137,6 +137,8 @@ class PaymentViewController: UIViewController {
         /// 10 KWD = 10 * 1000 Fils
         /// 10 JPY = 10 JPY (Japanese Yen does not have fractions)
         /// givenID --> A UUID (v4 is recommended) that you generate from your side and attach it with the payment creation request
+        /// saveCard -------> if True  used to tokenize Apple Pay payment
+
         do {
             return try PaymentRequest(
                 apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
@@ -148,6 +150,7 @@ class PaymentViewController: UIViewController {
                             "isPremiumUser": .booleanValue(true),
                             "amount": .floatValue(15.5)]
                 //givenID: "UUID",
+                //saveCard: true,
             )
         } catch {
             // Handle error here, show error in view model

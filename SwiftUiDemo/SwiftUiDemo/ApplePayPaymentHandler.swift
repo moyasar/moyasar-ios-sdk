@@ -9,8 +9,6 @@ import MoyasarSdk
 import PassKit
 
 class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate {
-    let paymentRequest: PaymentRequest
-
     var applePayService: ApplePayService?
     var controller: PKPaymentAuthorizationController?
     var items = [PKPaymentSummaryItem]()
@@ -20,19 +18,24 @@ class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate
         .masterCard,
         .visa
     ]
-
-    init(paymentRequest: PaymentRequest) throws {
+    let paymentRequest: PaymentRequest
+    
+    init(paymentRequest: PaymentRequest) {
         self.paymentRequest = paymentRequest
-        self.applePayService = try ApplePayService(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
+        do {
+             applePayService = try ApplePayService(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
+        } catch {
+            print("Failed to initialize ApplePayService: \(error)")
+        }
     }
-
+    
     func present() {
         items = [
             PKPaymentSummaryItem(label: "Moyasar", amount: 1.00, type: .final)
         ]
-
+        
         let request = PKPaymentRequest()
-
+        
         request.paymentSummaryItems = items
         request.merchantIdentifier = "merchant.com.mysr.apple"
         request.countryCode = "SA"
@@ -43,13 +46,15 @@ class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate
             .capabilityCredit,
             .capabilityDebit
         ]
-
+        
         controller = PKPaymentAuthorizationController(paymentRequest: request)
         controller?.delegate = self
         controller?.present(completion: {(p: Bool) in
             print("Presented: " + (p ? "Yes" : "No"))
         })
     }
+    
+
 
     func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
         Task {

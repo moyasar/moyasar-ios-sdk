@@ -13,6 +13,7 @@ fileprivate let token = ApiTokenRequest(
     saveOnly: true,
     callbackUrl: "https://sdk.moyasar.com/return"
 )
+let applePayHandler =  ApplePayPaymentHandler(paymentRequest: createPaymentRequest())
 
 struct ContentView: View {
     @State var status = MyAppStatus.reset
@@ -126,12 +127,7 @@ struct ContentView: View {
     }
     
     func applePayPressed(action: UIAction) {
-        do {
-            let applePayHandler = try ApplePayPaymentHandler(paymentRequest: createPaymentRequest())
-            applePayHandler.present()
-        } catch {
-            status = .failed(error as! MoyasarError)
-        }
+        applePayHandler.present()
     }
     
     func encloseMoyasarError(_ error: Error) -> MoyasarError {
