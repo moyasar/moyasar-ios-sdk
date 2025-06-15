@@ -37,7 +37,7 @@ class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate
         let request = PKPaymentRequest()
         
         request.paymentSummaryItems = items
-        request.merchantIdentifier = "merchant.nuha.io.second"
+        request.merchantIdentifier = "merchant.com.mysr.apple"
         request.countryCode = "SA"
         request.currencyCode = "SAR"
         request.supportedNetworks = networks
@@ -63,6 +63,12 @@ class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate
                     print("Got payment")
                     print(paymentResult.status)
                     print(paymentResult.id)
+                    if paymentResult.status == .paid {
+                        if case let .applePay(source) = paymentResult.source {
+                            debugPrint( source.referenceNumber ?? "")
+                            print( source.token ?? "")
+                        }
+                    }
                     completion(.success)
                 } else {
                     // Handle the case where applePayService is nil
