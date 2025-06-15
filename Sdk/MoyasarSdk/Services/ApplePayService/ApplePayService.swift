@@ -22,7 +22,7 @@ public final class ApplePayService {
         do {
             var applePaySource = try ApiApplePaySource.fromPKToken(token)
             applePaySource.manual = request.manual ? "true" : "false"
-            
+            applePaySource.save_card = request.saveCard ? "true" : "false"
             let source = ApiPaymentSource.applePay(applePaySource)
             let apiRequest = ApiPaymentRequest.from(request, source: source)
             
