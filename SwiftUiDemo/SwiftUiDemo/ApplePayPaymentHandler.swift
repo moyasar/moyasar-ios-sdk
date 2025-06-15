@@ -61,10 +61,9 @@ class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate
 
                 switch (payment.status) {
                 case .paid:
-                    let message: String? = if case let .applePay(source) = payment.source {
-                        source.referenceNumber
-                    } else {
-                        "reference number not available"
+                    if case let .applePay(source) = payment.source {
+                        debugPrint( source.referenceNumber ?? "")
+                        print( source.token ?? "")
                     }
                     completion(PKPaymentAuthorizationResult(status: .success, errors: []))
                 case .failed:
