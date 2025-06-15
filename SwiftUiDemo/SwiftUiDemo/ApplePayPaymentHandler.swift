@@ -34,7 +34,7 @@ class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate
         let request = PKPaymentRequest()
 
         request.paymentSummaryItems = items
-        request.merchantIdentifier = "merchant.mysr.fghurayri"
+        request.merchantIdentifier = "merchant.com.mysr.apple"
         request.countryCode = "SA"
         request.currencyCode = "SAR"
         request.supportedNetworks = networks
