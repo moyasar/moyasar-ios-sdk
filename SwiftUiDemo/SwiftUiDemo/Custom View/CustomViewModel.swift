@@ -24,7 +24,7 @@ class CustomViewModel: ObservableObject {
         year: "25",
         cvc: "456",
         manual: "false",
-        saveCard: "false"
+        saveCard: true
     )
     
     init() {
