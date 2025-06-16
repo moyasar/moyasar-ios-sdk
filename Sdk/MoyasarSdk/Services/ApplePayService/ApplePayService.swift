@@ -13,7 +13,7 @@ public final class ApplePayService {
     private let apiKey: String
     private let paymentService: PaymentService
     
-    public init(apiKey: String, baseUrl: String ) throws {
+    public init(apiKey: String, baseUrl: String = "https://api.moyasar.com") throws {
         self.apiKey = apiKey
         paymentService =  PaymentService(apiKey: apiKey, baseUrl: baseUrl)
     }
