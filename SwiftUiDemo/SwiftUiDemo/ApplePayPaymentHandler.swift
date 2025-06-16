@@ -23,7 +23,7 @@ class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate
     init(paymentRequest: PaymentRequest) {
         self.paymentRequest = paymentRequest
         do {
-             applePayService = try ApplePayService(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
+            applePayService = try ApplePayService(apiKey: paymentRequest.apiKey, baseUrl: paymentRequest.baseUrl)
         } catch {
             print("Failed to initialize ApplePayService: \(error)")
         }
@@ -54,8 +54,8 @@ class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate
         })
     }
     
-
-
+    
+    
     func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
         Task {
             do {
@@ -63,7 +63,7 @@ class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate
                 print("Got payment, status: \(payment.status)")
                 print(payment.status)
                 print(payment.id)
-
+                
                 switch (payment.status) {
                 case .paid:
                     if case let .applePay(source) = payment.source {
@@ -72,13 +72,13 @@ class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate
                     }
                     completion(PKPaymentAuthorizationResult(status: .success, errors: []))
                 case .failed:
-                    let message: String = if case let .applePay(source) = payment.source {
-                        source.message ?? "unspecified"
+                    if case let .applePay(source) = payment.source {
+                        debugPrint(source.message ?? "unspecified")
+                        completion(PKPaymentAuthorizationResult(status: .failure, errors: [DemoError.paymentError(source.message ?? "unspecified")]))
                     } else {
-                        "Returned API source is not Apple Pay"
+                        completion(PKPaymentAuthorizationResult(status: .failure, errors: [DemoError.paymentError("Returned API source is not Apple Pay")]))
                     }
-
-                    completion(PKPaymentAuthorizationResult(status: .failure, errors: [DemoError.paymentError(message)]))
+                    
                 default:
                     completion(PKPaymentAuthorizationResult(status: .failure, errors: [DemoError.paymentError("Unexpected status returned by API")]))
                 }
