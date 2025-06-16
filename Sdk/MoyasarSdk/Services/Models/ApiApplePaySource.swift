@@ -54,25 +54,6 @@ public struct ApiApplePaySource: Codable {
     public var issuerCardType: String?
     public var isserCardCategory: String?
     public var saveCard: Bool?
-
-    private enum CodingKeys: String, CodingKey {
-        case type
-        case token
-        case company
-        case name
-        case number
-        case message
-        case manual
-        case gatewayId
-        case referenceNumber
-        case responseCode
-        case authorizationCode
-        case issuerName
-        case issuerCountry
-        case issuerCardType
-        case isserCardCategory
-        case saveCard = "save_card"
-    }
 }
 
 

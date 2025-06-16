@@ -72,28 +72,5 @@ public struct ApiCreditCardSource: Codable {
     public var issuerCountry: String?
     public var issuerCardType: String?
     public var isserCardCategory: String?
-
-    enum CodingKeys: String, CodingKey {
-        case type
-        case name
-        case number
-        case month
-        case year
-        case cvc
-        case transactionUrl
-        case message
-        case token
-        case manual
-        case saveCard = "save_card"
-        case company
-        case gatewayId
-        case referenceNumber
-        case responseCode
-        case authorizationCode
-        case issuerName
-        case issuerCountry
-        case issuerCardType
-        case isserCardCategory
-    }
 }
 
