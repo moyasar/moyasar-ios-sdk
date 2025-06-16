@@ -109,7 +109,7 @@ public class CreditCardViewModel: ObservableObject {
             year: String(expiry.year),
             cvc: securityCode,
             manual: paymentRequest.manual ? "true" : "false",
-            saveCard: paymentRequest.saveCard ? "true" : "false"
+            saveCard: paymentRequest.saveCard
         )
         
         do {

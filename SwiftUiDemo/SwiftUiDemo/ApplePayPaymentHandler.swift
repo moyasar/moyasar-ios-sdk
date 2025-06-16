@@ -9,8 +9,6 @@ import MoyasarSdk
 import PassKit
 
 class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate {
-    let paymentRequest: PaymentRequest
-
     var applePayService: ApplePayService?
     var controller: PKPaymentAuthorizationController?
     var items = [PKPaymentSummaryItem]()
@@ -20,21 +18,26 @@ class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate
         .masterCard,
         .visa
     ]
-
-    init(paymentRequest: PaymentRequest) throws {
+    let paymentRequest: PaymentRequest
+    
+    init(paymentRequest: PaymentRequest) {
         self.paymentRequest = paymentRequest
-        self.applePayService = try ApplePayService(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
+        do {
+            applePayService = try ApplePayService(apiKey: paymentRequest.apiKey, baseUrl: paymentRequest.baseUrl)
+        } catch {
+            print("Failed to initialize ApplePayService: \(error)")
+        }
     }
-
+    
     func present() {
         items = [
             PKPaymentSummaryItem(label: "Moyasar", amount: 1.00, type: .final)
         ]
-
+        
         let request = PKPaymentRequest()
-
+        
         request.paymentSummaryItems = items
-        request.merchantIdentifier = "merchant.mysr.fghurayri"
+        request.merchantIdentifier = "merchant.com.mysr.apple"
         request.countryCode = "SA"
         request.currencyCode = "SAR"
         request.supportedNetworks = networks
@@ -43,14 +46,16 @@ class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate
             .capabilityCredit,
             .capabilityDebit
         ]
-
+        
         controller = PKPaymentAuthorizationController(paymentRequest: request)
         controller?.delegate = self
         controller?.present(completion: {(p: Bool) in
             print("Presented: " + (p ? "Yes" : "No"))
         })
     }
-
+    
+    
+    
     func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
         Task {
             do {
@@ -58,23 +63,22 @@ class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate
                 print("Got payment, status: \(payment.status)")
                 print(payment.status)
                 print(payment.id)
-
+                
                 switch (payment.status) {
                 case .paid:
-                    let message: String? = if case let .applePay(source) = payment.source {
-                        source.referenceNumber
-                    } else {
-                        "reference number not available"
+                    if case let .applePay(source) = payment.source {
+                        debugPrint( source.referenceNumber ?? "")
+                        print( source.token ?? "")
                     }
                     completion(PKPaymentAuthorizationResult(status: .success, errors: []))
                 case .failed:
-                    let message: String = if case let .applePay(source) = payment.source {
-                        source.message ?? "unspecified"
+                    if case let .applePay(source) = payment.source {
+                        debugPrint(source.message ?? "unspecified")
+                        completion(PKPaymentAuthorizationResult(status: .failure, errors: [DemoError.paymentError(source.message ?? "unspecified")]))
                     } else {
-                        "Returned API source is not Apple Pay"
+                        completion(PKPaymentAuthorizationResult(status: .failure, errors: [DemoError.paymentError("Returned API source is not Apple Pay")]))
                     }
-
-                    completion(PKPaymentAuthorizationResult(status: .failure, errors: [DemoError.paymentError(message)]))
+                    
                 default:
                     completion(PKPaymentAuthorizationResult(status: .failure, errors: [DemoError.paymentError("Unexpected status returned by API")]))
                 }

@@ -22,12 +22,15 @@ let token = ApiTokenRequest(
 
 class PaymentViewController: UIViewController {
     
+    var handler: ApplePayPaymentHandler?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationItem.title = "Moyasar SDK Demo"
         setupUI()
         setupTapGesture()
+        handler = ApplePayPaymentHandler(paymentRequest: createPaymentRequest())
     }
     
     private func setupUI() {
@@ -100,7 +103,7 @@ class PaymentViewController: UIViewController {
         /// 10 KWD = 10 * 1000 Fils
         /// 10 JPY = 10 JPY (Japanese Yen does not have fractions)
         /// givenID --> A UUID (v4 is recommended) that you generate from your side and attach it with the payment creation request
-
+        /// saveCard ------->  if True used to tokenize  Apple pay and Credit Card payments
         do {
             return try PaymentRequest(
                 apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
@@ -113,6 +116,7 @@ class PaymentViewController: UIViewController {
                             "amount": .floatValue(15.5)],
                 manual: false,
                 //givenID: "UUID",
+                //saveCard: true,
                 createSaveOnlyToken: false//,
                 // allowedNetworks: [.visa, .mastercard]
                 // payButtonType: .book
@@ -133,6 +137,8 @@ class PaymentViewController: UIViewController {
         /// 10 KWD = 10 * 1000 Fils
         /// 10 JPY = 10 JPY (Japanese Yen does not have fractions)
         /// givenID --> A UUID (v4 is recommended) that you generate from your side and attach it with the payment creation request
+        /// saveCard -------> if True  used to tokenize Apple Pay payment
+
         do {
             return try PaymentRequest(
                 apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
@@ -144,6 +150,7 @@ class PaymentViewController: UIViewController {
                             "isPremiumUser": .booleanValue(true),
                             "amount": .floatValue(15.5)]
                 //givenID: "UUID",
+                //saveCard: true,
             )
         } catch {
             // Handle error here, show error in view model
@@ -226,7 +233,6 @@ class PaymentViewController: UIViewController {
     }
     
     func handleApplePayPressed(action: UIAction) {
-        let handler = ApplePayPaymentHandler(paymentRequest: createPaymentRequest())
-        handler.present()
+        handler!.present()
     }
 }

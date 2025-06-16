@@ -19,7 +19,7 @@ public struct ApiCreditCardSource: Codable {
         message: String? = nil,
         token: String? = nil,
         manual: String? = nil,
-        saveCard: String? = nil,
+        saveCard: Bool? = false,
         company: String? = nil,
         gatewayId: String? = nil,
         referenceNumber: String? = nil,
@@ -51,7 +51,7 @@ public struct ApiCreditCardSource: Codable {
         self.issuerCardType = issuerCardType
         self.isserCardCategory = isserCardCategory
     }
-    
+
     public var type: String = "creditcard"
     public var name: String
     public var number: String
@@ -62,7 +62,7 @@ public struct ApiCreditCardSource: Codable {
     public var message: String?
     public var token: String?
     public var manual: String?
-    public var saveCard: String?
+    public var saveCard: Bool?
     public var company: String?
     public var gatewayId: String?
     public var referenceNumber: String?
@@ -73,3 +73,4 @@ public struct ApiCreditCardSource: Codable {
     public var issuerCardType: String?
     public var isserCardCategory: String?
 }
+

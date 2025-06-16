@@ -23,7 +23,7 @@ class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate
     init(paymentRequest: PaymentRequest) {
         self.paymentRequest = paymentRequest
         do {
-             applePayService = try ApplePayService(apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3")
+            applePayService = try ApplePayService(apiKey: paymentRequest.apiKey, baseUrl: paymentRequest.baseUrl)
         } catch {
             print("Failed to initialize ApplePayService: \(error)")
         }
@@ -37,7 +37,7 @@ class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate
         let request = PKPaymentRequest()
         
         request.paymentSummaryItems = items
-        request.merchantIdentifier = "merchant.nuha.io.second"
+        request.merchantIdentifier = "merchant.com.mysr.apple"
         request.countryCode = "SA"
         request.currencyCode = "SAR"
         request.supportedNetworks = networks
@@ -63,7 +63,33 @@ class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate
                     print("Got payment")
                     print(paymentResult.status)
                     print(paymentResult.id)
-                    completion(.success)
+                    switch paymentResult.status {
+                    case .paid:
+                        if case let .applePay(source) = paymentResult.source {
+                            debugPrint( source.referenceNumber ?? "")
+                            print( source.token ?? "")
+                        }
+                        completion(.success)
+                    case .failed:
+                        if case let .applePay(source) = paymentResult.source {
+                            debugPrint(source.message ?? "unspecified")
+                            completion(.failure)
+                        } else if case let .creditCard(source) = paymentResult.source {
+                            debugPrint(source.message ?? "unspecified")
+                            completion(.failure)
+                        }
+                    default:
+                        completion(.failure)
+                    }
+                    if paymentResult.status == .paid {
+                        if case let .applePay(source) = paymentResult.source {
+                            debugPrint( source.referenceNumber ?? "")
+                            print( source.token ?? "")
+                        }
+                        completion(.success)
+                    }else {
+                        completion(.failure)
+                    }
                 } else {
                     // Handle the case where applePayService is nil
                     print("ApplePayService is not initialized")
