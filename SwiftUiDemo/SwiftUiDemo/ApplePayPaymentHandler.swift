@@ -30,6 +30,7 @@ class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate
     }
     
     func present() {
+        /// For successset amount to 200 to 300
         items = [
             PKPaymentSummaryItem(label: "Moyasar", amount: 1.00, type: .final)
         ]
@@ -54,8 +55,30 @@ class ApplePayPaymentHandler: NSObject, PKPaymentAuthorizationControllerDelegate
         })
     }
     
-    
-    
+    /// Handles the authorization result of an Apple Pay payment initiated through `PKPaymentAuthorizationController`.
+    ///
+    /// - Parameters:
+    ///   - controller: The `PKPaymentAuthorizationController` managing the Apple Pay payment flow.
+    ///   - payment: The `PKPayment` object that contains the tokenized payment information provided by Apple Pay.
+    ///   - completion: A completion handler that must be called with a `PKPaymentAuthorizationResult` to inform the system whether the payment was authorized successfully or failed.
+    ///
+    /// This method:
+    /// 1. Asynchronously sends the authorized Apple Pay token to `applePayService` for server-side authorization.
+    /// 2. Processes the server response to determine the payment status.
+    /// 3. Updates the Apple Pay sheet with the appropriate result by calling the `completion` handler:
+    ///    - If the server confirms the payment with status `.paid`, it calls completion with `.success`.
+    ///    - If the payment status is `.failed`, it checks if the source is Apple Pay:
+    ///        - If yes, it reports the failure reason back to Apple Pay.
+    ///        - If no, it reports an unexpected source error.
+    ///    - For any other unexpected status, it reports a generic failure message.
+    /// 4. If an exception occurs during the authorization process, it calls `completion` with `.failure` and provides the caught error.
+    ///
+    /// Example:
+    /// ```swift
+    /// let controller = PKPaymentAuthorizationController(paymentRequest: request)
+    /// controller.delegate = self
+    /// controller.present(completion: nil)
+    /// ```
     func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
         Task {
             do {

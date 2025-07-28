@@ -12,7 +12,9 @@ extension CreditCardView {
     @ViewBuilder
     var content: some View {
         if (showAuth) {
-            PaymentAuthView(url: authUrl!) {r in viewModel.handleWebViewResult(r)}
+            PaymentAuthView(url: authUrl!) { result in
+                viewModel.handleWebViewResult(result)
+            }
         } else {
             creditCardContainerView
         }
