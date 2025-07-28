@@ -93,7 +93,8 @@ extension CreditCardInfoView {
         CreditCardTextField(
             text: Binding(
                 get: { cardInfo.securityCode },
-                set: { cardInfo.securityCode = cardInfo.formatter.formatCVC($0, forCardNumber: cardInfo.number) }
+                set: { cardInfo.securityCode = cardInfo.formatter.formatCVC($0,
+                                                                            forCardNumber: cardInfo.number) }
             ),
             placeholder: "cvc".localized(),
             formatter: { $0 }
