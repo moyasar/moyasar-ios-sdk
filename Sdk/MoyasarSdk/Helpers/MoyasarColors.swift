@@ -14,7 +14,7 @@ enum MoyasarColors {
     }
     
     static var primaryTextColor: Color {
-        UITraitCollection.current.userInterfaceStyle == .dark ? Color(hex: "#FFFFFF")! : Color(hex: "#1D1D1D")!
+        UITraitCollection.current.userInterfaceStyle == .dark ? Color(hex: "#FFFFFF")! : Color(hex: "#191502")!
     }
     
     static var placeholderColor: Color {
@@ -27,5 +27,9 @@ enum MoyasarColors {
     
     static var errorColor: Color {
         UITraitCollection.current.userInterfaceStyle == .dark ? Color(hex: "#F62323")! : Color(hex: "#F62323")!
+    }
+    
+    static var payButtonColor: Color {
+        UITraitCollection.current.userInterfaceStyle == .dark ? Color(hex: "#768DFF")! : Color(hex: "#768DFF")!
     }
 }
