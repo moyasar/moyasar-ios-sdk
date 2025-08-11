@@ -32,7 +32,6 @@ extension UIFont {
               let data = NSData(contentsOf: url),
               let provider = CGDataProvider(data: data),
               let font = CGFont(provider) else {
-            print("❌ Failed to load \(name) from Moyasar bundle")
             return UIFont.systemFont(ofSize: size)
         }
         CTFontManagerRegisterGraphicsFont(font, nil)
