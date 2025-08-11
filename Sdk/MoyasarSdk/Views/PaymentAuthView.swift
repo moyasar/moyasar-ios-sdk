@@ -107,7 +107,7 @@ extension Array where Element == URLQueryItem {
 extension ApiPayment {
     mutating func updateFromWebViewPaymentInfo(_ info: WebViewPaymentInfo) {
         print(" =============================== ")
-        print(info.status)
+        print(info)
         print(" =============================== ")
         if let status = ApiPaymentStatus(rawValue: info.status) {
             self.status = status
