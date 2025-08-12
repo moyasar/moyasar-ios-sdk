@@ -22,7 +22,8 @@ func createPaymentRequest() -> PaymentRequest{
     /// saveCard -------> if True used to tokenize  Apple pay and Credit Card payments
     do {
         return try PaymentRequest(
-            apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
+            apiKey: "pk_test_tWuzdS4xwKYFoUo2tJUegRwshkEenKMUWgZB9rG5",
+            baseUrl: "https://apimig.moyasar.com",
             amount: 100,
             currency: "SAR",
             description: "Testing iOS SDK",

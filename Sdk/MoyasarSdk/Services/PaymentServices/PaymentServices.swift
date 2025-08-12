@@ -112,4 +112,20 @@ final public class PaymentService {
     func getHostProjectMinIOSVersion() -> String? {
         return Bundle.main.infoDictionary?["MinimumOSVersion"] as? String
     }
+    
+    public func fetchPayment(id: String) async throws -> ApiPayment {
+        let url = URL(string: baseUrl + (baseUrl.last == "/" ? "" : "/") + "v1/payments/\(id)")!
+        var request = URLRequest(url: url)
+        let auth = "\(apiKey):".data(using: .utf8)?.base64EncodedString()
+        request.setValue("Basic \(auth!)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("moyasar-ios-sdk", forHTTPHeaderField: "X-MOYASAR-LIB")
+        if let sdkVersion = sdkVersion {
+            request.addValue(sdkVersion, forHTTPHeaderField: "SDK-Version")
+        }
+        request.setValue(getHostProjectMinIOSVersion(), forHTTPHeaderField: "Host-MinIOSVersion")
+        request.httpMethod = "GET"
+        
+        return try await makeRequest(request)
+    }
 }

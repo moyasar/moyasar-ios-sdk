@@ -192,8 +192,17 @@ public class CreditCardViewModel: ObservableObject {
     func handleWebViewResult(_ result: WebViewResult) {
         switch result {
         case .completed(let info):
-            self.currentPayment!.updateFromWebViewPaymentInfo(info)
-            resultCallback(.completed(self.currentPayment!))
+            Task { @MainActor [weak self] in
+                guard let self = self else { return }
+                do {
+                    self.currentPayment = try await self.currentPayment?
+                        .updatedFromWebViewPaymentInfo(info, service: paymentService)
+                    resultCallback(.completed(self.currentPayment!))
+                } catch {
+                    resultCallback(.failed(MoyasarError.unexpectedError(error.localizedDescription)))
+                }
+            }
+            
         case .failed(let error):
             switch error {
             case .timeOut:
@@ -209,6 +218,7 @@ public class CreditCardViewModel: ObservableObject {
             self.status = .reset
         }
     }
+
     
     func handleError(_ error: Error) {
         if let moyasarError = error as? MoyasarError {

@@ -105,17 +105,36 @@ extension Array where Element == URLQueryItem {
 }
 
 extension ApiPayment {
-    mutating func updateFromWebViewPaymentInfo(_ info: WebViewPaymentInfo) {
-        print(" =============================== ")
-        print(info)
-        print(" =============================== ")
-        if let status = ApiPaymentStatus(rawValue: info.status) {
-            self.status = status
-            if case var .creditCard(source) = self.source {
-                source.message = info.message
-                self.source = .creditCard(source)
-            }
-        }
-      
-    }
+
+    func updatedFromWebViewPaymentInfo(
+           _ info: WebViewPaymentInfo,
+           service: PaymentService
+       ) async throws -> ApiPayment {
+           
+           var newPayment = self
+           
+           if let parsedStatus = ApiPaymentStatus(rawValue: info.status) {
+               newPayment.status = parsedStatus
+              
+           } else {
+               // Fallback to fetching from API
+               do {
+                   let fetchedPayment = try await service.fetchPayment(id: info.id)
+                   newPayment.status = fetchedPayment.status
+               } catch(let error) {
+                   if case var .creditCard(source) = newPayment.source {
+                       newPayment.status = .failed
+                       source.message =  error.message
+                       newPayment.source = .creditCard(source)
+                   }
+               }
+              
+           }
+           
+           if case var .creditCard(source) = newPayment.source {
+               source.message = info.message
+               newPayment.source = .creditCard(source)
+           }
+           return newPayment
+       }
 }
