@@ -18,6 +18,7 @@ public struct PaymentRequest {
         manual: Bool = false,
         saveCard: Bool = false,
         givenID: String? = nil,
+        applyCoupon: Bool? = nil,
         createSaveOnlyToken: Bool = false,
         allowedNetworks: [CreditCardNetwork] = [.mada, .visa, .mastercard],
         payButtonType: PayButtonType = .pay
@@ -34,6 +35,7 @@ public struct PaymentRequest {
         self.manual = manual
         self.saveCard = saveCard
         self.givenID = givenID
+        self.applyCoupon = applyCoupon
         self.createSaveOnlyToken = createSaveOnlyToken
         self.allowedNetworks = allowedNetworks
         self.payButtonType = payButtonType
@@ -48,6 +50,7 @@ public struct PaymentRequest {
     public var manual: Bool
     public var saveCard: Bool
     public var givenID: String?
+    public var applyCoupon: Bool?
     public var createSaveOnlyToken: Bool
     public var allowedNetworks: [CreditCardNetwork]
     public var cashier: String? = nil
