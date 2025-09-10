@@ -79,7 +79,8 @@ public class CreditCardViewModel: ObservableObject {
     public init(paymentRequest: PaymentRequest, resultCallback: @escaping ResultCallback) {
         self.paymentRequest = paymentRequest
         self.resultCallback = resultCallback
-        self.paymentService = PaymentService(apiKey: paymentRequest.apiKey)
+        self.paymentService = PaymentService(apiKey: paymentRequest.apiKey,
+                                             baseUrl: paymentRequest.baseUrl)
     }
     
     func showNetworkLogo(_ network: CreditCardNetwork) -> Bool {
