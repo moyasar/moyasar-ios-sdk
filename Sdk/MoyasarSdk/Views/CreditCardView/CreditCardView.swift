@@ -11,9 +11,7 @@ import SwiftUI
 
 public struct CreditCardView: View {
     @ObservedObject var viewModel: CreditCardViewModel
-    
-    let buttonColor = Color(red: 0.137, green: 0.359, blue: 0.882)
-    
+        
     /// Initializes a new instance of `CreditCardView`.
     ///
     /// - Parameters:

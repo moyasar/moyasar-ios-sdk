@@ -64,6 +64,9 @@
 		4B6746E62CA98C94001A801E /* STCValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6746E52CA98C91001A801E /* STCValidatorTests.swift */; };
 		4B6746EA2CAAA16A001A801E /* FormatPhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6746E92CAAA163001A801E /* FormatPhoneNumber.swift */; };
 		4B6746F22CAC17A5001A801E /* MoyasarLanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6746F12CAC17A3001A801E /* MoyasarLanguageManager.swift */; };
+		4BB976892E41181100811CDD /* Aeonik-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BB9767D2E41181100811CDD /* Aeonik-Regular.ttf */; };
+		4BB9768C2E41181100811CDD /* Aeonik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BB9767B2E41181100811CDD /* Aeonik-Medium.ttf */; };
+		4BB976902E41184C00811CDD /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB9768F2E41184B00811CDD /* FontExtension.swift */; };
 		4BBA7B552C18CCA900BBAFB4 /* PaymentServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBA7B542C18CCA900BBAFB4 /* PaymentServices.swift */; };
 		4BBA7B582C18CCEC00BBAFB4 /* ApplePayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBA7B572C18CCEC00BBAFB4 /* ApplePayService.swift */; };
 		4BE4FC9C2C3F83C800EF26F9 /* CreditCardTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE4FC9B2C3F83C800EF26F9 /* CreditCardTextField.swift */; };
@@ -143,6 +146,9 @@
 		4B6746E52CA98C91001A801E /* STCValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STCValidatorTests.swift; sourceTree = "<group>"; };
 		4B6746E92CAAA163001A801E /* FormatPhoneNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatPhoneNumber.swift; sourceTree = "<group>"; };
 		4B6746F12CAC17A3001A801E /* MoyasarLanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyasarLanguageManager.swift; sourceTree = "<group>"; };
+		4BB9767B2E41181100811CDD /* Aeonik-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Aeonik-Medium.ttf"; sourceTree = "<group>"; };
+		4BB9767D2E41181100811CDD /* Aeonik-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Aeonik-Regular.ttf"; sourceTree = "<group>"; };
+		4BB9768F2E41184B00811CDD /* FontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
 		4BBA7B542C18CCA900BBAFB4 /* PaymentServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentServices.swift; sourceTree = "<group>"; };
 		4BBA7B572C18CCEC00BBAFB4 /* ApplePayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayService.swift; sourceTree = "<group>"; };
 		4BE4FC9B2C3F83C800EF26F9 /* CreditCardTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardTextField.swift; sourceTree = "<group>"; };
@@ -195,6 +201,7 @@
 				416FCC2D26E3BDC50044639E /* Services */,
 				416FCC1126E3BD660044639E /* Models */,
 				416FCC0026E3BC880044639E /* Helpers */,
+				4BB9766E2E41165B00811CDD /* Fonts */,
 				416FCBDE26E3BBF80044639E /* MoyasarSdk.h */,
 				416FCBDF26E3BBF80044639E /* Info.plist */,
 				41879A1926E780EE00C62582 /* Media.xcassets */,
@@ -222,6 +229,7 @@
 		416FCC0026E3BC880044639E /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				4BB9768F2E41184B00811CDD /* FontExtension.swift */,
 				4B6746F12CAC17A3001A801E /* MoyasarLanguageManager.swift */,
 				416FCC0226E3BC9A0044639E /* CreditCardFormatter.swift */,
 				4B0F9EA42C96FB8F00F02CEE /* PhoneNumberFormatter.swift */,
@@ -368,6 +376,15 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		4BB9766E2E41165B00811CDD /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				4BB9767B2E41181100811CDD /* Aeonik-Medium.ttf */,
+				4BB9767D2E41181100811CDD /* Aeonik-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		4BBA7B532C18CC8E00BBAFB4 /* PaymentServices */ = {
 			isa = PBXGroup;
 			children = (
@@ -477,6 +494,8 @@
 			files = (
 				8981E7452BDD731C009594C4 /* PrivacyInfo.xcprivacy in Resources */,
 				41879A1A26E780EE00C62582 /* Media.xcassets in Resources */,
+				4BB976892E41181100811CDD /* Aeonik-Regular.ttf in Resources */,
+				4BB9768C2E41181100811CDD /* Aeonik-Medium.ttf in Resources */,
 				41FFA9C226FF423200D7FD4A /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -525,6 +544,7 @@
 				4B0F9EB32C99353800F02CEE /* ApiSTCPaySource.swift in Sources */,
 				416FCC0D26E3BC9A0044639E /* CreditCardUtil.swift in Sources */,
 				419D6807270E32E8003A0C62 /* BundleExtensions.swift in Sources */,
+				4BB976902E41184C00811CDD /* FontExtension.swift in Sources */,
 				416FCC0F26E3BC9A0044639E /* ExpiryFormatter.swift in Sources */,
 				4B0F9EA12C91B65D00F02CEE /* STCPayViewModel.swift in Sources */,
 				416FCC4B26E3BE120044639E /* PaymentAuthView.swift in Sources */,
@@ -620,7 +640,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 3.0.0;
+				CURRENT_PROJECT_VERSION = 3.1.0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -686,7 +706,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 3.0.0;
+				CURRENT_PROJECT_VERSION = 3.1.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;

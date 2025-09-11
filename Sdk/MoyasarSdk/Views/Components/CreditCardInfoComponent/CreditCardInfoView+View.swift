@@ -17,7 +17,7 @@ extension CreditCardInfoView {
             let validatedText = cardInfo.nameValidator.visualValidate(value: cardInfo.nameOnCard)
             HStack {
                 Text(validatedText ?? "name-on-card".localized())
-                    .font(.system(size: 18, weight: .regular))
+                    .font(.aeonikRegular)
                     .foregroundColor(validatedText != nil ? MoyasarColors.errorColor : MoyasarColors.primaryTextColor)
                 Spacer()
             }
@@ -39,7 +39,7 @@ extension CreditCardInfoView {
             cardInfo.securityCodeValidator.visualValidate(value: cardInfo.securityCode)
             HStack {
                 Text(validatedText ?? "card".localized())
-                    .font(.system(size: 18, weight: .regular))
+                    .font(.aeonikRegular)
                     .foregroundColor(validatedText != nil ? MoyasarColors.errorColor : MoyasarColors.primaryTextColor)
                 Spacer()
             }
@@ -65,6 +65,10 @@ extension CreditCardInfoView {
             .background(  RoundedRectangle(cornerRadius: 8)
                 .stroke(validatedText == nil ? MoyasarColors.borderColor : MoyasarColors.errorColor, lineWidth: 1)
             )
+            "logo".sdkImage
+//                .frame(width: 139)
+                .aspectRatio(contentMode: .fit)
+                .padding(.top, 20)
         }
     }
     /// View for the "Card Number" input field, validation, and logos.
@@ -75,6 +79,7 @@ extension CreditCardInfoView {
                 placeholder: "card-number".localized(),
                 formatter: cardInfo.formatter.formatCardNumber(_:)
             ).frame(height: 46)
+                .font(.aeonikRegular)
             cardNetworkLogos
         }
     }
@@ -126,9 +131,11 @@ extension CreditCardInfoView {
                 text.wrappedValue = formatter(newValue)
             }
         ))
+        .font(.aeonikRegular)
         .keyboardType(keyboardType)
         .autocapitalization(autocapitalization)
         .disableAutocorrection(disableAutocorrection)
+        .foregroundColor(MoyasarColors.primaryTextColor)
         .padding(10)
         .overlay(
             RoundedRectangle(cornerRadius: 7)

@@ -48,14 +48,14 @@ struct CreditCardTextField: UIViewRepresentable {
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.borderStyle = .none
+        textField.font = UIFont.aeonikRegular
+        textField.textColor = UIColor(hex: "#191502")
         updateTextFieldDirection(textField)
         return textField
     }
     
     func updateUIView(_ uiView: UITextField, context: Context) {
         uiView.text = text
-        
-        // Update text field alignment when the language direction changes
         updateTextFieldDirection(uiView)
     }
     

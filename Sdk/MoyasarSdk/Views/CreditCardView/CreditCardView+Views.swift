@@ -37,6 +37,8 @@ extension CreditCardView {
     /// A view that displays any error message.
     var errorView: some View {
         Text(viewModel.error ?? "")
+            .frame(height: 20)
+            .font(.aeonikMedium)
             .foregroundColor(.red)
             .padding(.bottom)
         
@@ -57,6 +59,7 @@ extension CreditCardView {
                             if viewModel.layoutDirection == .leftToRight {
                                 // English and LTR languages
                                 Text(viewModel.paymentRequest.payButtonType.title)
+                                    .font(.aeonikMedium)
                                     .padding(.horizontal, 3)
                         "sar".sdkImage
                                     .resizable()
@@ -64,11 +67,14 @@ extension CreditCardView {
                                     .frame(width: 18, height: 18)
                                     .foregroundColor(Color.white)
                                 Text(viewModel.formattedAmount)
+                                    .font(.aeonikMedium)
                             } else {
                                 // RTL languages like Arabic
                                 Text(viewModel.paymentRequest.payButtonType.title)
+                                    .font(.aeonikMedium)
                                     .padding(.horizontal, 3)
                                 Text(viewModel.formattedAmount)
+                                    .font(.aeonikMedium)
                                 "sar".sdkImage
                                     .resizable()
                                     .scaledToFit()
@@ -83,7 +89,7 @@ extension CreditCardView {
         }).disabled(!viewModel.isValid)
             .frame(maxWidth: .infinity, minHeight: 25)
             .padding(14)
-            .background(shouldDisable() || !viewModel.isValid ? buttonColor.opacity(0.6) : buttonColor)
+            .background(shouldDisable() || !viewModel.isValid ? MoyasarColors.payButtonColor.opacity(0.6) : MoyasarColors.payButtonColor)
             .foregroundColor(.white)
             .font(.headline)
             .cornerRadius(10)
