@@ -5,7 +5,6 @@
 //  Created by Mahmoud Abdelwahab on 11/07/2024.
 //
 
-
 import SwiftUI
 import UIKit
 
@@ -49,7 +48,13 @@ struct CreditCardTextField: UIViewRepresentable {
         textField.autocorrectionType = .no
         textField.borderStyle = .none
         textField.font = UIFont.aeonikRegular
-        textField.textColor = UIColor(hex: "#191502")
+    
+        // Set dynamic color that responds to interface style changes
+        textField.textColor = UIColor { traitCollection in
+            return traitCollection.userInterfaceStyle == .dark ?
+                UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0) : // #FFFFFF for dark mode
+                UIColor(red: 0.098, green: 0.082, blue: 0.008, alpha: 1.0) // #191502 for light mode
+        }
         updateTextFieldDirection(textField)
         return textField
     }
@@ -57,6 +62,13 @@ struct CreditCardTextField: UIViewRepresentable {
     func updateUIView(_ uiView: UITextField, context: Context) {
         uiView.text = text
         updateTextFieldDirection(uiView)
+        
+        // Force update the text color when interface style changes
+        uiView.textColor = UIColor { traitCollection in
+            return traitCollection.userInterfaceStyle == .dark ?
+                UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0) : // #FFFFFF for dark mode
+                UIColor(red: 0.098, green: 0.082, blue: 0.008, alpha: 1.0) // #191502 for light mode
+        }
     }
     
     // Helper function to update alignment based on language direction
