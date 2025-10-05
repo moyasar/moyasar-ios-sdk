@@ -29,6 +29,7 @@ extension CreditCardInfoView {
                 disableAutocorrection: true,
                 showError: validatedText != nil
             )
+            .shadow(color: isDarkMode ? .white : MoyasarColors.borderColor, radius: 2, x: 0, y: 1)
         }
     }
     
@@ -65,6 +66,7 @@ extension CreditCardInfoView {
             .background(  RoundedRectangle(cornerRadius: 8)
                 .stroke(validatedText == nil ? (isDarkMode ? Color.gray.opacity(0.5) : MoyasarColors.borderColor) : MoyasarColors.errorColor, lineWidth: 1)
             )
+            .shadow(color: isDarkMode ? .white : MoyasarColors.borderColor, radius: 2, x: 0, y: 1)
             "logo".sdkImage
 //                .frame(width: 139)
                 .aspectRatio(contentMode: .fit)
