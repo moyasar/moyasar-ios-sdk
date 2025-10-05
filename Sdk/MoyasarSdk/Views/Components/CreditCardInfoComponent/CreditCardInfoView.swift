@@ -4,7 +4,10 @@ import SwiftUI
 struct CreditCardInfoView: View {
     @ObservedObject var cardInfo: CreditCardViewModel
     @Environment(\.locale) var locale: Locale
-    
+    @Environment(\.colorScheme) private var colorScheme
+    var isDarkMode: Bool {
+        colorScheme == .dark
+    }
     var body: some View {
         VStack(alignment: .leading, spacing: 30) {
             nameField

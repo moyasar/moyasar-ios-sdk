@@ -18,7 +18,7 @@ extension CreditCardInfoView {
             HStack {
                 Text(validatedText ?? "name-on-card".localized())
                     .font(.aeonikRegular)
-                    .foregroundColor(validatedText != nil ? MoyasarColors.errorColor : MoyasarColors.primaryTextColor)
+                    .foregroundColor(validatedText != nil ? MoyasarColors.errorColor : (isDarkMode ? .white : MoyasarColors.primaryTextColor))
                 Spacer()
             }
             creditCardTextField(
@@ -29,6 +29,7 @@ extension CreditCardInfoView {
                 disableAutocorrection: true,
                 showError: validatedText != nil
             )
+            .shadow(color: isDarkMode ? .white : MoyasarColors.borderColor, radius: 2, x: 0, y: 1)
         }
     }
     
@@ -40,7 +41,7 @@ extension CreditCardInfoView {
             HStack {
                 Text(validatedText ?? "card".localized())
                     .font(.aeonikRegular)
-                    .foregroundColor(validatedText != nil ? MoyasarColors.errorColor : MoyasarColors.primaryTextColor)
+                    .foregroundColor(validatedText != nil ? MoyasarColors.errorColor : (isDarkMode ? .white : MoyasarColors.primaryTextColor))
                 Spacer()
             }
             VStack(spacing: 0) {
@@ -48,13 +49,13 @@ extension CreditCardInfoView {
                 cardNumberField
                     .padding(.horizontal,10)
                 Rectangle()
-                    .fill(MoyasarColors.borderColor)
+                    .fill(isDarkMode ? Color.gray.opacity(0.5) : MoyasarColors.borderColor)
                     .frame(height: 1)
                 HStack(spacing: 0) {
                     // Expiry Date
                     expiryDateField
                     Rectangle()
-                        .fill(MoyasarColors.borderColor)
+                        .fill(isDarkMode ? Color.gray.opacity(0.5) : MoyasarColors.borderColor)
                         .frame(width: 1, height: 46)
                     // CVC Code
                     cvcField
@@ -63,8 +64,9 @@ extension CreditCardInfoView {
                 .padding(.horizontal,10)
             }
             .background(  RoundedRectangle(cornerRadius: 8)
-                .stroke(validatedText == nil ? MoyasarColors.borderColor : MoyasarColors.errorColor, lineWidth: 1)
+                .stroke(validatedText == nil ? (isDarkMode ? Color.gray.opacity(0.5) : MoyasarColors.borderColor) : MoyasarColors.errorColor, lineWidth: 1)
             )
+            .shadow(color: isDarkMode ? .white : MoyasarColors.borderColor, radius: 2, x: 0, y: 1)
             "logo".sdkImage
 //                .frame(width: 139)
                 .aspectRatio(contentMode: .fit)
@@ -135,11 +137,11 @@ extension CreditCardInfoView {
         .keyboardType(keyboardType)
         .autocapitalization(autocapitalization)
         .disableAutocorrection(disableAutocorrection)
-        .foregroundColor(MoyasarColors.primaryTextColor)
+        .foregroundColor(isDarkMode ? .white : MoyasarColors.primaryTextColor)
         .padding(10)
         .overlay(
             RoundedRectangle(cornerRadius: 7)
-                .stroke(showError ? Color.red : MoyasarColors.borderColor, lineWidth: 1)
+                .stroke(showError ? Color.red : (isDarkMode ? Color.gray.opacity(0.5) : MoyasarColors.borderColor), lineWidth: 1)
         )
     }
     

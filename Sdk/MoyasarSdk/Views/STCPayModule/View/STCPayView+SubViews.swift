@@ -16,7 +16,7 @@ extension STCPayView {
                 let shouldShowHint = (viewModel.showErrorHintView.value && validatedText != nil)
                 Text((shouldShowHint ? validatedText : "mobile-number".localized()) ?? "mobile-number".localized())
                     .font(.system(size: 16, weight: .regular))
-                    .foregroundColor(shouldShowHint ? MoyasarColors.errorColor : MoyasarColors.primaryTextColor)
+                    .foregroundColor(shouldShowHint ? MoyasarColors.errorColor : (isDarkMode ? .white : MoyasarColors.primaryTextColor))
                 Spacer()
             }
             phoneNumberField
@@ -52,7 +52,7 @@ extension STCPayView {
                     .stroke(shouldShowHint ? MoyasarColors.errorColor : MoyasarColors.borderColor, lineWidth: 1)
             )
             .frame(height: 46)
-            //.shadow(color: MoyasarColors.borderColor, radius: 3, x: 0, y: 2)
+            .shadow(color: isDarkMode ? .white : MoyasarColors.borderColor, radius: 2, x: 0, y: 1)
         }
     }
     
@@ -84,7 +84,7 @@ extension STCPayView {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(shouldShowHint ? MoyasarColors.errorColor : MoyasarColors.borderColor, lineWidth: 1))
                 .frame(height: 46)
-               // .shadow(color: MoyasarColors.borderColor, radius: 3, x: 0, y: 2)
+                .shadow(color: isDarkMode ? .white : MoyasarColors.borderColor, radius: 2, x: 0, y: 1)
         }
     }
     
