@@ -16,7 +16,7 @@ extension STCPayView {
                 let shouldShowHint = (viewModel.showErrorHintView.value && validatedText != nil)
                 Text((shouldShowHint ? validatedText : "mobile-number".localized()) ?? "mobile-number".localized())
                     .font(.system(size: 16, weight: .regular))
-                    .foregroundColor(shouldShowHint ? MoyasarColors.errorColor : MoyasarColors.primaryTextColor)
+                    .foregroundColor(shouldShowHint ? MoyasarColors.errorColor : (isDarkMode ? .white : MoyasarColors.primaryTextColor))
                 Spacer()
             }
             phoneNumberField

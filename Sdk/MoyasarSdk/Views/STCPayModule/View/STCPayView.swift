@@ -10,6 +10,10 @@ import SwiftUI
 public struct STCPayView: View {
     /// The observed view model that handles the STC Pay logic.
     @ObservedObject var viewModel: STCPayViewModel
+    @Environment(\.colorScheme) private var colorScheme
+    var isDarkMode: Bool {
+        colorScheme == .dark
+    }
     
     /// Initializes the `STCPayView` with a payment request and a callback for handling the payment result.
       ///
