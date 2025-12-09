@@ -211,7 +211,8 @@ final class MyCustomSTCPayViewController: UIViewController, UITextFieldDelegate 
 
     // MARK: - Rendering
     private func render() {
-        // Toggle containers based on screen step
+        ///
+        /// Render the appropriate step based on the view model's current state (phoneNumber or OTP) view
         switch viewModel.screenStep {
         case .mobileNumber:
             phoneContainer.isHidden = false
@@ -220,7 +221,6 @@ final class MyCustomSTCPayViewController: UIViewController, UITextFieldDelegate 
             phoneContainer.isHidden = true
             otpContainer.isHidden = false
         }
-        // Sync text fields with model
         phoneTextField.text = viewModel.mobileNumber
         otpTextField.text = viewModel.otp
         updatePhoneValidityUI()
@@ -230,16 +230,23 @@ final class MyCustomSTCPayViewController: UIViewController, UITextFieldDelegate 
     private func updatePhoneValidityUI() {
         let text = phoneTextField.text ?? ""
         let digits = text.filter { $0.isNumber }
-        // Valid if exactly 10 digits and starts with 05
         let valid = digits.count == 10 && text.hasPrefix("05")
+        ///
+        /// Optional inline error hint controlled by the view model
         phoneErrorLabel.isHidden = valid || !viewModel.showErrorHintView.value
+        ///
+        /// Disable the Pay button until a valid phone number is entered
         payButton.isEnabled = valid && !viewModel.isLoading
         payButton.alpha = payButton.isEnabled ? 1.0 : 0.5
     }
 
     private func updateOtpValidityUI() {
         let valid = viewModel.isValidOtp
+        ///
+        /// Optional inline error hint controlled by the view model
         otpErrorLabel.isHidden = valid || !viewModel.showErrorHintView.value
+        ///
+        /// Disable the Confirm button until the OTP passes validation
         confirmButton.isEnabled = valid && !viewModel.isLoading
         confirmButton.alpha = confirmButton.isEnabled ? 1.0 : 0.5
     }

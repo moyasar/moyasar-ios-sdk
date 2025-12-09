@@ -11,7 +11,7 @@ import UIKit
 
 struct MyCustomSTCPayView: View {
     @ObservedObject var viewModel: STCPayViewModel
-
+    
     init(paymentRequest: PaymentRequest, callback: @escaping STCResultCallback) {
         self._viewModel = ObservedObject(
             wrappedValue: STCPayViewModel(paymentRequest: paymentRequest, resultCallback: callback)
@@ -21,9 +21,11 @@ struct MyCustomSTCPayView: View {
     init(viewModel: STCPayViewModel) {
         self._viewModel = ObservedObject(wrappedValue: viewModel)
     }
-
+    
     var body: some View {
         VStack(spacing: 16) {
+            ///
+            /// Render the appropriate step based on the view model's current state (phoneNumber or OTP) view
             switch viewModel.screenStep {
             case .mobileNumber:
                 phoneStep
@@ -34,19 +36,24 @@ struct MyCustomSTCPayView: View {
         .padding()
         .environment(\.layoutDirection, .leftToRight)
     }
-
+    
     private var phoneStep: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Mobile Number")
                 .font(.headline)
             PhoneTextField(text: $viewModel.mobileNumber, format: localFormatPhone)
-                .frame(height: 50)
-            
+                .frame(height: 46)
+            ///
+            /// Optional inline error hint controlled by the view model
             if !viewModel.isValidPhoneNumber && viewModel.showErrorHintView.value{
                 Text("invalid phone number")
             }
             
-            Button(action: { Task { await viewModel.initiatePayment() } }) {
+            Button(action: {
+                Task {
+                    await viewModel.initiatePayment()
+                }
+            }) {
                 if viewModel.isLoading {
                     ProgressView()
                 } else {
@@ -54,24 +61,31 @@ struct MyCustomSTCPayView: View {
                         .frame(maxWidth: .infinity)
                 }
             }
-            .disabled(!viewModel.isValidPhoneNumber || viewModel.isLoading)
+            /// Disable the Pay button until a valid phone number is entered
+            .disabled(!viewModel.isValidPhoneNumber )
             .buttonStyle(.borderless)
         }
     }
-
+    
     private var otpStep: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Enter OTP")
                 .font(.headline)
-
+            
             TextField("XXXXXX", text: $viewModel.otp)
                 .keyboardType(.numberPad)
                 .textFieldStyle(.roundedBorder)
+            ///
+            /// Compute whether to show an inline OTP error hint view model state exposted properties
             let shouldShowHint = (viewModel.showErrorHintView.value && !viewModel.isValidOtp)
             if shouldShowHint {
                 Text("invalid OTP")
             }
-            Button(action: { Task { await viewModel.submitOtp() } }) {
+            Button(action: {
+                Task {
+                    await viewModel.submitOtp()
+                }
+            }) {
                 if viewModel.isLoading {
                     ProgressView()
                 } else {
@@ -79,7 +93,9 @@ struct MyCustomSTCPayView: View {
                         .frame(maxWidth: .infinity)
                 }
             }
-            .disabled(!viewModel.isValidOtp || viewModel.isLoading)
+            ///
+            /// Disable the Confirm button until the OTP passes validation
+            .disabled(!viewModel.isValidOtp)
             .buttonStyle(.borderless)
         }
     }
@@ -89,7 +105,7 @@ struct MyCustomSTCPayView: View {
 struct PhoneTextField: UIViewRepresentable {
     @Binding var text: String
     let format: (String) -> String
-
+    
     func makeUIView(context: Context) -> UITextField {
         let tf = UITextField()
         tf.keyboardType = .numberPad
@@ -98,26 +114,26 @@ struct PhoneTextField: UIViewRepresentable {
         tf.addTarget(context.coordinator, action: #selector(Coordinator.textChanged(_:)), for: .editingChanged)
         return tf
     }
-
+    
     func updateUIView(_ uiView: UITextField, context: Context) {
         if uiView.text != text {
             uiView.text = text
         }
     }
-
+    
     func makeCoordinator() -> Coordinator {
         Coordinator(text: $text, format: format)
     }
-
+    
     class Coordinator: NSObject, UITextFieldDelegate {
         @Binding var text: String
         let format: (String) -> String
-
+        
         init(text: Binding<String>, format: @escaping (String) -> String) {
             _text = text
             self.format = format
         }
-
+        
         @objc func textChanged(_ sender: UITextField) {
             let formatted = format(sender.text ?? "")
             if sender.text != formatted {
@@ -125,7 +141,7 @@ struct PhoneTextField: UIViewRepresentable {
             }
             text = formatted
         }
-
+        
         func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
             let current = textField.text ?? ""
             guard let r = Range(range, in: current) else { return true }
@@ -146,7 +162,7 @@ private func localFormatPhone(_ input: String) -> String {
     let rawDigits = input.filter { $0.isNumber }
     // Allow clearing the field entirely
     if rawDigits.isEmpty { return "" }
-
+    
     // Build a tail (digits after the 05 prefix) regardless of how the user typed
     let tail: String
     if rawDigits.hasPrefix("05") {
@@ -158,8 +174,9 @@ private func localFormatPhone(_ input: String) -> String {
     } else {
         tail = rawDigits
     }
-
+    
     // Compose normalized number starting with 05 then take only 8 more digits
     let normalized = "05" + String(tail.prefix(8))
     return normalized
 }
+
