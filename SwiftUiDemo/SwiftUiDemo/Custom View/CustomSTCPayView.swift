@@ -16,6 +16,10 @@ struct MyCustomSTCPayView: View {
             wrappedValue: STCPayViewModel(paymentRequest: paymentRequest, resultCallback: callback)
         )
     }
+    
+    init(viewModel: STCPayViewModel) {
+        self._viewModel = ObservedObject(wrappedValue: viewModel)
+    }
 
     var body: some View {
         VStack(spacing: 16) {
@@ -27,7 +31,7 @@ struct MyCustomSTCPayView: View {
             }
         }
         .padding()
-        .environment(\.layoutDirection, viewModel.layoutDirection)
+        .environment(\.layoutDirection, .leftToRight)
     }
 
     private var phoneStep: some View {
@@ -48,7 +52,7 @@ struct MyCustomSTCPayView: View {
                 }
             }
             .disabled(!viewModel.isValidPhoneNumber || viewModel.isLoading)
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(.borderless)
         }
     }
 
@@ -70,7 +74,7 @@ struct MyCustomSTCPayView: View {
                 }
             }
             .disabled(!viewModel.isValidOtp || viewModel.isLoading)
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(.borderless)
         }
     }
 }
