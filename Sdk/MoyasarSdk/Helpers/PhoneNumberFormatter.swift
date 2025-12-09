@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class PhoneNumberFormatter {
+public final class PhoneNumberFormatter {
     /// Format for phone number: xxx xxx xxxx --> 3-3-4
     ///
     func formatPhoneNumber(_ number: String) -> String {

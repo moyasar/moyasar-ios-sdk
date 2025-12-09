@@ -1,6 +1,6 @@
 import Foundation
 
-class FieldValidator {
+public class FieldValidator {
     var rules = [ValidationRule]()
     private var shouldErr = false
     

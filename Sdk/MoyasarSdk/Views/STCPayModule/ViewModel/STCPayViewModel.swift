@@ -11,23 +11,24 @@ import Foundation
 @MainActor
 public class STCPayViewModel: ObservableObject {
     
-    @Published var isLoading: Bool = false
-    @Published var screenStep: ScreenStep = .mobileNumber
-    @Published var isValidPhoneNumber: Bool = false
-    @Published var isValidOtp: Bool = false
-    @Published var mobileNumber: String = ""
-    @Published var otp: String = ""
+    @Published public var isLoading: Bool = false
+    @Published public var screenStep: ScreenStep = .mobileNumber
+    @Published public var isValidPhoneNumber: Bool = false
+    @Published public var isValidOtp: Bool = false
+    @Published public var mobileNumber: String = ""
+    @Published public var otp: String = ""
     
+    public var showErrorHintView = CurrentValueSubject<Bool, Never>(false)
+    public lazy var phoneNumberFormatter = PhoneNumberFormatter()
     private var cancellables = Set<AnyCancellable>()
-    var showErrorHintView = CurrentValueSubject<Bool, Never>(false)
     let layoutDirection = MoyasarLanguageManager.shared.currentLanguage
     lazy var stcValidator = STCValidator()
-    lazy var phoneNumberFormatter = PhoneNumberFormatter()
     var transactionUrl: String?
     let paymentRequest: PaymentRequest
     let paymentService: PaymentService
     var resultCallback: STCResultCallback
-    enum ScreenStep {
+    
+    public enum ScreenStep {
         case mobileNumber
         case otp
     }
@@ -64,6 +65,8 @@ public class STCPayViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    /// Begins the STC Pay payment flow after validating the mobile number.
+    /// Transitions `screenStep` to `.otp` if initiation succeeds.
     public func initiatePayment() async {
         guard !mobileNumber.isEmpty else { return }
         isLoading = true
@@ -82,6 +85,8 @@ public class STCPayViewModel: ObservableObject {
         }
     }
     
+    /// Submits the entered OTP to complete the STC Pay payment.
+    /// Calls `resultCallback` with success or failure.
     public func submitOtp() async {
         guard isValidOtp,
               let transactionUrl = transactionUrl,

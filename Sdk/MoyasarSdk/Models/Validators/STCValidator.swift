@@ -7,9 +7,9 @@
 
 import Foundation
 
-class STCValidator: FieldValidator {
+public class STCValidator: FieldValidator {
     
-    override init() {
+    public override init() {
         super.init()
         // Rule for empty phone number
         addRule(error: "phone-number-required".localized()) {
