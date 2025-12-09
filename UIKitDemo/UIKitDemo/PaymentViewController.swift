@@ -58,7 +58,12 @@ class PaymentViewController: UIViewController {
         stcPayButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         stcPayButton.addTarget(self, action: #selector(navigateToSTCView), for: .touchUpInside)
         
-        let buttonStackView = UIStackView(arrangedSubviews: [creditCardHostingController.view, applePayButton, stcPayButton])
+        let customStcPayButton = UIButton(type: .system)
+        customStcPayButton.setTitle("Custom STC Pay Demo", for: .normal)
+        customStcPayButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        customStcPayButton.addTarget(self, action: #selector(navigateToCustomSTCView), for: .touchUpInside)
+        
+        let buttonStackView = UIStackView(arrangedSubviews: [creditCardHostingController.view, applePayButton, stcPayButton, customStcPayButton])
         buttonStackView.axis = .vertical
         buttonStackView.spacing = 12
         buttonStackView.alignment = .fill
@@ -87,8 +92,11 @@ class PaymentViewController: UIViewController {
             
             applePayButton.heightAnchor.constraint(equalToConstant: 48),
             stcPayButton.heightAnchor.constraint(equalToConstant: 48),
+            customStcPayButton.heightAnchor.constraint(equalToConstant: 48),
+            
             applePayButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -40),
-            stcPayButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -40)
+            stcPayButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -40),
+            customStcPayButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -40)
         ])
     }
     
@@ -164,6 +172,13 @@ class PaymentViewController: UIViewController {
         }
         let hostingController = UIHostingController(rootView: stcPayView)
         navigationController?.pushViewController(hostingController, animated: true)
+    }
+    
+    @objc func navigateToCustomSTCView() {
+        let vc = MyCustomSTCPayViewController(paymentRequest: createSTCPaymentRequest()) { [weak self] result in
+            self?.handleFromSTCResult(result)
+        }
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func setupTapGesture() {
