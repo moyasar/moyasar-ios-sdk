@@ -24,7 +24,7 @@ extension String {
         Image(self, bundle: Bundle.moyasar)
     }
     
-    var cleanNumber: String {
+    public var cleanNumber: String {
         return ArabicNumberMapper.mapArabicNumbers(self).filter { $0.isNumber }
     }
 }

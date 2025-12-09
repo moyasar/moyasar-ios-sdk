@@ -17,7 +17,7 @@ public class FieldValidator {
         return validate(value: value)
     }
     
-    func validate(value: String) -> String? {
+    public func validate(value: String) -> String? {
         for rule in rules {
             if (rule.predicate(value)) {
                 return rule.error

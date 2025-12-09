@@ -44,9 +44,10 @@ public class STCPayViewModel: ObservableObject {
     public var showErrorHintView = CurrentValueSubject<Bool, Never>(false)
     /// Utilities for formatting phone numbers (and amounts in related SDK helpers).
     public lazy var phoneNumberFormatter = PhoneNumberFormatter()
+    public lazy var stcValidator = STCValidator()
+
     private var cancellables = Set<AnyCancellable>()
     let layoutDirection = MoyasarLanguageManager.shared.currentLanguage
-    lazy var stcValidator = STCValidator()
     var transactionUrl: String?
     let paymentRequest: PaymentRequest
     let paymentService: PaymentService
