@@ -8,30 +8,58 @@
 import Combine
 import Foundation
 
+/// A view model that manages the STC Pay payment flow.
+///
+/// Responsibilities:
+/// - Validates user input (mobile number and OTP)
+/// - Initiates STC Pay payment and advances the UI state
+/// - Submits OTP and reports the result via `STCResultCallback`
+/// - Exposes observable state for building custom UIs
+///
+/// Typical usage in a custom view:
+/// ```swift
+/// let vm = STCPayViewModel(paymentRequest: request) { result in
+///     // handle result
+/// }
+/// // Bind vm.mobileNumber and vm.otp
+/// // Call await vm.initiatePayment() then await vm.submitOtp()
+/// ```
 @MainActor
 public class STCPayViewModel: ObservableObject {
     
-    @Published var isLoading: Bool = false
-    @Published var screenStep: ScreenStep = .mobileNumber
-    @Published var isValidPhoneNumber: Bool = false
-    @Published var isValidOtp: Bool = false
-    @Published var mobileNumber: String = ""
-    @Published var otp: String = ""
+    /// Indicates whether a network request (initiation or OTP submission) is in progress.
+    @Published public var isLoading: Bool = false
+    /// Current step in the flow (.mobileNumber then .otp). Use it to switch your UI.
+    @Published public var screenStep: ScreenStep = .mobileNumber
+    /// True when the entered mobile number is considered valid.
+    @Published public var isValidPhoneNumber: Bool = false
+    /// True when the entered OTP is considered valid.
+    @Published public var isValidOtp: Bool = false
+    /// The user's mobile number input. Bind your text field to this.
+    @Published public var mobileNumber: String = ""
+    /// The user's OTP input. Bind your text field to this.
+    @Published public var otp: String = ""
     
+    /// Emits true when error hints should be visible (e.g., after user interaction).
+    public var showErrorHintView = CurrentValueSubject<Bool, Never>(false)
+    /// Utilities for formatting phone numbers (and amounts in related SDK helpers).
+    public lazy var phoneNumberFormatter = PhoneNumberFormatter()
+    public lazy var stcValidator = STCValidator()
+
     private var cancellables = Set<AnyCancellable>()
-    var showErrorHintView = CurrentValueSubject<Bool, Never>(false)
     let layoutDirection = MoyasarLanguageManager.shared.currentLanguage
-    lazy var stcValidator = STCValidator()
-    lazy var phoneNumberFormatter = PhoneNumberFormatter()
     var transactionUrl: String?
     let paymentRequest: PaymentRequest
     let paymentService: PaymentService
     var resultCallback: STCResultCallback
-    enum ScreenStep {
+    
+    /// Represents the current UI step in the STC Pay flow.
+    public enum ScreenStep {
         case mobileNumber
         case otp
     }
     
+    /// Creates a view model for the given payment request and result callback.
     public init(paymentRequest: PaymentRequest, resultCallback: @escaping STCResultCallback) {
         self.paymentRequest = paymentRequest
         self.resultCallback = resultCallback
@@ -64,6 +92,8 @@ public class STCPayViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    /// Begins the STC Pay payment flow after validating the mobile number.
+    /// Transitions `screenStep` to `.otp` if initiation succeeds.
     public func initiatePayment() async {
         guard !mobileNumber.isEmpty else { return }
         isLoading = true
@@ -82,6 +112,8 @@ public class STCPayViewModel: ObservableObject {
         }
     }
     
+    /// Submits the entered OTP to complete the STC Pay payment.
+    /// Calls `resultCallback` with success or failure.
     public func submitOtp() async {
         guard isValidOtp,
               let transactionUrl = transactionUrl,
@@ -125,3 +157,4 @@ public class STCPayViewModel: ObservableObject {
         )
     }
 }
+

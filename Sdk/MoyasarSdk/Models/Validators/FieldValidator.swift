@@ -1,6 +1,6 @@
 import Foundation
 
-class FieldValidator {
+public class FieldValidator {
     var rules = [ValidationRule]()
     private var shouldErr = false
     
@@ -17,7 +17,7 @@ class FieldValidator {
         return validate(value: value)
     }
     
-    func validate(value: String) -> String? {
+    public func validate(value: String) -> String? {
         for rule in rules {
             if (rule.predicate(value)) {
                 return rule.error

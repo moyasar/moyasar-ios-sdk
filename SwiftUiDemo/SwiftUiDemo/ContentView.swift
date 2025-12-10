@@ -22,30 +22,39 @@ struct ContentView: View {
     var body: some View {
         if case .reset = status {
             NavigationView {
-                VStack {
-                    Text("Moyasar SDK Demo")
-                        .padding()
-                    
-                    CreditCardView(request: createPaymentRequest()) {result in
-                        handleFromResult(result)
+                ScrollView {
+                    VStack {
+                        Text("Moyasar SDK Demo")
+                            .padding()
+                        
+                        CreditCardView(request: createPaymentRequest()) {result in
+                            handleFromResult(result)
+                        }
+                        
+                        ApplePayButton(action: UIAction(handler: applePayPressed))
+                            .frame(height: 50)
+                            .cornerRadius(10)
+                            .padding(.horizontal, 15)
+                        
+                        NavigationLink(destination:  STCPayView(paymentRequest: createSTCPaymentRequest()){ result in
+                            handleFromSTCResult(result)
+                        }) {
+                            Text("STC Pay Demo")
+                        }
+                        .padding(EdgeInsets(top: 16, leading: 0, bottom: 10, trailing: 0))
+                        
+                        NavigationLink(destination: MyCustomSTCPayView(viewModel: STCPayViewModel(paymentRequest: createSTCPaymentRequest()) { result in
+                            handleFromSTCResult(result)
+                        })) {
+                            Text("Custom STC Pay UI demo")
+                        }
+                        .padding(EdgeInsets(top: 16, leading: 0, bottom: 10, trailing: 0))
+                        
+                        NavigationLink(destination: CustomView()) {
+                            Text("Checkout custom UI demo")
+                        }
+                        .padding(EdgeInsets(top: 16, leading: 0, bottom: 10, trailing: 0))
                     }
-                    
-                    ApplePayButton(action: UIAction(handler: applePayPressed))
-                        .frame(height: 50)
-                        .cornerRadius(10)
-                        .padding(.horizontal, 15)
-                    
-                    NavigationLink(destination:  STCPayView(paymentRequest: createSTCPaymentRequest()){ result in
-                        handleFromSTCResult(result)
-                    }) {
-                        Text("STC Pay Demo")
-                    }
-                    .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
-                    
-                    NavigationLink(destination: CustomView()) {
-                        Text("Checkout custom UI demo")
-                    }
-                    .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
                 }
             }
         } else if case let .success(payment) = status {

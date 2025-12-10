@@ -7,10 +7,10 @@
 
 import Foundation
 
-final class PhoneNumberFormatter {
+public final class PhoneNumberFormatter {
     /// Format for phone number: xxx xxx xxxx --> 3-3-4
     ///
-    func formatPhoneNumber(_ number: String) -> String {
+    public func formatPhoneNumber(_ number: String) -> String {
         let cleanNumber = number.cleanNumber
         var formattedNumber = ""
         let segments = [3, 3, 4]
@@ -40,7 +40,7 @@ final class PhoneNumberFormatter {
         return formatter
     }
     
-    func getFormattedAmount(paymentRequest: PaymentRequest) -> String {
+    public func getFormattedAmount(paymentRequest: PaymentRequest) -> String {
         let currencyUtil = CurrencyUtil()
         let majorAmount = currencyUtil.toMajor(paymentRequest.amount, currency: paymentRequest.currency)
         let amountString = numberFormatter().string(from: majorAmount as NSNumber)!
