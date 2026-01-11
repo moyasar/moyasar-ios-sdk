@@ -5,6 +5,7 @@ public struct PaymentAuthView: UIViewRepresentable {
     public var url: URL
     public var callback: WebViewResultCallback
     
+    ///  Explicit public initializer (redundant but explicit)
     public init(url: URL, callback: @escaping WebViewResultCallback) {
         self.url = url
         self.callback = callback

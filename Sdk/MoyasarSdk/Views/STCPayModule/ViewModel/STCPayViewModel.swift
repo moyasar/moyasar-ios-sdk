@@ -97,17 +97,19 @@ public class STCPayViewModel: ObservableObject {
     public func initiatePayment() async {
         guard !mobileNumber.isEmpty else { return }
         isLoading = true
+        defer { isLoading = false }
         let request = createApiPaymentRequest()
         do {
-            let payment = try await paymentService.createPayment(request)
+            var payment = try await paymentService.createPayment(request)
             if payment.isInitiated(), case .stcPay(let source) = payment.source, let url = source.transactionUrl {
-                isLoading = false
                 screenStep = .otp
                 showErrorHintView.send(false)
                 transactionUrl = url
+            } else {
+                payment.status = .failed
+                resultCallback(.success(payment))
             }
         } catch {
-            isLoading = false
             handleError(error)
         }
     }
@@ -119,13 +121,12 @@ public class STCPayViewModel: ObservableObject {
               let transactionUrl = transactionUrl,
               let url = URL(string: transactionUrl)  else { return }
         isLoading = true
+        defer { isLoading = false }
         let request = createSTCApiPaymentRequest()
         do {
             let payment = try await paymentService.sendSTCPaymentRequest(url: url, stcOtpRequest: request)
-            isLoading = false
             resultCallback(.success(payment))
         } catch {
-            isLoading = false
             handleError(error)
         }
     }
