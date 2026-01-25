@@ -20,7 +20,8 @@ public struct PaymentRequest {
         givenID: String? = nil,
         createSaveOnlyToken: Bool = false,
         allowedNetworks: [CreditCardNetwork] = [.mada, .visa, .mastercard],
-        payButtonType: PayButtonType = .pay
+        payButtonType: PayButtonType = .pay,
+        splits: [PaymentSplit]? = nil
     ) throws {
         if !apiKeyPattern.hasMatch(apiKey) {
             throw MoyasarError.invalidApiKey(apiKey)
@@ -37,6 +38,7 @@ public struct PaymentRequest {
         self.createSaveOnlyToken = createSaveOnlyToken
         self.allowedNetworks = allowedNetworks
         self.payButtonType = payButtonType
+        self.splits = splits
     }
     
     public var apiKey: String
@@ -53,11 +55,34 @@ public struct PaymentRequest {
     public var cashier: String? = nil
     public var branch: String? = nil
     public var payButtonType: PayButtonType
+    public var splits: [PaymentSplit]?
     
     
     var apiKeyPattern = {
         try! NSRegularExpression(pattern: #"^pk_(test|live)_.{40}$"#, options: [])
     }()
+}
+
+public struct PaymentSplit: Codable, Equatable {
+    public init(
+        recipientId: String,
+        amount: Int,
+        reference: String? = nil,
+        description: String? = nil,
+        feeSource: Bool? = nil
+    ) {
+        self.recipientId = recipientId
+        self.amount = amount
+        self.reference = reference
+        self.description = description
+        self.feeSource = feeSource
+    }
+    
+    public var recipientId: String
+    public var amount: Int
+    public var reference: String?
+    public var description: String?
+    public var feeSource: Bool?
 }
 
 public enum PayButtonType {
