@@ -127,12 +127,7 @@ public class CreditCardViewModel: ObservableObject {
     func beginPayment(_ source: ApiCreditCardSource) async throws {
         status = .processing
         do {
-            let paymentRequest = try PaymentRequest(apiKey: paymentRequest.apiKey,
-                                                    amount: paymentRequest.amount,
-                                                    currency: paymentRequest.currency,
-                                                    description: paymentRequest.description,
-                                                    metadata: paymentRequest.metadata.merging(["sdk": .stringValue("ios")], uniquingKeysWith: {k, _ in k }),
-                                                    givenID: paymentRequest.givenID)
+            paymentRequest.metadata = paymentRequest.metadata.merging(["sdk": .stringValue("ios")], uniquingKeysWith: {k, _ in k })
             let request = ApiPaymentRequest(
                 paymentRequest: paymentRequest,
                 callbackUrl: "https://sdk.moyasar.com/return",
