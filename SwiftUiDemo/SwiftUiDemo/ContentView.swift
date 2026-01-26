@@ -93,7 +93,7 @@ struct ContentView: View {
                         }
                         .padding(EdgeInsets(top: 16, leading: 0, bottom: 10, trailing: 0))
                     }
-                    .frame(maxWidth: .infinity) // ensure center alignment in ScrollView
+                    .frame(maxWidth: .infinity) // Ensure center alignment in ScrollView
                 }
             }
         } else if case let .success(payment) = status {
