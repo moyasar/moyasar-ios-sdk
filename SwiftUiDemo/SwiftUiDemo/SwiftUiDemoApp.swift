@@ -20,7 +20,10 @@ func createPaymentRequest() -> PaymentRequest{
     /// 10 JPY = 10 JPY (Japanese Yen does not have fractions)
     /// givenID --> A UUID (v4 is recommended) that you generate from your side and attach it with the payment creation request
     /// saveCard -------> if True used to tokenize  Apple pay and Credit Card payments
-    /// splits ---> Optional array of PaymentSplit used to distribute the charged amount (in the smallest currency unit) among multiple recipients or to collect a platform fee. Each split requires a recipientId and amount; reference and description are optional. Set feeSource = true to mark the split as a fee/commission taken by the platform. Leave nil to charge the full amount to the default recipient.
+    /// splits ---> Optional array of PaymentSplit used to distribute the charged amount (in the smallest currency unit) among multiple recipients or to collect a platform fee.
+    /// Each split requires a recipientId and amount; reference and description are optional.
+    /// Set feeSource = true to mark the split as a fee/commission taken by the platform.
+    /// Set refundable to control whether a split amount is refundable (true/false), or leave nil to use the backend default.
     /// Use "pk_test_uQra5pwtUo9GaenMSS4XgfAmeLhmjUTJwFdXJxsH" and "https://apimig.moyasar.com" for staging testing
     do {
         return try PaymentRequest(
@@ -35,17 +38,19 @@ func createPaymentRequest() -> PaymentRequest{
             manual: false,
             //saveCard: true,
             //givenID: "UUID",
-            createSaveOnlyToken: false
+            createSaveOnlyToken: false,
             // allowedNetworks: [.visa, .mastercard]
             // payButtonType: .book
           /*splits: [
                 PaymentSplit(recipientId: "7d2d0797-a2be-40fe-bb1b-1fdec9824c95",
-                             amount: 8000),
+                             amount: 8000,
+                             refundable: true),
                 PaymentSplit(recipientId: "327680bb-d790-4643-8e10-31455a1ab3a6",
                              amount: 2000,
                              reference: "optional-reference-for-split-1fcfcbe9-ba75-4eed",
                              description:"Platform processing fee",
-                             feeSource: true
+                             feeSource: true,
+                             refundable: false
                 )
             ]*/
         )
@@ -66,7 +71,10 @@ func createSTCPaymentRequest() -> PaymentRequest {
     /// 10 JPY = 10 JPY (Japanese Yen does not have fractions)
     /// givenID --> A UUID (v4 is recommended) that you generate from your side and attach it with the payment creation request
     /// saveCard -------> if True  used to tokenize Apple Pay payment
-    /// splits ---> Optional array of PaymentSplit used to distribute the charged amount (in the smallest currency unit) among multiple recipients or to collect a platform fee. Each split requires a recipientId and amount; reference and description are optional. Set feeSource = true to mark the split as a fee/commission taken by the platform. Leave nil to charge the full amount to the default recipient.
+    /// splits ---> Optional array of PaymentSplit used to distribute the charged amount (in the smallest currency unit) among multiple recipients or to collect a platform fee.
+    /// Each split requires a recipientId and amount; reference and description are optional.
+    /// Set feeSource = true to mark the split as a fee/commission taken by the platform.
+    /// Set refundable to control whether a split amount is refundable (true/false), or leave nil to use the backend default.
     /// Use "pk_test_uQra5pwtUo9GaenMSS4XgfAmeLhmjUTJwFdXJxsH"  & "https://apimig.moyasar.com" For staging testing 
     do {
         return try PaymentRequest(
@@ -86,12 +94,14 @@ func createSTCPaymentRequest() -> PaymentRequest {
             // payButtonType: .book
         /* splits: [
                 PaymentSplit(recipientId: "7d2d0797-a2be-40fe-bb1b-1fdec9824c95",
-                             amount: 8000),
+                             amount: 8000,
+                             refundable: true),
                 PaymentSplit(recipientId: "327680bb-d790-4643-8e10-31455a1ab3a6",
                              amount: 2000,
                              reference: "optional-reference-for-split-1fcfcbe9-ba75-4eed",
                              description:"Platform processing fee",
-                             feeSource: true
+                             feeSource: true,
+                             refundable: false
                 )
             ]*/
         )
