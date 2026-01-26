@@ -20,7 +20,8 @@ public struct PaymentRequest {
         givenID: String? = nil,
         createSaveOnlyToken: Bool = false,
         allowedNetworks: [CreditCardNetwork] = [.mada, .visa, .mastercard],
-        payButtonType: PayButtonType = .pay
+        payButtonType: PayButtonType = .pay,
+        splits: [PaymentSplit]? = nil
     ) throws {
         if !apiKeyPattern.hasMatch(apiKey) {
             throw MoyasarError.invalidApiKey(apiKey)
@@ -37,6 +38,7 @@ public struct PaymentRequest {
         self.createSaveOnlyToken = createSaveOnlyToken
         self.allowedNetworks = allowedNetworks
         self.payButtonType = payButtonType
+        self.splits = splits
     }
     
     public var apiKey: String
@@ -53,6 +55,7 @@ public struct PaymentRequest {
     public var cashier: String? = nil
     public var branch: String? = nil
     public var payButtonType: PayButtonType
+    public var splits: [PaymentSplit]?
     
     
     var apiKeyPattern = {

@@ -23,6 +23,7 @@ public struct ApiPayment: Codable {
     public var updatedAt: String
     public var metadata: [String: MetadataValue]?
     public var source: ApiPaymentSource
+    public var splits: [PaymentSplit]?
     
     public func isInitiated() -> Bool {
         return status == .initiated

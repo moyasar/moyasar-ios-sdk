@@ -17,44 +17,83 @@ let applePayHandler =  ApplePayPaymentHandler(paymentRequest: createPaymentReque
 
 struct ContentView: View {
     @State var status = MyAppStatus.reset
+    @State private var showCreditCardView = false
 
     @ViewBuilder
     var body: some View {
         if case .reset = status {
             NavigationView {
                 ScrollView {
-                    VStack {
+                    VStack(spacing: 20) {
+                        // Top-centered Moyasar logo
+                        Image("logo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 64) // adjust as needed
+                            .padding(.top, 48)
+
                         Text("Moyasar SDK Demo")
+                            .font(.title)
                             .padding()
-                        
-                        CreditCardView(request: createPaymentRequest()) {result in
-                            handleFromResult(result)
+
+                        // Button to show credit card view in a sheet
+                        Button(action: {
+                            showCreditCardView = true
+                        }) {
+                            HStack {
+                                Image(systemName: "creditcard")
+                                Text("Pay with Credit Card Demo")
+                            }
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
                         }
-                        
+                        .padding(.horizontal)
+                        .sheet(isPresented: $showCreditCardView) {
+                            NavigationView {
+                                CreditCardView(request: createPaymentRequest()) { result in
+                                    handleFromResult(result)
+                                    showCreditCardView = false
+                                }
+                                .navigationTitle("Add Payment Method")
+                                .navigationBarTitleDisplayMode(.inline)
+                                .toolbar {
+                                    ToolbarItem(placement: .cancellationAction) {
+                                        Button("Cancel") {
+                                            showCreditCardView = false
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
                         ApplePayButton(action: UIAction(handler: applePayPressed))
                             .frame(height: 50)
                             .cornerRadius(10)
                             .padding(.horizontal, 15)
-                        
+
                         NavigationLink(destination:  STCPayView(paymentRequest: createSTCPaymentRequest()){ result in
                             handleFromSTCResult(result)
                         }) {
                             Text("STC Pay Demo")
                         }
                         .padding(EdgeInsets(top: 16, leading: 0, bottom: 10, trailing: 0))
-                        
+
                         NavigationLink(destination: MyCustomSTCPayView(viewModel: STCPayViewModel(paymentRequest: createSTCPaymentRequest()) { result in
                             handleFromSTCResult(result)
                         })) {
                             Text("Custom STC Pay UI demo")
                         }
                         .padding(EdgeInsets(top: 16, leading: 0, bottom: 10, trailing: 0))
-                        
+
                         NavigationLink(destination: CustomView()) {
                             Text("Checkout custom UI demo")
                         }
                         .padding(EdgeInsets(top: 16, leading: 0, bottom: 10, trailing: 0))
                     }
+                    .frame(maxWidth: .infinity) // Ensure center alignment in ScrollView
                 }
             }
         } else if case let .success(payment) = status {
@@ -83,7 +122,7 @@ struct ContentView: View {
                 .font(.caption)
         }
     }
-    
+
     func handleFromResult(_ result: PaymentResult) {
         switch (result) {
         case let .completed(payment):
@@ -113,7 +152,7 @@ struct ContentView: View {
             break;
         }
     }
-    
+
     func handleFromSTCResult(_ result:  Result<ApiPayment, MoyasarError>) {
         switch (result) {
         case let .success(payment):
@@ -134,11 +173,11 @@ struct ContentView: View {
             status = .failed(error)
         }
     }
-    
+
     func applePayPressed(action: UIAction) {
         applePayHandler.present()
     }
-    
+
     func encloseMoyasarError(_ error: Error) -> MoyasarError {
         if let moyasarError = error as? MoyasarError {
             return moyasarError
@@ -146,7 +185,7 @@ struct ContentView: View {
             return MoyasarError.unexpectedError(error.localizedDescription)
         }
     }
-    
+
     func moyasarErrorToString(_ error: MoyasarError) -> String {
         switch (error) {
         case let .apiError(apiError):
