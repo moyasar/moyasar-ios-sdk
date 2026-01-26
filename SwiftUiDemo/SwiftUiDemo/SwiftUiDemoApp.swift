@@ -35,7 +35,7 @@ func createPaymentRequest() -> PaymentRequest{
             manual: false,
             //saveCard: true,
             //givenID: "UUID",
-            createSaveOnlyToken: false,
+            createSaveOnlyToken: false
             // allowedNetworks: [.visa, .mastercard]
             // payButtonType: .book
           /*splits: [
