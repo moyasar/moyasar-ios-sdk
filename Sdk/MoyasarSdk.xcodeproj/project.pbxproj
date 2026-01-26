@@ -69,6 +69,7 @@
 		4BB976902E41184C00811CDD /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB9768F2E41184B00811CDD /* FontExtension.swift */; };
 		4BBA7B552C18CCA900BBAFB4 /* PaymentServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBA7B542C18CCA900BBAFB4 /* PaymentServices.swift */; };
 		4BBA7B582C18CCEC00BBAFB4 /* ApplePayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBA7B572C18CCEC00BBAFB4 /* ApplePayService.swift */; };
+		4BE429D42F27E58B00A881F3 /* PaymentSplit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE429D32F27E58700A881F3 /* PaymentSplit.swift */; };
 		4BE4FC9C2C3F83C800EF26F9 /* CreditCardTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE4FC9B2C3F83C800EF26F9 /* CreditCardTextField.swift */; };
 		894AF7A92B232F6000A5E46B /* ApiPaymentStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894AF7A82B232F6000A5E46B /* ApiPaymentStatus.swift */; };
 		8981E7452BDD731C009594C4 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8981E7442BDD731C009594C4 /* PrivacyInfo.xcprivacy */; };
@@ -151,6 +152,7 @@
 		4BB9768F2E41184B00811CDD /* FontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
 		4BBA7B542C18CCA900BBAFB4 /* PaymentServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentServices.swift; sourceTree = "<group>"; };
 		4BBA7B572C18CCEC00BBAFB4 /* ApplePayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayService.swift; sourceTree = "<group>"; };
+		4BE429D32F27E58700A881F3 /* PaymentSplit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSplit.swift; sourceTree = "<group>"; };
 		4BE4FC9B2C3F83C800EF26F9 /* CreditCardTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardTextField.swift; sourceTree = "<group>"; };
 		894AF7A82B232F6000A5E46B /* ApiPaymentStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiPaymentStatus.swift; sourceTree = "<group>"; };
 		8981E7442BDD731C009594C4 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 				416FCC1526E3BD720044639E /* CreditCardViewModel.swift */,
 				41CEADCC26E7825200A201B4 /* ResultCallback.swift */,
 				416FCC1226E3BD720044639E /* PaymentRequest.swift */,
+				4BE429D32F27E58700A881F3 /* PaymentSplit.swift */,
 				41CEADCE26E7829C00A201B4 /* PaymentResult.swift */,
 			);
 			path = Models;
@@ -541,6 +544,7 @@
 				416FCC3C26E3BDE50044639E /* ApiApplePaySource.swift in Sources */,
 				416FCC2A26E3BD970044639E /* FieldValidator.swift in Sources */,
 				4178F05D26F916B700996AE0 /* ActivityIndicator.swift in Sources */,
+				4BE429D42F27E58B00A881F3 /* PaymentSplit.swift in Sources */,
 				4B0F9EB32C99353800F02CEE /* ApiSTCPaySource.swift in Sources */,
 				416FCC0D26E3BC9A0044639E /* CreditCardUtil.swift in Sources */,
 				419D6807270E32E8003A0C62 /* BundleExtensions.swift in Sources */,
