@@ -154,6 +154,7 @@ public class STCPayViewModel: ObservableObject {
         )
         return ApiPaymentRequest(
             paymentRequest: paymentRequest,
+            callbackUrl: "https://sdk.moyasar.com/return",
             source: ApiPaymentSource.stcPay(source)
         )
     }

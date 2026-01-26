@@ -113,7 +113,7 @@ class PaymentViewController: UIViewController {
         /// givenID --> A UUID (v4 is recommended) that you generate from your side and attach it with the payment creation request
         /// saveCard ------->  if True used to tokenize  Apple pay and Credit Card payments
         /// splits ---> Optional array of PaymentSplit used to distribute the charged amount (in the smallest currency unit) among multiple recipients or to collect a platform fee. Each split requires a recipientId and amount; reference and description are optional. Set feeSource = true to mark the split as a fee/commission taken by the platform. Leave nil to charge the full amount to the default recipient.
-        /// Use "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3"  & "https://apimig.moyasar.com" For staging testing
+        /// Use "pk_test_uQra5pwtUo9GaenMSS4XgfAmeLhmjUTJwFdXJxsH"  & "https://apimig.moyasar.com" For staging testing
         do {
             return try PaymentRequest(
                 apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
@@ -159,7 +159,7 @@ class PaymentViewController: UIViewController {
         /// givenID --> A UUID (v4 is recommended) that you generate from your side and attach it with the payment creation request
         /// saveCard -------> if True  used to tokenize Apple Pay payment
         /// splits ---> Optional array of PaymentSplit used to distribute the charged amount (in the smallest currency unit) among multiple recipients or to collect a platform fee. Each split requires a recipientId and amount; reference and description are optional. Set feeSource = true to mark the split as a fee/commission taken by the platform. Leave nil to charge the full amount to the default recipient.
-        /// Use "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3"  & "https://apimig.moyasar.com" For staging testing
+        /// Use "pk_test_uQra5pwtUo9GaenMSS4XgfAmeLhmjUTJwFdXJxsH"  & "https://apimig.moyasar.com" For staging testing
         do {
             return try PaymentRequest(
                 apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
