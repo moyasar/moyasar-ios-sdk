@@ -48,7 +48,7 @@ final public class PaymentService {
         if let sdkVersion {
             request.setValue("MoyasarSDK/\(sdkVersion) (iOS)", forHTTPHeaderField: "User-Agent")
         }
-        request.setValue(getDeviceiOSVersion(), forHTTPHeaderField: "Host-iOS-Version")
+        request.setValue(getOSVersion(), forHTTPHeaderField: "X-OS-Version")
     }
     
     // MARK: - Request Builders
@@ -112,7 +112,7 @@ final public class PaymentService {
         return try await makeRequest(request)
     }
     
-    func getDeviceiOSVersion() -> String {
+    func getOSVersion() -> String {
         let v = ProcessInfo.processInfo.operatingSystemVersion
         return "\(v.majorVersion).\(v.minorVersion).\(v.patchVersion)"
     }
