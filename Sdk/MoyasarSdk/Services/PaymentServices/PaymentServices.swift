@@ -41,8 +41,39 @@ final public class PaymentService {
         return URL(string: baseUrl + (baseUrl.last == "/" ? "" : "/") + "v1/tokens")!
     }
     
+    // MARK: - Common Headers
+    
+    private func applyCommonHeaders(to request: inout URLRequest) {
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        if let sdkVersion {
+            request.setValue("MoyasarSDK/\(sdkVersion) (iOS)", forHTTPHeaderField: "User-Agent")
+        }
+        request.setValue(getDeviceiOSVersion(), forHTTPHeaderField: "Host-iOS-Version")
+    }
+    
+    // MARK: - Request Builders
+    
+    private func createPaymentURLRequest(payload: Data, url: URL) -> URLRequest {
+        var request = URLRequest(url: url)
+        let auth = "\(apiKey):".data(using: .utf8)?.base64EncodedString()
+        request.setValue("Basic \(auth!)", forHTTPHeaderField: "Authorization")
+        applyCommonHeaders(to: &request)
+        request.httpMethod = "POST"
+        request.httpBody = payload
+        return request
+    }
+    
+    private func createStcPaymentURLRequest(payload: Data, url: URL) -> URLRequest {
+        var request = URLRequest(url: url)
+        applyCommonHeaders(to: &request)
+        request.httpMethod = "POST"
+        request.httpBody = payload
+        return request
+    }
+    
+    // MARK: - API Calls
+    
     private func makeRequest<T: Decodable>(_ request: URLRequest) async throws -> T {
-        
         do {
             let (data, response) = try await session.data(for: request)
             
@@ -75,41 +106,14 @@ final public class PaymentService {
         return try await makeRequest(request)
     }
     
-    private func createPaymentURLRequest(payload: Data, url: URL) -> URLRequest {
-        var request = URLRequest(url: url)
-        let auth = "\(apiKey):".data(using: .utf8)?.base64EncodedString()
-        request.setValue("Basic \(auth!)", forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("moyasar-ios-sdk", forHTTPHeaderField: "X-MOYASAR-LIB")
-        if let sdkVersion = sdkVersion {
-            request.addValue(sdkVersion, forHTTPHeaderField: "SDK-Version")
-        }
-        request.setValue(getHostProjectMinIOSVersion(), forHTTPHeaderField: "Host-MinIOSVersion")
-        request.httpMethod = "POST"
-        request.httpBody = payload
-        return request
-    }
-    
     public func sendSTCPaymentRequest(url: URL, stcOtpRequest: StcOtpRequest) async throws -> ApiPayment {
         let payload = try encoder.encode(stcOtpRequest)
         let request = createStcPaymentURLRequest(payload: payload, url: url)
         return try await makeRequest(request)
     }
     
-    private func createStcPaymentURLRequest(payload: Data, url: URL) -> URLRequest {
-        var request = URLRequest(url: url)
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("moyasar-ios-sdk", forHTTPHeaderField: "X-MOYASAR-LIB")
-        if let sdkVersion = sdkVersion {
-            request.addValue(sdkVersion, forHTTPHeaderField: "SDK-Version")
-        }
-        request.setValue(getHostProjectMinIOSVersion(), forHTTPHeaderField: "Host-MinIOSVersion")
-        request.httpMethod = "POST"
-        request.httpBody = payload
-        return request
-    }
-    
-    func getHostProjectMinIOSVersion() -> String? {
-        return Bundle.main.infoDictionary?["MinimumOSVersion"] as? String
+    func getDeviceiOSVersion() -> String {
+        let v = ProcessInfo.processInfo.operatingSystemVersion
+        return "\(v.majorVersion).\(v.minorVersion).\(v.patchVersion)"
     }
 }
