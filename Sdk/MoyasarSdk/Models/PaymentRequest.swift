@@ -21,7 +21,8 @@ public struct PaymentRequest {
         createSaveOnlyToken: Bool = false,
         allowedNetworks: [CreditCardNetwork] = [.mada, .visa, .mastercard],
         payButtonType: PayButtonType = .pay,
-        splits: [PaymentSplit]? = nil
+        splits: [PaymentSplit]? = nil,
+        applyCoupon: Bool? = true
     ) throws {
         if !apiKeyPattern.hasMatch(apiKey) {
             throw MoyasarError.invalidApiKey(apiKey)
@@ -39,6 +40,7 @@ public struct PaymentRequest {
         self.allowedNetworks = allowedNetworks
         self.payButtonType = payButtonType
         self.splits = splits
+        self.applyCoupon = applyCoupon
     }
     
     public var apiKey: String
@@ -56,7 +58,7 @@ public struct PaymentRequest {
     public var branch: String? = nil
     public var payButtonType: PayButtonType
     public var splits: [PaymentSplit]?
-    
+    public var applyCoupon: Bool?
     
     var apiKeyPattern = {
         try! NSRegularExpression(pattern: #"^pk_(test|live)_.{40}$"#, options: [])
