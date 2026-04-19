@@ -44,6 +44,8 @@ final public class PaymentService {
     // MARK: - Common Headers
     
     private func applyCommonHeaders(to request: inout URLRequest) {
+        let auth = "\(apiKey):".data(using: .utf8)?.base64EncodedString()
+        request.setValue("Basic \(auth!)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         if let sdkVersion {
             request.setValue("MoyasarSDK/\(sdkVersion) (iOS)", forHTTPHeaderField: "User-Agent")
@@ -55,8 +57,6 @@ final public class PaymentService {
     
     private func createPaymentURLRequest(payload: Data, url: URL) -> URLRequest {
         var request = URLRequest(url: url)
-        let auth = "\(apiKey):".data(using: .utf8)?.base64EncodedString()
-        request.setValue("Basic \(auth!)", forHTTPHeaderField: "Authorization")
         applyCommonHeaders(to: &request)
         request.httpMethod = "POST"
         request.httpBody = payload
