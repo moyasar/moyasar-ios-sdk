@@ -25,6 +25,7 @@ func createPaymentRequest() -> PaymentRequest{
     /// Set feeSource = true to mark the split as a fee/commission taken by the platform.
     /// Set refundable to control whether a split amount is refundable (true/false), or leave nil to use the backend default.
     /// Use "pk_test_uQra5pwtUo9GaenMSS4XgfAmeLhmjUTJwFdXJxsH" and "https://apimig.moyasar.com" for staging testing
+    /// applyCoupon A flag to control the coupon application. This key is required only if you don't want to apply the coupon. Otherwise, the coupon is going to be applied.
     do {
         return try PaymentRequest(
             apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
@@ -53,6 +54,7 @@ func createPaymentRequest() -> PaymentRequest{
                              refundable: false
                 )
             ]*/
+//            applyCoupon: false
         )
     } catch {
         // Handle error here, show error in view model
@@ -75,7 +77,8 @@ func createSTCPaymentRequest() -> PaymentRequest {
     /// Each split requires a recipientId and amount; reference and description are optional.
     /// Set feeSource = true to mark the split as a fee/commission taken by the platform.
     /// Set refundable to control whether a split amount is refundable (true/false), or leave nil to use the backend default.
-    /// Use "pk_test_uQra5pwtUo9GaenMSS4XgfAmeLhmjUTJwFdXJxsH"  & "https://apimig.moyasar.com" For staging testing 
+    /// Use "pk_test_uQra5pwtUo9GaenMSS4XgfAmeLhmjUTJwFdXJxsH"  & "https://apimig.moyasar.com" For staging testing
+    /// applyCoupon A flag to control the coupon application. This key is required only if you don't want to apply the coupon. Otherwise, the coupon is going to be applied.
     do {
         return try PaymentRequest(
             apiKey: "pk_test_vcFUHJDBwiyRu4Bd3hFuPpTnRPY4gp2ssYdNJMY3",
@@ -104,6 +107,7 @@ func createSTCPaymentRequest() -> PaymentRequest {
                              refundable: false
                 )
             ]*/
+            // applyCoupon: false
         )
     } catch {
         // Handle error here, show error in view model
