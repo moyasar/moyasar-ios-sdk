@@ -40,16 +40,42 @@ final class CreditCardFormatter {
     }
     
     /// Format for other cards: xxxx xxxx xxxx xxxx --> 4-4-4-4
+    /// For UnionPay: 16-19 digits formatted as 4-4-4-4-4 (if 19 digits) or 4-4-4-4 (if 16 digits)
     ///
     private func formatOtherCardNumber(_ number: String) -> String {
-        let maxLength = 16
-        let truncated = number.prefix(maxLength)
+        let cleanNumber = number.filter { $0.isNumber }
+        let isUnionPay = cleanNumber.starts(with: "62") || cleanNumber.starts(with: "60") || cleanNumber.starts(with: "81")
         
-        return stride(from: 0, to: truncated.count, by: 4).map {
-            let start = truncated.index(truncated.startIndex, offsetBy: $0)
-            let end = truncated.index(start, offsetBy: 4, limitedBy: truncated.endIndex) ?? truncated.endIndex
-            return String(truncated[start..<end])
-        }.joined(separator: " ")
+        if isUnionPay {
+            let maxLength = min(cleanNumber.count, 19)
+            let truncated = cleanNumber.prefix(maxLength)
+            
+            if truncated.count == 19 {
+                // 19 digits: 4-4-4-4-4 format
+                return stride(from: 0, to: truncated.count, by: 4).map {
+                    let start = truncated.index(truncated.startIndex, offsetBy: $0)
+                    let end = truncated.index(start, offsetBy: 4, limitedBy: truncated.endIndex) ?? truncated.endIndex
+                    return String(truncated[start..<end])
+                }.joined(separator: " ")
+            } else {
+                // 16 digits: 4-4-4-4 format
+                return stride(from: 0, to: truncated.count, by: 4).map {
+                    let start = truncated.index(truncated.startIndex, offsetBy: $0)
+                    let end = truncated.index(start, offsetBy: 4, limitedBy: truncated.endIndex) ?? truncated.endIndex
+                    return String(truncated[start..<end])
+                }.joined(separator: " ")
+            }
+        } else {
+            // Other cards: 4-4-4-4 format
+            let maxLength = 16
+            let truncated = cleanNumber.prefix(maxLength)
+            
+            return stride(from: 0, to: truncated.count, by: 4).map {
+                let start = truncated.index(truncated.startIndex, offsetBy: $0)
+                let end = truncated.index(start, offsetBy: 4, limitedBy: truncated.endIndex) ?? truncated.endIndex
+                return String(truncated[start..<end])
+            }.joined(separator: " ")
+        }
     }
     
     /// Formats the expiry date (e.g., "1225" to "12/25")
