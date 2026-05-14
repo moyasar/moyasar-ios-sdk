@@ -12,5 +12,6 @@ public enum CreditCardNetwork: CaseIterable {
     case mada
     case visa
     case mastercard
+    case unionpay
     case unknown
 }

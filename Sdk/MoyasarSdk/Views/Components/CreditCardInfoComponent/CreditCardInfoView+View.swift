@@ -181,9 +181,13 @@ extension CreditCardInfoView {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }
+            if cardInfo.showNetworkLogo(.unionpay) {
+                "unionpay".sdkImage
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            }
         }
         .frame(height: 26)
         .padding(.trailing, 7)
     }
 }
-

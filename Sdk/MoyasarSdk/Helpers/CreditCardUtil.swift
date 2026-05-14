@@ -10,6 +10,7 @@ import Foundation
 var amexRangeRegex = try! NSRegularExpression(pattern: #"^3[47]"#, options: [])
 var visaRangeRegex = try! NSRegularExpression(pattern: #"^4"#, options: [])
 var masterCardRangeRegex = try! NSRegularExpression(pattern: #"^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)"#, options: [])
+var unionPayRangeRegex = try! NSRegularExpression(pattern: #"^(62|60|81)[0-9]{14,17}$"#, options: [])
 
 func isValidLuhnNumber(_ number: String) -> Bool {
     let cleanNumber = number.replacingOccurrences(of: " ", with: "")
@@ -49,6 +50,8 @@ func getCardNetwork(_ number: String, in supportedNetworks: [CreditCardNetwork])
            return .visa
        } else if masterCardRangeRegex.hasMatch(clean) && supportedNetworks.contains(.mastercard) {
            return .mastercard 
+       } else if unionPayRangeRegex.hasMatch(clean) && supportedNetworks.contains(.unionpay) {
+           return .unionpay
        } else {
            return .unknown
        }
