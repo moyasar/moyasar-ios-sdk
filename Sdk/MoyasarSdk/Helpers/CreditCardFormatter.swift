@@ -43,7 +43,7 @@ final class CreditCardFormatter {
     ///
     private func formatOtherCardNumber(_ number: String) -> String {
         let cleanNumber = number.filter { $0.isNumber }
-        if isUnionPayNumber(cleanNumber) {
+        if unionPayRangeRegex.hasMatch(cleanNumber) {
             return formatUnionPayCardNumber(cleanNumber)
         }
         // Standard cards: exactly 16 digits in groups of 4
@@ -52,14 +52,6 @@ final class CreditCardFormatter {
     }
 
     // MARK: - UnionPay
-
-    /// Returns true if the clean (digits-only) number belongs to a UnionPay BIN range.
-    /// BIN prefixes: 62, 60, 81
-    private func isUnionPayNumber(_ cleanNumber: String) -> Bool {
-        return cleanNumber.starts(with: "62")
-            || cleanNumber.starts(with: "60")
-            || cleanNumber.starts(with: "81")
-    }
 
     /// Format for UnionPay: 16–19 digits in groups of 4, space-separated.
     /// e.g. 16 digits → #### #### #### ####
