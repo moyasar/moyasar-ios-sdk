@@ -54,8 +54,10 @@ class PaymentSourceTests: XCTestCase {
     func testUnionPayCardDetection() {
         let testCases = [
             ("6221260000000000000", .unionpay),      // 19-digit UnionPay
-            ("622126123456789", .unionpay),         // 15-digit UnionPay
             ("6221261234567890", .unionpay),        // 16-digit UnionPay
+            ("62", .unionpay),                      // UnionPay prefix detection
+            ("60", .unionpay),                      // UnionPay prefix detection
+            ("81", .unionpay),                      // UnionPay prefix detection
             ("6229123456789012", .unionpay),        // 16-digit UnionPay
             ("6282123456789012", .unionpay),        // 16-digit UnionPay
             ("6241234567890123", .unionpay),        // 16-digit UnionPay
@@ -79,7 +81,7 @@ class PaymentSourceTests: XCTestCase {
         
         let testCases = [
             ("6221260000000000000", "6221 2600 0000 0000 000"),  // 19-digit UnionPay
-            ("622126123456789", "6221 2612 3456 789"),          // 15-digit UnionPay
+            ("622126123456789", "6221 2612 3456 789"),          // Prefix format behavior while typing
             ("6221261234567890", "6221 2612 3456 7890"),        // 16-digit UnionPay
             ("4111111111111111", "4111 1111 1111 1111"),        // Visa card
             ("5555555555554444", "5555 5555 5555 4444"),        // Mastercard
@@ -109,6 +111,30 @@ class PaymentSourceTests: XCTestCase {
         
         for card in invalidUnionPayCards {
             XCTAssertFalse(isValidLuhnNumber(card), "\(card) should be invalid")
+        }
+    }
+    
+    func testUnionPayFullNumberRegexValidation() {
+        let validUnionPayNumbers = [
+            "6200000000000005",       // 16 digits
+            "6200000000000000007",    // 19 digits
+            "6000000000000006",       // 16 digits with 60 prefix
+            "8100000000000009"        // 16 digits with 81 prefix
+        ]
+        
+        let invalidUnionPayNumbers = [
+            "620000000000005",        // 15 digits (too short)
+            "62000000000000000000",   // 20 digits (too long)
+            "6300000000000000",       // unsupported prefix
+            "62000000000000ab"        // non-numeric
+        ]
+        
+        for number in validUnionPayNumbers {
+            XCTAssertTrue(unionPayRangeRegex.hasMatch(number), "\(number) should match UnionPay 16-19 rule")
+        }
+        
+        for number in invalidUnionPayNumbers {
+            XCTAssertFalse(unionPayRangeRegex.hasMatch(number), "\(number) should not match UnionPay 16-19 rule")
         }
     }
 }

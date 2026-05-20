@@ -20,7 +20,7 @@ class CardNumberValidator: FieldValidator {
             let network = getCardNetwork($0 ?? "", in: self.supportedNetworks)
             if network == .unionpay {
                 let clean = ($0 ?? "").filter { $0.isNumber }
-                return !(16...19).contains(clean.count) && !isValidLuhnNumber($0 ?? "")
+                return !unionPayRangeRegex.hasMatch(clean) || !isValidLuhnNumber(clean)
             }
             return ($0 ?? "").count < 16 || !isValidLuhnNumber($0 ?? "")
         }
