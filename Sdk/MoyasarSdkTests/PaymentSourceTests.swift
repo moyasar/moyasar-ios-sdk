@@ -53,21 +53,21 @@ class PaymentSourceTests: XCTestCase {
     
     func testUnionPayCardDetection() {
         let testCases = [
-            ("6221260000000000000", .unionpay),      // 19-digit UnionPay
-            ("6221261234567890", .unionpay),        // 16-digit UnionPay
-            ("62", .unionpay),                      // UnionPay prefix detection
-            ("60", .unionpay),                      // UnionPay prefix detection
-            ("81", .unionpay),                      // UnionPay prefix detection
-            ("6229123456789012", .unionpay),        // 16-digit UnionPay
-            ("6282123456789012", .unionpay),        // 16-digit UnionPay
-            ("6241234567890123", .unionpay),        // 16-digit UnionPay
-            ("6251234567890123", .unionpay),        // 16-digit UnionPay
-            ("6261234567890123", .unionpay),        // 16-digit UnionPay
-            ("4111111111111111", .visa),            // Visa card
-            ("5555555555554444", .mastercard),      // Mastercard
-            ("371122334455666", .amex),            // Amex card
-            ("6011111111111117", .unknown),        // Unknown card (Discover)
-            ("1234567890123456", .unknown)          // Unknown card
+            ("6221260000000000000", CreditCardNetwork.unionpay),      // 19-digit UnionPay
+            ("6221261234567890", CreditCardNetwork.unionpay),        // 16-digit UnionPay
+            ("62", CreditCardNetwork.unionpay),                      // UnionPay prefix detection
+            ("60", CreditCardNetwork.unionpay),                      // UnionPay prefix detection
+            ("81", CreditCardNetwork.unionpay),                      // UnionPay prefix detection
+            ("6229123456789012", CreditCardNetwork.unionpay),        // 16-digit UnionPay
+            ("6282123456789012", CreditCardNetwork.unionpay),        // 16-digit UnionPay
+            ("6241234567890123", CreditCardNetwork.unionpay),        // 16-digit UnionPay
+            ("6251234567890123", CreditCardNetwork.unionpay),        // 16-digit UnionPay
+            ("6261234567890123", CreditCardNetwork.unionpay),        // 16-digit UnionPay
+            ("4111111111111111", CreditCardNetwork.visa),            // Visa card
+            ("5555555555554444", CreditCardNetwork.mastercard),      // Mastercard
+            ("371122334455666", CreditCardNetwork.amex),            // Amex card
+            ("6011111111111117", CreditCardNetwork.unknown),        // Unknown card (Discover)
+            ("1234567890123456", CreditCardNetwork.unknown)          // Unknown card
         ]
         
         for (cardNumber, expectedNetwork) in testCases {
