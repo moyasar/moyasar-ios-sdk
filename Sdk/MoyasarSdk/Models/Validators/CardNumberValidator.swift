@@ -17,7 +17,12 @@ class CardNumberValidator: FieldValidator {
             ($0 ?? "").isEmpty
         }
         addRule(error: "invalid-card-number".localized()) {
-            ($0 ?? "").count < 16 || !isValidLuhnNumber($0 ?? "")
+            let network = getCardNetwork($0 ?? "", in: self.supportedNetworks)
+            if network == .unionpay {
+                let clean = ($0 ?? "").filter { $0.isNumber }
+                return !unionPayRangeRegex.hasMatch(clean) || !isValidLuhnNumber(clean)
+            }
+            return ($0 ?? "").count < 16 || !isValidLuhnNumber($0 ?? "")
         }
         addRule(error: "unsupported-network".localized()) {
             getCardNetwork($0 ?? "", in: self.supportedNetworks) == .unknown

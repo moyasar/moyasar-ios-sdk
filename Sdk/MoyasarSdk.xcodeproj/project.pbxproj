@@ -64,6 +64,7 @@
 		4B6746E62CA98C94001A801E /* STCValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6746E52CA98C91001A801E /* STCValidatorTests.swift */; };
 		4B6746EA2CAAA16A001A801E /* FormatPhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6746E92CAAA163001A801E /* FormatPhoneNumber.swift */; };
 		4B6746F22CAC17A5001A801E /* MoyasarLanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6746F12CAC17A3001A801E /* MoyasarLanguageManager.swift */; };
+		4B6C8A3A2FBF150C00259B74 /* CreditCardFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6C8A392FBF150C00259B74 /* CreditCardFormatterTests.swift */; };
 		4BB976892E41181100811CDD /* Aeonik-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BB9767D2E41181100811CDD /* Aeonik-Regular.ttf */; };
 		4BB9768C2E41181100811CDD /* Aeonik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BB9767B2E41181100811CDD /* Aeonik-Medium.ttf */; };
 		4BB976902E41184C00811CDD /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB9768F2E41184B00811CDD /* FontExtension.swift */; };
@@ -147,6 +148,7 @@
 		4B6746E52CA98C91001A801E /* STCValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STCValidatorTests.swift; sourceTree = "<group>"; };
 		4B6746E92CAAA163001A801E /* FormatPhoneNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatPhoneNumber.swift; sourceTree = "<group>"; };
 		4B6746F12CAC17A3001A801E /* MoyasarLanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyasarLanguageManager.swift; sourceTree = "<group>"; };
+		4B6C8A392FBF150C00259B74 /* CreditCardFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardFormatterTests.swift; sourceTree = "<group>"; };
 		4BB9767B2E41181100811CDD /* Aeonik-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Aeonik-Medium.ttf"; sourceTree = "<group>"; };
 		4BB9767D2E41181100811CDD /* Aeonik-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Aeonik-Regular.ttf"; sourceTree = "<group>"; };
 		4BB9768F2E41184B00811CDD /* FontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 		416FCBE826E3BBF80044639E /* MoyasarSdkTests */ = {
 			isa = PBXGroup;
 			children = (
+				4B6C8A392FBF150C00259B74 /* CreditCardFormatterTests.swift */,
 				4B6746E92CAAA163001A801E /* FormatPhoneNumber.swift */,
 				4B6746E52CA98C91001A801E /* STCValidatorTests.swift */,
 				416FCBE926E3BBF80044639E /* MoyasarSdkTests.swift */,
@@ -581,6 +584,7 @@
 				41136EC428E6FC6200CBC079 /* ExpiryDateTests.swift in Sources */,
 				4178F05526F764A900996AE0 /* ApiErrorTests.swift in Sources */,
 				4178F05926F7AF9F00996AE0 /* ApiPaymentTests.swift in Sources */,
+				4B6C8A3A2FBF150C00259B74 /* CreditCardFormatterTests.swift in Sources */,
 				4B6746EA2CAAA16A001A801E /* FormatPhoneNumber.swift in Sources */,
 				4B6746E62CA98C94001A801E /* STCValidatorTests.swift in Sources */,
 			);
@@ -644,7 +648,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 3.2.1;
+				CURRENT_PROJECT_VERSION = 3.2.2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -663,7 +667,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = v3.2.1;
+				MARKETING_VERSION = v3.2.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -711,7 +715,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 3.2.1;
+				CURRENT_PROJECT_VERSION = 3.2.2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -724,7 +728,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = v3.2.1;
+				MARKETING_VERSION = v3.2.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

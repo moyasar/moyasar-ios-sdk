@@ -19,7 +19,7 @@ public struct PaymentRequest {
         saveCard: Bool = false,
         givenID: String? = nil,
         createSaveOnlyToken: Bool = false,
-        allowedNetworks: [CreditCardNetwork] = [.mada, .visa, .mastercard],
+        allowedNetworks: [CreditCardNetwork] = [.mada, .visa, .mastercard, .unionpay],
         payButtonType: PayButtonType = .pay,
         splits: [PaymentSplit]? = nil,
         applyCoupon: Bool? = true

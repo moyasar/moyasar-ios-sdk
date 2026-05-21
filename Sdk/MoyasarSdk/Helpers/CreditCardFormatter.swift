@@ -8,68 +8,81 @@
 import Foundation
 
 final class CreditCardFormatter {
+    private enum Limits {
+        static let standardCardDigits = 16
+        static let unionPayDigits = 19
+        static let expiryDigits = 6
+        static let defaultCvcDigits = 3
+        static let amexCvcDigits = 4
+    }
+
+    private enum Segments {
+        static let groupOfFour = 4
+        static let amexPattern = [4, 6, 5]
+    }
     
     /// Formats the credit card number based on the card type
     func formatCardNumber(_ number: String) -> String {
-        let cleaned = cleanNumber(number)
-        
-        // Check if the card is AMEX based on the starting digits
-        let isAMEX = cleaned.starts(with: "34") || cleaned.starts(with: "37")
-        
-        return isAMEX ? formatAMEXCardNumber(cleaned) : formatOtherCardNumber(cleaned)
+        let clean = cleanNumber(number)
+
+        if isAmex(clean) {
+            return formatByPattern(clean, pattern: Segments.amexPattern)
+        }
+
+        if unionPayRangeRegex.hasMatch(clean) {
+            return formatInGroupsOfFour(clean.prefix(Limits.unionPayDigits))
+        }
+
+        return formatInGroupsOfFour(clean.prefix(Limits.standardCardDigits))
     }
-    
-    /// Format for AMEX: xxxx xxxxxx xxxxx  -->  4-6-5
-    ///
-    private func formatAMEXCardNumber(_ number: String) -> String {
-        var formattedNumber = ""
-        let segments = [4, 6, 5]
+
+    // MARK: - Shared
+
+    /// Splits a string into space-separated groups of 4 characters.
+    private func formatInGroupsOfFour(_ number: some StringProtocol) -> String {
+        return stride(from: 0, to: number.count, by: Segments.groupOfFour).map {
+            let start = number.index(number.startIndex, offsetBy: $0)
+            let end = number.index(start, offsetBy: Segments.groupOfFour, limitedBy: number.endIndex) ?? number.endIndex
+            return String(number[start..<end])
+        }.joined(separator: " ")
+    }
+
+    /// Splits a string based on custom segment sizes.
+    private func formatByPattern(_ number: String, pattern: [Int]) -> String {
+        var groups = [String]()
         var startIndex = number.startIndex
-        
-        for segment in segments {
-            let endIndex = number.index(startIndex, offsetBy: segment, limitedBy: number.endIndex) ?? number.endIndex
-            let segmentString = String(number[startIndex..<endIndex])
-            formattedNumber += segmentString
-            if endIndex < number.endIndex {
-                formattedNumber += " "
-            }
+
+        for segmentLength in pattern where startIndex < number.endIndex {
+            let endIndex = number.index(startIndex, offsetBy: segmentLength, limitedBy: number.endIndex) ?? number.endIndex
+            groups.append(String(number[startIndex..<endIndex]))
             startIndex = endIndex
         }
-        
-        return formattedNumber
+
+        return groups.joined(separator: " ")
     }
-    
-    /// Format for other cards: xxxx xxxx xxxx xxxx --> 4-4-4-4
-    ///
-    private func formatOtherCardNumber(_ number: String) -> String {
-        let maxLength = 16
-        let truncated = number.prefix(maxLength)
-        
-        return stride(from: 0, to: truncated.count, by: 4).map {
-            let start = truncated.index(truncated.startIndex, offsetBy: $0)
-            let end = truncated.index(start, offsetBy: 4, limitedBy: truncated.endIndex) ?? truncated.endIndex
-            return String(truncated[start..<end])
-        }.joined(separator: " ")
+
+    private func isAmex(_ number: String) -> Bool {
+        number.hasPrefix("34") || number.hasPrefix("37")
     }
     
     /// Formats the expiry date (e.g., "1225" to "12/25")
     ///
     func formatExpiryDate(_ date: String) -> String {
-        let cleaned = cleanNumber(date).prefix(6)
-        if cleaned.count > 2 {
-            let month = cleaned.prefix(2)
-            let year = cleaned.suffix(from: cleaned.index(cleaned.startIndex, offsetBy: 2))
+        let clean = cleanNumber(date).prefix(Limits.expiryDigits)
+        if clean.count > 2 {
+            let month = clean.prefix(2)
+            let year = clean.suffix(from: clean.index(clean.startIndex, offsetBy: 2))
             return "\(month) / \(year)"
         }
-        return String(cleaned)
+        return String(clean)
     }
     
     /// Formats the CVC
     ///
     func formatCVC(_ cvc: String, forCardNumber cardNumber: String) -> String {
         let cleaned = cleanNumber(cvc)
-        let isAMEX = cardNumber.starts(with: "34") || cardNumber.starts(with: "37")
-        return String(cleaned.prefix(isAMEX ? 4 : 3))
+        let maxDigits = isAmex(cardNumber) ? Limits.amexCvcDigits : Limits.defaultCvcDigits
+        return String(cleaned.prefix(maxDigits))
     }
     
     private func cleanNumber(_ number: String) -> String {
