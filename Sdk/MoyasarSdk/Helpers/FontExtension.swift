@@ -10,18 +10,18 @@ import UIKit
 
 // MARK: - SwiftUI Font Extension
 extension Font {
-    static let aeonikRegular = Font.custom("Aeonik-Regular", size: 16)    // weight: 400
-    static let aeonikMedium = Font.custom("Aeonik-Medium", size: 16)      // weight: 500
+    static let readexProRegular = Font.custom("ReadexPro-Regular", size: 16)    // weight: 400
+    static let readexProMedium = Font.custom("ReadexPro-Medium", size: 16)      // weight: 500
 }
 
 // MARK: - UIKit Font Extension
 extension UIFont {
-    static var aeonikRegular: UIFont? {
-        return loadMoyasarFont(name: "Aeonik-Regular", size: 16)
+    static var readexProRegular: UIFont? {
+        return loadMoyasarFont(name: "ReadexPro-Regular", size: 16)
     }
     
-    static var aeonikMedium: UIFont? {
-        return loadMoyasarFont(name: "Aeonik-Medium", size: 16)
+    static var readexProMedium: UIFont? {
+        return loadMoyasarFont(name: "ReadexPro-Medium", size: 16)
     }
     
     private static func loadMoyasarFont(name: String, size: CGFloat) -> UIFont? {
