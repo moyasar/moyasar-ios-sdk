@@ -47,7 +47,7 @@ struct CreditCardTextField: UIViewRepresentable {
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.borderStyle = .none
-        textField.font = UIFont.aeonikRegular
+        textField.font = UIFont.readexProRegular
     
         // Set dynamic color that responds to interface style changes
         textField.textColor = UIColor { traitCollection in

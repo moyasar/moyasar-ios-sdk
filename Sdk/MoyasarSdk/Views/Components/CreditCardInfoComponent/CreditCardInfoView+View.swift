@@ -17,7 +17,7 @@ extension CreditCardInfoView {
             let validatedText = cardInfo.nameValidator.visualValidate(value: cardInfo.nameOnCard)
             HStack {
                 Text(validatedText ?? "name-on-card".localized())
-                    .font(.aeonikRegular)
+                    .font(.readexProRegular)
                     .foregroundColor(validatedText != nil ? MoyasarColors.errorColor : (isDarkMode ? .white : MoyasarColors.primaryTextColor))
                 Spacer()
             }
@@ -40,7 +40,7 @@ extension CreditCardInfoView {
             cardInfo.securityCodeValidator.visualValidate(value: cardInfo.securityCode)
             HStack {
                 Text(validatedText ?? "card".localized())
-                    .font(.aeonikRegular)
+                    .font(.readexProRegular)
                     .foregroundColor(validatedText != nil ? MoyasarColors.errorColor : (isDarkMode ? .white : MoyasarColors.primaryTextColor))
                 Spacer()
             }
@@ -81,7 +81,7 @@ extension CreditCardInfoView {
                 placeholder: "card-number".localized(),
                 formatter: cardInfo.formatter.formatCardNumber(_:)
             ).frame(height: 46)
-                .font(.aeonikRegular)
+                .font(.readexProRegular)
             cardNetworkLogos
         }
     }
@@ -133,7 +133,7 @@ extension CreditCardInfoView {
                 text.wrappedValue = formatter(newValue)
             }
         ))
-        .font(.aeonikRegular)
+        .font(.readexProRegular)
         .keyboardType(keyboardType)
         .autocapitalization(autocapitalization)
         .disableAutocorrection(disableAutocorrection)
