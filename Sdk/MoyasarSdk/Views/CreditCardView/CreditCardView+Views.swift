@@ -38,7 +38,7 @@ extension CreditCardView {
     var errorView: some View {
         Text(viewModel.error ?? "")
             .frame(height: 20)
-            .font(.readexProMedium)
+            .font(.moyasarBodyMedium)
             .foregroundColor(.red)
             .padding(.bottom)
         
@@ -87,7 +87,7 @@ extension CreditCardView {
             .padding(14)
             .background(shouldDisable() || !viewModel.isValid ? MoyasarColors.payButtonColor.opacity(0.6) : MoyasarColors.payButtonColor)
             .foregroundColor(.white)
-            .font(.readexProMedium)
+            .font(.moyasarBodyMedium)
             .cornerRadius(10)
     }
 }

@@ -59,15 +59,17 @@ private enum MoyasarFont: String, CaseIterable {
 
 // MARK: - SwiftUI Font Extension
 
+/// The SDK's type scale. Call sites reference the role, not the typeface, so changing the
+/// bundled family only touches `MoyasarFont` above.
 extension Font {
-    static let readexProRegular = Font(MoyasarFont.regular.uiFont(size: 16))  // weight: 400
-    static let readexProMedium = Font(MoyasarFont.medium.uiFont(size: 16))    // weight: 500
-    static let readexProCaption = Font(MoyasarFont.regular.uiFont(size: 12))
+    static let moyasarBody = Font(MoyasarFont.regular.uiFont(size: 16))        // Readex Pro 400
+    static let moyasarBodyMedium = Font(MoyasarFont.medium.uiFont(size: 16))   // Readex Pro 500
+    static let moyasarCaption = Font(MoyasarFont.regular.uiFont(size: 12))     // Readex Pro 400
 }
 
 // MARK: - UIKit Font Extension
 
 extension UIFont {
-    static var readexProRegular: UIFont { MoyasarFont.regular.uiFont(size: 16) }
-    static var readexProMedium: UIFont { MoyasarFont.medium.uiFont(size: 16) }
+    static var moyasarBody: UIFont { MoyasarFont.regular.uiFont(size: 16) }
+    static var moyasarBodyMedium: UIFont { MoyasarFont.medium.uiFont(size: 16) }
 }

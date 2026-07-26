@@ -15,7 +15,7 @@ extension STCPayView {
                 let validatedText = viewModel.stcValidator.validate(value: viewModel.mobileNumber.cleanNumber)
                 let shouldShowHint = (viewModel.showErrorHintView.value && validatedText != nil)
                 Text((shouldShowHint ? validatedText : "mobile-number".localized()) ?? "mobile-number".localized())
-                    .font(.readexProRegular)
+                    .font(.moyasarBody)
                     .foregroundColor(shouldShowHint ? MoyasarColors.errorColor : (isDarkMode ? .white : MoyasarColors.primaryTextColor))
                 Spacer()
             }
@@ -61,7 +61,7 @@ extension STCPayView {
             HStack {
                 let shouldShowHint = (viewModel.showErrorHintView.value && !viewModel.isValidOtp)
                 Text(shouldShowHint ? "invalid-otp".localized() : "otp-title".localized())
-                    .font(.readexProRegular)
+                    .font(.moyasarBody)
                     .foregroundColor(shouldShowHint ? MoyasarColors.errorColor : MoyasarColors.primaryTextColor)
                 Spacer()
             }
@@ -127,7 +127,7 @@ extension STCPayView {
             .padding(14)
             .background(!viewModel.isValidPhoneNumber ? MoyasarColors.stcButtonColor.opacity(0.6) : MoyasarColors.stcButtonColor)
             .foregroundColor(.white)
-            .font(.readexProMedium)
+            .font(.moyasarBodyMedium)
             .cornerRadius(10)
     }
     
@@ -151,7 +151,7 @@ extension STCPayView {
             .padding(14)
             .background(!viewModel.isValidOtp ? MoyasarColors.stcButtonColor.opacity(0.6) : MoyasarColors.stcButtonColor)
             .foregroundColor(.white)
-            .font(.readexProMedium)
+            .font(.moyasarBodyMedium)
             .cornerRadius(10)
     }
 }
