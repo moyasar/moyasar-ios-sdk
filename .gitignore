@@ -4,6 +4,9 @@ MoyasarSdk.xcframework/
 # Created by https://www.toptal.com/developers/gitignore/api/macos,windows,visualstudiocode,xcode,swift,cocoapods,fastlane
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,windows,visualstudiocode,xcode,swift,cocoapods,fastlane
 
+# Ignore generated DocC documentation artifacts
+docs/
+
 ### CocoaPods ###
 ## CocoaPods GitIgnore Template
 
