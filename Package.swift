@@ -22,7 +22,9 @@ let package = Package(
                 .process("Media.xcassets"),
                 .process("ar.lproj"),
                 .process("en.lproj"),
-                .process("PrivacyInfo.xcprivacy")
+                .process("PrivacyInfo.xcprivacy"),
+                // Flattened into the bundle root so lookups match the Xcode/CocoaPods layout.
+                .process("Fonts")
             ]
         ),
         .testTarget(

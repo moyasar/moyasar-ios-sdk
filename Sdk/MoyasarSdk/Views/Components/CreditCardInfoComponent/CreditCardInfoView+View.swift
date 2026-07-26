@@ -154,7 +154,7 @@ extension CreditCardInfoView {
         Text(validationResult ?? " ")
             .padding(.horizontal, 5)
             .foregroundColor(.red)
-            .font(.caption)
+            .font(.readexProCaption)
     }
     
     /// View for displaying card network logos.

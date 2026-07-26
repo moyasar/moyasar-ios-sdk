@@ -15,7 +15,7 @@ extension STCPayView {
                 let validatedText = viewModel.stcValidator.validate(value: viewModel.mobileNumber.cleanNumber)
                 let shouldShowHint = (viewModel.showErrorHintView.value && validatedText != nil)
                 Text((shouldShowHint ? validatedText : "mobile-number".localized()) ?? "mobile-number".localized())
-                    .font(.system(size: 16, weight: .regular))
+                    .font(.readexProRegular)
                     .foregroundColor(shouldShowHint ? MoyasarColors.errorColor : (isDarkMode ? .white : MoyasarColors.primaryTextColor))
                 Spacer()
             }
@@ -61,7 +61,7 @@ extension STCPayView {
             HStack {
                 let shouldShowHint = (viewModel.showErrorHintView.value && !viewModel.isValidOtp)
                 Text(shouldShowHint ? "invalid-otp".localized() : "otp-title".localized())
-                    .font(.system(size: 16, weight: .regular))
+                    .font(.readexProRegular)
                     .foregroundColor(shouldShowHint ? MoyasarColors.errorColor : MoyasarColors.primaryTextColor)
                 Spacer()
             }
@@ -102,7 +102,7 @@ extension STCPayView {
                             if viewModel.layoutDirection == .leftToRight {
                                 // English and LTR languages
                                 Text(viewModel.paymentRequest.payButtonType.title)
-                        "sar".sdkImage
+                                "sar".sdkImage
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 18, height: 18)
@@ -127,7 +127,7 @@ extension STCPayView {
             .padding(14)
             .background(!viewModel.isValidPhoneNumber ? MoyasarColors.stcButtonColor.opacity(0.6) : MoyasarColors.stcButtonColor)
             .foregroundColor(.white)
-            .font(.headline)
+            .font(.readexProMedium)
             .cornerRadius(10)
     }
     
@@ -151,7 +151,7 @@ extension STCPayView {
             .padding(14)
             .background(!viewModel.isValidOtp ? MoyasarColors.stcButtonColor.opacity(0.6) : MoyasarColors.stcButtonColor)
             .foregroundColor(.white)
-            .font(.headline)
+            .font(.readexProMedium)
             .cornerRadius(10)
     }
 }

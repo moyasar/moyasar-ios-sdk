@@ -59,22 +59,18 @@ extension CreditCardView {
                             if viewModel.layoutDirection == .leftToRight {
                                 // English and LTR languages
                                 Text(viewModel.paymentRequest.payButtonType.title)
-                                    .font(.readexProMedium)
                                     .padding(.horizontal, 3)
-                        "sar".sdkImage
+                                "sar".sdkImage
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 18, height: 18)
                                     .foregroundColor(Color.white)
                                 Text(viewModel.formattedAmount)
-                                    .font(.readexProMedium)
                             } else {
                                 // RTL languages like Arabic
                                 Text(viewModel.paymentRequest.payButtonType.title)
-                                    .font(.readexProMedium)
                                     .padding(.horizontal, 3)
                                 Text(viewModel.formattedAmount)
-                                    .font(.readexProMedium)
                                 "sar".sdkImage
                                     .resizable()
                                     .scaledToFit()
