@@ -20,7 +20,7 @@ struct TextEditGroup: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
             
             Text(validator.validate(value: text) ?? "")
-                .font(.caption)
+                .font(.moyasarCaption)
                 .padding(.horizontal, 5)
         }
     }

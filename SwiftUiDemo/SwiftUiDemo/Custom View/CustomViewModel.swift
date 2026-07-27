@@ -20,8 +20,8 @@ class CustomViewModel: ObservableObject {
     var source = ApiCreditCardSource(
         name: "John Doe",
         number: "4111111111111111",
-        month: "09",
-        year: "25",
+        month: "12",
+        year: "31",
         cvc: "456",
         manual: "false",
         saveCard: true

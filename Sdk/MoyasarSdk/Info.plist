@@ -25,8 +25,8 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Aeonik-Regular.ttf</string>
-		<string>Aeonik-Medium.ttf</string>
+		<string>ReadexPro-Regular.ttf</string>
+		<string>ReadexPro-Medium.ttf</string>
 	</array>
 </dict>
 </plist>
